@@ -1,0 +1,32 @@
+################################################################################
+
+includes:
+- ../app_locations.yml
+
+################################################################################
+
+# settings
+settings.tk-nuke-tools:
+  location: "@apps.tk-nuke-tools.location"
+  tool_library_env: NUKE_TOOLS_PATH
+  knob_defaults:
+    EXPTool.mode: 0
+    Project3D.crop: false
+    Grain2.maskgrain: false
+    Viewer.frame_increment: 8
+    Transform.shutteroffset: centered
+    Tracker4.shutteroffset: centered
+    CornerPin2D.shutteroffset: centered
+    Tracker4.cornerPinOptions: Transform (match-move)
+    Reformat.resize: none
+    Reformat.pbb: true
+    Blur.channels: rgba
+    Defocus.channels: rgba
+    ZDefocus.channels: rgba
+    Sharpen.channels: rgba
+    Keylight.screenReplaceMethod: Source
+    Keylight.insideReplaceMethod: Source
+    Keylight.insideComponent: Alpha
+    Keylight.outsideComponent: Inverted Alpha
+    Write.channels: rgba
+    Write.create_directories: true

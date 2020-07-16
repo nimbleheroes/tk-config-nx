@@ -1,13 +1,3 @@
-# Copyright (c) 2018 Shotgun Software Inc.
-#
-# CONFIDENTIAL AND PROPRIETARY
-#
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
-# Source Code License included in this distribution package. See LICENSE.
-# By accessing, using, copying or modifying this work you indicate your
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
-# not expressly granted therein are reserved by Shotgun Software Inc.
-
 """
 Hook which chooses an environment file to use based on the current context.
 """
@@ -21,34 +11,61 @@ class PickEnvironment(Hook):
         The default implementation assumes there are three environments, called shot, asset
         and project, and switches to these based on entity type.
         """
+
+        env = None
+
         if context.source_entity:
             if context.source_entity["type"] == "Version":
-                return "version"
+                env = "version"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
             elif context.source_entity["type"] == "PublishedFile":
-                return "publishedfile"
+                env = "published_file"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
 
         if context.project is None:
             # Our context is completely empty. We're going into the site context.
-            return "site"
+            env = "site"
+            self.logger.debug("environment returned: {}".format(env))
+            return env
 
         if context.entity is None:
             # We have a project but not an entity.
-            return "project"
+            env = "project"
+            self.logger.debug("environment returned: {}".format(env))
+            return env
 
         if context.entity and context.step is None:
             # We have an entity but no step.
             if context.entity["type"] == "Shot":
-                return "shot"
+                env = "shot"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
             if context.entity["type"] == "Asset":
-                return "asset"
+                env = "asset"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
             if context.entity["type"] == "Sequence":
-                return "sequence"
+                env = "sequence"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
 
         if context.entity and context.step:
             # We have a step and an entity.
+            if context.entity["type"] == "Project":
+                env = "project_step"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
             if context.entity["type"] == "Shot":
-                return "shot_step"
+                env = "shot_step"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
             if context.entity["type"] == "Asset":
-                return "asset_step"
-
-        return None
+                env = "asset_step"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
+            if context.entity["type"] == "Sequence":
+                env = "sequence_step"
+                self.logger.debug("environment returned: {}".format(env))
+                return env

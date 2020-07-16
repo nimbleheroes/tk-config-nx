@@ -1,0 +1,8 @@
+# the type of dynamic content
+type: "shotgun_step"
+
+# the shotgun field to use for the folder name
+name: "short_name"
+
+# only create this folder structure when a user launches a dcc
+create_with_parent: false

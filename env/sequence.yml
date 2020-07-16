@@ -1,14 +1,3 @@
-# Copyright (c) 2017 Shotgun Software Inc.
-#
-# CONFIDENTIAL AND PROPRIETARY
-#
-# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
-# Source Code License included in this distribution package. See LICENSE.
-# By accessing, using, copying or modifying this work you indicate your
-# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
-# not expressly granted therein are reserved by Shotgun Software Inc.
-#
-
 description: Apps and engines loaded when a Sequence is loaded. Since std VFX
   config template has a file system structure which is centered around pipeline
   steps, this environment is largely empty. Most of the work takes place on a
@@ -22,11 +11,7 @@ description: Apps and engines loaded when a Sequence is loaded. Since std VFX
 
 includes:
 - ./includes/frameworks.yml
-- ./includes/settings/tk-3dsmaxplus.yml
-- ./includes/settings/tk-3dsmax.yml
-- ./includes/settings/tk-houdini.yml
 - ./includes/settings/tk-maya.yml
-- ./includes/settings/tk-motionbuilder.yml
 - ./includes/settings/tk-nuke.yml
 - ./includes/settings/tk-shell.yml
 - ./includes/settings/tk-shotgun.yml
@@ -35,11 +20,7 @@ includes:
 # configuration for all engines to load in a sequence context
 
 engines:
-  tk-3dsmaxplus: "@settings.tk-3dsmaxplus.sequence"
-  tk-3dsmax: "@settings.tk-3dsmax.sequence"
-  tk-houdini: "@settings.tk-houdini.sequence"
   tk-maya: "@settings.tk-maya.sequence"
-  tk-motionbuilder: "@settings.tk-motionbuilder.sequence"
   tk-nuke: "@settings.tk-nuke.sequence"
   tk-shell: "@settings.tk-shell.sequence"
   tk-shotgun: "@settings.tk-shotgun.sequence"
