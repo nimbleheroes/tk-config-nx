@@ -1,0 +1,37 @@
+# The tool library is a folder contaning .nk and .gizmo files
+# that will be loaded into nuke when its location is added
+# to the NUKE_TOOLS_PATH env variable. You can organize your
+# tools inside the folder however you want your tool library
+# menu to be organized in the Nuke UI. Its recommended that you
+# version all your tools in the library and never overwrite
+# existing versions. The system will recognize versions and
+# only show the latest version in the menu while older version
+# will still be loaded for backward compatibility.
+
+# This .settings file will configure some aspects about how the
+# menus are loaded into the UI. It must match the name of the
+# tool libary folder on disk and live beside it.
+
+# You can also place a .png file next to the library folder with
+# the same name as well that will serve as the menu icon for
+# the library in the Nuke UI
+
+# The library name is display name at the root
+# of your tool library.
+library_name: "Project Tools"
+
+# The following is a list of locations in the Nuke UI where
+# your library menu will be built. All the options
+# are explained in this documentation:
+# https://learn.foundry.com/nuke/developers/120/pythondevguide/custom_ui.html
+#
+# The most common locations are Nuke, Nodes, and Node Graph
+menu_locations:
+  - "Nodes"
+  - "Node Graph"
+
+# Tools places inside the following hidden folders in your library
+# will still be loaded by nuke (for backwards compatability), but will
+# be hidden from menus.
+hidden_folders:
+  - "Deprecated"

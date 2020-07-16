@@ -118,13 +118,13 @@ paths:
     seq_work_area: seqs/{Sequence}/work/{Step}/{current_user}
     seq_pub_area: seqs/{Sequence}/pub/{Step}
 
-    shot_work_area: shots/{Sequence}/{Shot}/work/{Step}/{current_user}
-    shot_pub_area: shots/{Sequence}/{Shot}/pub/{Step}
-    shot_mov_area: shots/{Sequence}/{Shot}/movs
+    shot_work_area: shots/{Shot}/work/{Step}/{current_user}
+    shot_pub_area: shots/{Shot}/pub/{Step}
+    shot_mov_area: shots/{Shot}/movs
 
-    asset_work_area: assets/{Asset}/work/{Step}
+    asset_work_area: assets/{Asset}/work/{Step}/{current_user}
     asset_pub_area: assets/{Asset}/pub/{Step}
-    asset_mov_area: assets/{Sequence}/{Shot}/movs
+    asset_mov_area: assets/{Asset}/movs
 
     ##########################################################################################
     #
@@ -137,7 +137,7 @@ paths:
         definition: 'pipe/ocio/default.ocio'
 
     pipe_nuke_path:
-        definition: 'pipe/nuke'
+        definition: 'pipe/nuke/python'
     pipe_nuke_tools_path:
         definition: 'pipe/nuke/tools'
 
@@ -165,11 +165,11 @@ paths:
         definition: '@show_pub_area/hiero'
 
     show_hiero_work_file:
-        definition: '@show_work_area/hiero/{Show}_{Step}[_{name}]_{current_user}_v{version}.hrox'
+        definition: '@show_work_area/hiero/{name}_v{version}.hrox'
     show_hiero_snapshot:
-        definition: '@show_work_area/hiero/snapshots/{Show}_{Step}[_{name}]_{current_user}_v{version}.{timestamp}.hrox'
+        definition: '@show_work_area/hiero/snapshots/{name}_v{version}.{timestamp}.hrox'
     show_hiero_pub_file:
-        definition: '@show_pub_area/hiero/{Show}_{Step}[_{name}]_{current_user}_v{version}.hrox'
+        definition: '@show_pub_area/hiero/{name}_v{version}.hrox'
 
 
     ##########################################################################################
@@ -193,11 +193,11 @@ paths:
         definition: '@shot_pub_area/photoshop'
 
     shot_photoshop_work_file:
-        definition: '@shot_work_area/photoshop/{Shot}_{Step}_{current_user}[_{name}]_v{version}.psd'
+        definition: '@shot_work_area/photoshop/{Shot}_{Step}_{current_user}_{name}_v{version}.psd'
     shot_photoshop_snapshot:
-        definition: '@shot_work_area/photoshop/snapshots/{Shot}_{Step}_{current_user}[_{name}]_v{version}.{timestamp}.psd'
+        definition: '@shot_work_area/photoshop/snapshots/{Shot}_{Step}_{current_user}_{name}_v{version}.{timestamp}.psd'
     shot_photoshop_pub_file:
-        definition: '@shot_pub_area/photoshop/{Shot}_{Step}_{current_user}[_{name}]_v{version}.psd'
+        definition: '@shot_pub_area/photoshop/{Shot}_{Step}_{current_user}_{name}_v{version}.psd'
 
     #
     # Maya
@@ -209,11 +209,11 @@ paths:
         definition: '@shot_pub_area/maya'
 
     shot_maya_work_file:
-        definition: '@shot_work_area/maya/{Shot}_{Step}_{current_user}[_{name}]_v{version}.{maya_extension}'
+        definition: '@shot_work_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
     shot_maya_snapshot:
-        definition: '@shot_work_area/maya/snapshots/{Shot}_{Step}_{current_user}[_{name}]_v{version}.{timestamp}.{maya_extension}'
+        definition: '@shot_work_area/maya/snapshots/{Shot}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
     shot_maya_pub_file:
-        definition: '@shot_pub_area/maya/{Shot}_{Step}_{current_user}[_{name}]_v{version}.{maya_extension}'
+        definition: '@shot_pub_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
 
 
     #
@@ -226,11 +226,11 @@ paths:
         definition: '@shot_pub_area/nuke'
 
     shot_nuke_work_file:
-        definition: '@shot_work_area/nuke/{Shot}_{Step}_{current_user}[_{name}]_v{version}.nk'
+        definition: '@shot_work_area/nuke/{Shot}_{Step}_{current_user}_{name}_v{version}.nk'
     shot_nuke_snapshot:
-        definition: '@shot_work_area/nuke/snapshots/{Shot}_{Step}_{current_user}[_{name}]_v{version}.{timestamp}.nk'
+        definition: '@shot_work_area/nuke/snapshots/{Shot}_{Step}_{current_user}_{name}_v{version}.{timestamp}.nk'
     shot_nuke_pub_file:
-        definition: '@shot_pub_area/nuke/{Shot}_{Step}_{current_user}[_{name}]_v{version}.nk'
+        definition: '@shot_pub_area/nuke/{Shot}_{Step}_{current_user}_{name}_v{version}.nk'
 
     # Write node locations
     # main output
@@ -289,7 +289,7 @@ paths:
     #
 
     asset_alembic_cache:
-        definition: '@asset_pub_area/caches/{Asset}_{Step}_{current_user}[_{name}]_v{version}.abc'
+        definition: '@asset_pub_area/caches/{Asset}_{Step}_{current_user}_{name}_v{version}.abc'
 
     #
     # Photoshop
@@ -301,11 +301,11 @@ paths:
         definition: '@asset_pub_area/photoshop'
 
     asset_photoshop_work_file:
-        definition: '@asset_work_area/photoshop/{Asset}_{Step}_{current_user}[_{name}]_v{version}.psd'
+        definition: '@asset_work_area/photoshop/{Asset}_{Step}_{current_user}_{name}_v{version}.psd'
     asset_photoshop_snapshot:
-        definition: '@asset_work_area/photoshop/snapshots/{Asset}_{Step}_{current_user}[_{name}]_v{version}.{timestamp}.psd'
+        definition: '@asset_work_area/photoshop/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.psd'
     asset_photoshop_pub_file:
-        definition: '@asset_pub_area/photoshop/{Asset}_{Step}_{current_user}[_{name}]_v{version}.psd'
+        definition: '@asset_pub_area/photoshop/{Asset}_{Step}_{current_user}_{name}_v{version}.psd'
 
     #
     # Maya
@@ -317,11 +317,11 @@ paths:
         definition: '@asset_pub_area/maya'
 
     asset_maya_work_file:
-        definition: '@asset_work_area/maya/{Asset}_{Step}_{current_user}[_{name}]_v{version}.{maya_extension}'
+        definition: '@asset_work_area/maya/{Asset}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
     asset_maya_snapshot:
-        definition: '@asset_work_area/maya/snapshots/{Asset}_{Step}_{current_user}[_{name}]_v{version}.{timestamp}.{maya_extension}'
+        definition: '@asset_work_area/maya/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
     asset_maya_pub_file:
-        definition: '@asset_pub_area/maya/{Asset}_{Step}_{current_user}[_{name}]_v{version}.{maya_extension}'
+        definition: '@asset_pub_area/maya/{Asset}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
 
     #
     # Nuke
@@ -333,11 +333,11 @@ paths:
         definition: '@asset_pub_area/nuke'
 
     asset_nuke_work_file:
-        definition: '@asset_work_area/nuke/{Asset}_{Step}_{current_user}[_{name}]_v{version}.nk'
+        definition: '@asset_work_area/nuke/{Asset}_{Step}_{current_user}_{name}_v{version}.nk'
     asset_nuke_snapshot:
-        definition: '@asset_work_area/nuke/snapshots/{Asset}_{Step}_{current_user}[_{name}]_v{version}.{timestamp}.nk'
+        definition: '@asset_work_area/nuke/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.nk'
     asset_nuke_pub_file:
-        definition: '@asset_pub_area/nuke/{Asset}_{Step}_{current_user}[_{name}]_v{version}_v{version}.nk'
+        definition: '@asset_pub_area/nuke/{Asset}_{Step}_{current_user}_{name}_v{version}_v{version}.nk'
 
     # Write node locations
     # main output

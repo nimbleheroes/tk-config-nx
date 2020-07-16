@@ -6,13 +6,13 @@
 engines.tk-desktop.location:
   type: app_store
   name: tk-desktop
-  version: v2.5.0
+  version: v2.5.3
 
 # Desktop2
 engines.tk-desktop2.location:
   type: app_store
   name: tk-desktop2
-  version: v1.3.1
+  version: v1.4.3
 
 # Flame
 engines.tk-flame.location:
@@ -36,34 +36,34 @@ engines.tk-mari.location:
 engines.tk-maya.location:
   type: app_store
   name: tk-maya
-  version: v0.10.0
+  version: v0.10.1
 
 # Nuke
 engines.tk-nuke.location:
   name: tk-nuke
   ### App Store
-  # type: app_store
-  # version: v0.12.6
+  type: app_store
+  version: v0.12.7
   ### Toolkit Component Entity
   # type: shotgun
   # entity_type: CustomNonProjectEntity13
   # field: sg_uploaded_app
-  # version: 000 #tk-nuke-###
+  # version: 1562 #tk-nuke-0.12.6.1
   ## Dev
-  type: dev
-  path: ~/Documents/Github/tk-nuke_nx
+  # type: dev
+  # path: ~/Documents/Github/tk-nuke_nx
 
 # Photoshop
 engines.tk-photoshopcc.location:
   type: app_store
   name: tk-photoshopcc
-  version: v1.8.0
+  version: v1.8.1
 
 # Shell
 engines.tk-shell.location:
   type: app_store
   name: tk-shell
-  version: v0.8.0
+  version: v0.8.1
 
 # Shotgun
 engines.tk-shotgun.location:

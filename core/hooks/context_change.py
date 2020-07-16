@@ -55,7 +55,7 @@ class ContextChange(get_hook_baseclass()):
         if next_context != current_context and next_context is not None:
 
             env_vars = {
-                "PROJECT": None,
+                "SHOW": None,
                 "SEQ": None,
                 "SHOT": None,
                 "LUT": None,
@@ -73,15 +73,15 @@ class ContextChange(get_hook_baseclass()):
                     seq_entity = next_context.sgtk.shotgun.find_one('Sequence', [['id', 'is', seq_id]], ['code', field_camera_raw, field_lut])
                     seq_code = seq_entity.get('code')
 
-                    proj_id = next_context.project['id']
-                    proj_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', proj_id]], ['code', field_camera_raw, field_lut])
-                    proj_code = proj_entity.get('code')
+                    show_id = next_context.project['id']
+                    show_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', show_id]], ['code', field_camera_raw, field_lut])
+                    show_code = show_entity.get('code')
 
                     shot_camera_raw, shot_lut = shot_entity.get(field_camera_raw), shot_entity.get(field_lut)
                     seq_camera_raw, seq_lut = seq_entity.get(field_camera_raw), seq_entity.get(field_lut)
-                    proj_camera_raw, proj_lut = proj_entity.get(field_camera_raw), proj_entity.get(field_lut)
+                    show_camera_raw, show_lut = show_entity.get(field_camera_raw), show_entity.get(field_lut)
 
-                    env_vars["PROJECT"] = proj_code
+                    env_vars["SHOW"] = show_code
                     env_vars["SEQ"] = seq_code
                     env_vars["SHOT"] = shot_code
 
@@ -91,40 +91,40 @@ class ContextChange(get_hook_baseclass()):
                     elif seq_camera_raw and seq_lut:
                         env_vars["CAMERA_RAW"] = seq_camera_raw
                         env_vars["LUT"] = seq_lut
-                    elif proj_camera_raw and proj_lut:
-                        env_vars["CAMERA_RAW"] = proj_camera_raw
-                        env_vars["LUT"] = proj_lut
+                    elif show_camera_raw and show_lut:
+                        env_vars["CAMERA_RAW"] = show_camera_raw
+                        env_vars["LUT"] = show_lut
 
                 if type == "Sequence":
                     seq_entity = next_context.sgtk.shotgun.find_one(type, [['id', 'is', id]], ['code', field_camera_raw, field_lut])
                     seq_code = seq_entity.get('code')
 
-                    proj_id = next_context.project['id']
-                    proj_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', proj_id]], ['code', field_camera_raw, field_lut])
-                    proj_code = proj_entity.get('code')
+                    show_id = next_context.project['id']
+                    show_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', show_id]], ['code', field_camera_raw, field_lut])
+                    show_code = show_entity.get('code')
 
                     seq_camera_raw, seq_lut = seq_entity.get(field_camera_raw), seq_entity.get(field_lut)
-                    proj_camera_raw, proj_lut = proj_entity.get(field_camera_raw), proj_entity.get(field_lut)
+                    show_camera_raw, show_lut = show_entity.get(field_camera_raw), show_entity.get(field_lut)
 
-                    env_vars["PROJECT"] = proj_code
+                    env_vars["SHOW"] = show_code
                     env_vars["SEQ"] = seq_code
 
                     if seq_camera_raw and seq_lut:
                         env_vars["CAMERA_RAW"] = seq_camera_raw
                         env_vars["LUT"] = seq_lut
-                    elif proj_camera_raw and proj_lut:
-                        env_vars["CAMERA_RAW"] = proj_camera_raw
-                        env_vars["LUT"] = proj_lut
+                    elif show_camera_raw and show_lut:
+                        env_vars["CAMERA_RAW"] = show_camera_raw
+                        env_vars["LUT"] = show_lut
 
             else:
-                proj_id = next_context.project['id']
-                proj_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', proj_id]], ['code', field_camera_raw, field_lut])
-                proj_code = proj_entity.get('code')
-                proj_camera_raw, proj_lut = proj_entity.get(field_camera_raw), proj_entity.get(field_lut)
-                env_vars["PROJECT"] = proj_code
-                if proj_camera_raw and proj_lut:
-                    env_vars["CAMERA_RAW"] = proj_camera_raw
-                    env_vars["LUT"] = proj_lut
+                show_id = next_context.project['id']
+                show_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', show_id]], ['code', field_camera_raw, field_lut])
+                show_code = show_entity.get('code')
+                show_camera_raw, show_lut = show_entity.get(field_camera_raw), show_entity.get(field_lut)
+                env_vars["SHOW"] = show_code
+                if show_camera_raw and show_lut:
+                    env_vars["CAMERA_RAW"] = show_camera_raw
+                    env_vars["LUT"] = show_lut
 
             # set the env variables for OCIO to pick up
             for key, value in env_vars.iteritems():

@@ -94,7 +94,7 @@ settings.tk-nuke-writenode.asset:
 ## note that the options here are required fields, you cannot comment
 ## entire lines or the write nodes will break
 settings.tk-nuke-writenode.shot:
-  template_script_work: nuke_shot_work
+  template_script_work: shot_nuke_work_file
   show_convert_actions: True
   write_nodes:
   - file_type: mov
@@ -117,8 +117,8 @@ settings.tk-nuke-writenode.shot:
     promote_write_knobs: [compression]
     proxy_publish_template:
     proxy_render_template:
-    render_template: nuke_shot_main_work
-    publish_template: nuke_shot_main_publish
+    render_template: shot_nuke_work_out_file
+    publish_template: shot_nuke_pub_out_file
     settings:
       autocrop: False
       channels: rgb
@@ -134,8 +134,8 @@ settings.tk-nuke-writenode.shot:
     promote_write_knobs: []
     proxy_publish_template:
     proxy_render_template:
-    render_template: nuke_shot_precomp_work
-    publish_template: nuke_shot_precomp_publish
+    render_template: shot_nuke_work_prc_file
+    publish_template: shot_nuke_pub_prc_file
     settings:
       autocrop: True
       channels: all
@@ -150,8 +150,8 @@ settings.tk-nuke-writenode.shot:
     promote_write_knobs: []
     proxy_publish_template:
     proxy_render_template:
-    render_template: nuke_shot_matte_work
-    publish_template: nuke_shot_matte_publish
+    render_template: shot_nuke_work_mat_file
+    publish_template: shot_nuke_pub_mat_file
     settings:
       autocrop: True
       channels: rgb
@@ -160,20 +160,17 @@ settings.tk-nuke-writenode.shot:
       metadata: all metadata
     tank_type: Rendered Image
     tile_color: []
-  - file_type: exr
-    name: review
+  - file_type: jpg
+    name: jpgs
     promote_write_knobs: []
     proxy_publish_template:
     proxy_render_template:
-    render_template: nuke_shot_review_work
-    publish_template: nuke_shot_review_publish
+    render_template: shot_nuke_work_jpg_file
+    publish_template: shot_nuke_pub_jpg_file
     settings:
-      autocrop: False
       channels: rgb
-      compression: DWAB
-      dw_compression_level: 150
-      datatype: 16 bit half
-      metadata: all metadata
+      _jpeg_quality: 0.9
+      _jpeg_sub_sampling: "4:4:4"
     tank_type: Rendered Image
     tile_color: []
   - file_type: exr
@@ -182,8 +179,8 @@ settings.tk-nuke-writenode.shot:
     promote_write_knobs: []
     proxy_publish_template:
     proxy_render_template:
-    render_template: nuke_shot_smartvector_work
-    publish_template: nuke_shot_smartvector_publish
+    render_template: shot_nuke_work_smt_file
+    publish_template: shot_nuke_pub_smt_file
     settings:
       channels: all
       compression: Zip (1 scanline)

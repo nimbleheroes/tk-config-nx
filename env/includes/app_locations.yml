@@ -12,7 +12,7 @@ includes:
 apps.tk-multi-about.location:
   type: app_store
   name: tk-multi-about
-  version: v0.3.0
+  version: v0.3.1
 
 # breakdown
 apps.tk-multi-breakdown.location:
@@ -42,19 +42,19 @@ apps.tk-multi-loader2.location:
 apps.tk-multi-publish2.location:
   type: app_store
   name: tk-multi-publish2
-  version: v2.5.0
+  version: v2.5.3
 
 # pythonconsole
 apps.tk-multi-pythonconsole.location:
   type: app_store
   name: tk-multi-pythonconsole
-  version: v1.2.2
+  version: v1.2.3
 
 # reviewsubmission
 apps.tk-multi-reviewsubmission.location:
   type: app_store
   name: tk-multi-reviewsubmission
-  version: v0.3.2
+  version: v1.1.1
 
 # screeningroom
 apps.tk-multi-screeningroom.location:
@@ -78,7 +78,7 @@ apps.tk-multi-shotgunpanel.location:
 apps.tk-multi-snapshot.location:
   type: app_store
   name: tk-multi-snapshot
-  version: v0.8.0
+  version: v0.8.1
 
 # workfiles (required for Mari)
 apps.tk-multi-workfiles.location:
@@ -90,7 +90,7 @@ apps.tk-multi-workfiles.location:
 apps.tk-multi-workfiles2.location:
   type: app_store
   name: tk-multi-workfiles2
-  version: v0.12.2
+  version: v0.12.3
 
 # dev utils
 apps.tk-multi-devutils.location:
@@ -167,13 +167,13 @@ apps.tk-nuke-writenode.location:
 apps.tk-multi-ocio.location:
   name: tk-multi-ocio
   ### Toolkit Component Entity
-  # type: shotgun
-  # entity_type: CustomNonProjectEntity13
-  # field: sg_uploaded_app
-  # version: 624 #tk-multi-ocio-0.0.4
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 1563 #tk-multi-ocio-0.1.1
   ## Dev
-  type: dev
-  path: ~/Documents/Github/tk-multi-ocio_nx
+  # type: dev
+  # path: ~/Documents/Github/tk-multi-ocio_nx
 
 # nuke_tools
 apps.tk-nuke-tools.location:
@@ -182,11 +182,22 @@ apps.tk-nuke-tools.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 646 #tk-nuke_tools-0.0.1
+  version: 1614 #tk-nuke_tools-0.0.2
   ## Dev
   # type: dev
-  # path: ~/Desktop/github/tk-nuke-tools-niho
+  # path: ~/Documents/Github/tk-nuke-tools_nx
 
+# deadline_render
+# apps.tk-multi-deadline-render.location:
+#   name: tk-multi-deadline-render
+  ### Toolkit Component Entity
+  # type: shotgun
+  # entity_type: CustomNonProjectEntity13
+  # field: sg_uploaded_app
+  # version: 0000 #tk-multi-deadline-render-0.0.1
+  ## Dev
+  # type: dev
+  # path: ~/Documents/Github/tk-multi-deadline-render_nx
 
 ################################################################################
 # reference all of the common frameworks

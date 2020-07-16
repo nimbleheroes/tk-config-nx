@@ -61,7 +61,7 @@ class BeforeAppLaunch(sgtk.Hook):
         self.logger.debug("version: {}".format(version))
 
         # load up the tk-framework-cbfx
-        nx_fw = self.load_framework("tk-framework-nx_v1.0.x")
+        nx_fw = self.load_framework("tk-framework-nx_v0.0.x")
         nx_utils = nx_fw.import_module("utils")
 
         # make a dict to store env variables

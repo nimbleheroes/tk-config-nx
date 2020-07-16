@@ -14,6 +14,7 @@ includes:
 - ./tk-nuke-writenode.yml
 - ./tk-multi-ocio.yml
 - ./tk-nuke-tools.yml
+# - ./tk-multi-deadline-render.yml
 
 ################################################################################
 # Hiero
@@ -199,6 +200,7 @@ settings.tk-nuke.shot:
 # shot_step
 settings.tk-nuke.shot_step:
   apps:
+    # tk-multi-deadline-render: "@settings.tk-multi-deadline-render"
     tk-nuke-tools: "@settings.tk-nuke-tools"
     tk-multi-ocio: "@settings.tk-multi-ocio"
     tk-multi-about:
