@@ -1,6 +1,6 @@
 ocio_profile_version: 1
 
-search_path: /${OCIO_CONFIGS}/aces_1.0.3/luts:/${OCIO_CONFIGS}/nuke-default/luts:../../shots/$SEQ/luts:../../shots/$SEQ/$SHOT/luts:luts
+search_path: /${OCIO_CONFIGS}/aces_1.0.3/luts:/${OCIO_CONFIGS}/nuke-default/luts:../../seqs/$SEQ/luts:../../shots/$SHOT/luts:luts
 strictparsing: true
 luma: [0.2126, 0.7152, 0.0722]
 
