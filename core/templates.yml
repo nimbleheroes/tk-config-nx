@@ -321,7 +321,7 @@ paths:
     asset_maya_snapshot:
         definition: '@asset_work_area/maya/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
     asset_maya_pub_file:
-        definition: '@asset_pub_area/maya/{Asset}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
+        definition: '@asset_pub_area/maya/{Asset}_{Step}_{name}_v{version}.{maya_extension}'
 
     #
     # Nuke
