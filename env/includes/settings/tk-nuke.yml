@@ -23,62 +23,21 @@ settings.tk-nuke.hiero.project:
   apps:
     tk-multi-about:
       location: "@apps.tk-multi-about.location"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
+    tk-multi-publish2: "@settings.tk-multi-publish2.hiero"
     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.hiero"
     tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
     tk-hiero-openinshotgun:
       location: "@apps.tk-hiero-openinshotgun.location"
     tk-hiero-export: "@settings.tk-hiero-export"
-    tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
-    tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio.project"
+    tk-multi-breakdown: "@settings.tk-multi-breakdown.hiero"
+    tk-multi-loader2: "@settings.tk-multi-loader2.hiero.project"
   # engine settings
   bin_context_menu:
   - app_instance: tk-multi-workfiles2
     keep_in_menu: false
-    name: "File Save..."
+    name: "Open..."
     requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot..."
-    requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot History..."
-    requires_selection: true
-  - app_instance: tk-multi-publish2
-    keep_in_menu: false
-    name: "Publish..."
-    requires_selection: true
-  spreadsheet_context_menu:
-  - app_instance: tk-hiero-openinshotgun
-    keep_in_menu: false
-    name: "Open in Shotgun"
-    requires_selection: true
-  timeline_context_menu:
-  - app_instance: tk-hiero-openinshotgun
-    keep_in_menu: false
-    name: "Open in Shotgun"
-    requires_selection: true
-  menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  location: "@engines.tk-nuke.location"
-
-settings.tk-nuke.hiero.project_step:
-  apps:
-    tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.hiero"
-    tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project_step"
-    tk-hiero-openinshotgun:
-      location: "@apps.tk-hiero-openinshotgun.location"
-    tk-hiero-export: "@settings.tk-hiero-export"
-    tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
-    tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio.project"
-  # engine settings
-  bin_context_menu:
   - app_instance: tk-multi-workfiles2
     keep_in_menu: false
     name: "File Save..."
@@ -232,127 +191,173 @@ settings.tk-nuke.shot_step:
 # NukeStudio
 
 # asset_step
-settings.tk-nuke.nukestudio.asset_step:
-  apps:
-    tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-setframerange:
-      location: "@apps.tk-multi-setframerange.location"
-      sg_in_frame_field: sg_head_in
-      sg_out_frame_field: sg_tail_out
-      always_lock_range: true
-    tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
-    tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nukestudio"
-    tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
-    tk-nuke-writenode: "@settings.tk-nuke-writenode.asset"
-  bin_context_menu:
-  - app_instance: tk-multi-workfiles2
-    keep_in_menu: false
-    name: "File Save..."
-    requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot..."
-    requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot History..."
-    requires_selection: true
-  - app_instance: tk-multi-publish2
-    keep_in_menu: false
-    name: "Publish..."
-    requires_selection: true
-  menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  location: '@engines.tk-nuke.location'
+# settings.tk-nuke.nukestudio.asset_step:
+#   apps:
+#     tk-multi-about:
+#       location: "@apps.tk-multi-about.location"
+#     tk-multi-setframerange:
+#       location: "@apps.tk-multi-setframerange.location"
+#       sg_in_frame_field: sg_head_in
+#       sg_out_frame_field: sg_tail_out
+#       always_lock_range: true
+#     tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
+#     tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio"
+#     tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
+#     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
+#     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nukestudio"
+#     tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
+#     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
+#     tk-nuke-writenode: "@settings.tk-nuke-writenode.asset"
+#   bin_context_menu:
+#   - app_instance: tk-multi-workfiles2
+#     keep_in_menu: false
+#     name: "File Save..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot History..."
+#     requires_selection: true
+#   - app_instance: tk-multi-publish2
+#     keep_in_menu: false
+#     name: "Publish..."
+#     requires_selection: true
+#   menu_favourites:
+#   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
+#   location: '@engines.tk-nuke.location'
 
 # project
-settings.tk-nuke.nukestudio.project:
-  apps:
-    tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nukestudio"
-    tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
-    tk-hiero-openinshotgun:
-      location: "@apps.tk-hiero-openinshotgun.location"
-    tk-hiero-export: "@settings.tk-hiero-export"
-    tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
-    tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio.project"
-  bin_context_menu:
-  - app_instance: tk-multi-workfiles2
-    keep_in_menu: false
-    name: "File Save..."
-    requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot..."
-    requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot History..."
-    requires_selection: true
-  - app_instance: tk-multi-publish2
-    keep_in_menu: false
-    name: "Publish..."
-    requires_selection: true
-  spreadsheet_context_menu:
-  - app_instance: tk-hiero-openinshotgun
-    keep_in_menu: false
-    name: "Open in Shotgun"
-    requires_selection: true
-  timeline_context_menu:
-  - app_instance: tk-hiero-openinshotgun
-    keep_in_menu: false
-    name: "Open in Shotgun"
-    requires_selection: true
-  menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  location: '@engines.tk-nuke.location'
+# settings.tk-nuke.nukestudio.project:
+#   apps:
+#     tk-multi-about:
+#       location: "@apps.tk-multi-about.location"
+#     tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
+#     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nukestudio"
+#     tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
+#     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
+#     tk-hiero-openinshotgun:
+#       location: "@apps.tk-hiero-openinshotgun.location"
+#     tk-hiero-export: "@settings.tk-hiero-export"
+#     tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
+#     tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio.project"
+#   bin_context_menu:
+#   - app_instance: tk-multi-workfiles2
+#     keep_in_menu: false
+#     name: "File Save..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot History..."
+#     requires_selection: true
+#   - app_instance: tk-multi-publish2
+#     keep_in_menu: false
+#     name: "Publish..."
+#     requires_selection: true
+#   spreadsheet_context_menu:
+#   - app_instance: tk-hiero-openinshotgun
+#     keep_in_menu: false
+#     name: "Open in Shotgun"
+#     requires_selection: true
+#   timeline_context_menu:
+#   - app_instance: tk-hiero-openinshotgun
+#     keep_in_menu: false
+#     name: "Open in Shotgun"
+#     requires_selection: true
+#   menu_favourites:
+#   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
+#   location: '@engines.tk-nuke.location'
+
+# project
+# settings.tk-nuke.nukestudio.project_step:
+#   apps:
+#     tk-multi-about:
+#       location: "@apps.tk-multi-about.location"
+#     tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
+#     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.hiero"
+#     tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
+#     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project_step"
+#     tk-hiero-openinshotgun:
+#       location: "@apps.tk-hiero-openinshotgun.location"
+#     tk-hiero-export: "@settings.tk-hiero-export"
+#     tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
+#     tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio.project"
+#   # engine settings
+#   bin_context_menu:
+#   - app_instance: tk-multi-workfiles2
+#     keep_in_menu: false
+#     name: "File Save..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot History..."
+#     requires_selection: true
+#   - app_instance: tk-multi-publish2
+#     keep_in_menu: false
+#     name: "Publish..."
+#     requires_selection: true
+#   spreadsheet_context_menu:
+#   - app_instance: tk-hiero-openinshotgun
+#     keep_in_menu: false
+#     name: "Open in Shotgun"
+#     requires_selection: true
+#   timeline_context_menu:
+#   - app_instance: tk-hiero-openinshotgun
+#     keep_in_menu: false
+#     name: "Open in Shotgun"
+#     requires_selection: true
+#   menu_favourites:
+#   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
+#   location: "@engines.tk-nuke.location"
 
 # shot_step
-settings.tk-nuke.nukestudio.shot_step:
-  apps:
-    tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-setframerange:
-      location: "@apps.tk-multi-setframerange.location"
-      sg_in_frame_field: sg_head_in
-      sg_out_frame_field: sg_tail_out
-      always_lock_range: true
-    tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
-    tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nukestudio"
-    tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
-    tk-nuke-writenode: "@settings.tk-nuke-writenode.shot"
-  bin_context_menu:
-  - app_instance: tk-multi-workfiles2
-    keep_in_menu: false
-    name: "File Save..."
-    requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot..."
-    requires_selection: true
-  - app_instance: tk-multi-snapshot
-    keep_in_menu: false
-    name: "Snapshot History..."
-    requires_selection: true
-  - app_instance: tk-multi-publish2
-    keep_in_menu: false
-    name: "Publish..."
-    requires_selection: true
-  menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  location: '@engines.tk-nuke.location'
+# settings.tk-nuke.nukestudio.shot_step:
+#   apps:
+#     tk-multi-about:
+#       location: "@apps.tk-multi-about.location"
+#     tk-multi-setframerange:
+#       location: "@apps.tk-multi-setframerange.location"
+#       sg_in_frame_field: sg_head_in
+#       sg_out_frame_field: sg_tail_out
+#       always_lock_range: true
+#     tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
+#     tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio"
+#     tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"
+#     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
+#     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nukestudio"
+#     tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
+#     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
+#     tk-nuke-writenode: "@settings.tk-nuke-writenode.shot"
+#   bin_context_menu:
+#   - app_instance: tk-multi-workfiles2
+#     keep_in_menu: false
+#     name: "File Save..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot..."
+#     requires_selection: true
+#   - app_instance: tk-multi-snapshot
+#     keep_in_menu: false
+#     name: "Snapshot History..."
+#     requires_selection: true
+#   - app_instance: tk-multi-publish2
+#     keep_in_menu: false
+#     name: "Publish..."
+#     requires_selection: true
+#   menu_favourites:
+#   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
+#   location: '@engines.tk-nuke.location'
 
 
 ################################################################################

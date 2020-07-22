@@ -5,6 +5,6 @@ includes:
 
 ################################################################################
 
-settings.tk-multi-breakdown.nukestudio:
+settings.tk-multi-breakdown.hiero:
   hook_scene_operations: '{self}/tk-nuke_scene_operations.py'
   location: "@apps.tk-multi-breakdown.location"
