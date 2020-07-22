@@ -42,13 +42,13 @@ engines.tk-maya.location:
 engines.tk-nuke.location:
   name: tk-nuke
   ### App Store
-  type: app_store
-  version: v0.12.7
+  # type: app_store
+  # version: v0.12.7
   ### Toolkit Component Entity
-  # type: shotgun
-  # entity_type: CustomNonProjectEntity13
-  # field: sg_uploaded_app
-  # version: 1562 #tk-nuke-0.12.6.1
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 1965 #tk-nuke-0.12.7.1
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-nuke_nx

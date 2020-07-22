@@ -16,11 +16,10 @@ includes:
 
 engines:
   tk-desktop: "@settings.tk-desktop.project"
-  tk-hiero: "@settings.tk-nuke.hiero.project_step"
+  tk-hiero: "@settings.tk-nuke.hiero.project"
   tk-maya: "@settings.tk-maya.project"
   tk-nuke: "@settings.tk-nuke.project"
   tk-nuke-render: "@settings.tk-nuke.render.project"
-  tk-nukestudio: "@settings.tk-nuke.nukestudio.project"
   tk-photoshopcc: "@settings.tk-photoshopcc.project"
   tk-shell: "@settings.tk-shell.project"
   tk-shotgun: "@settings.tk-shotgun.project"

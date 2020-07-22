@@ -88,8 +88,8 @@ colorspaces:
 # and are provided for convenience and should not be modified.
 
   - !<ColorSpace>
-    name: Nuke - linear
-    family: Nuke
+    name: Legacy - linear
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -99,8 +99,8 @@ colorspaces:
     allocationvars: [-15, 6]
 
   - !<ColorSpace>
-    name: Nuke - sRGB
-    family: Nuke
+    name: Legacy - sRGB
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -114,8 +114,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - sRGBf
-    family: Nuke
+    name: Legacy - sRGBf
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -129,8 +129,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - rec709
-    family: Nuke
+    name: Legacy - rec709
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -144,8 +144,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - Cineon
-    family: Nuke
+    name: Legacy - Cineon
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -159,8 +159,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - Gamma1.8
-    family: Nuke
+    name: Legacy - Gamma1.8
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -174,8 +174,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - Gamma2.2
-    family: Nuke
+    name: Legacy - Gamma2.2
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -189,8 +189,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - Panalog
-    family: Nuke
+    name: Legacy - Panalog
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -204,8 +204,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - REDLog
-    family: Nuke
+    name: Legacy - REDLog
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -219,8 +219,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - ViperLog
-    family: Nuke
+    name: Legacy - ViperLog
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -234,8 +234,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - AlexaV3LogC
-    family: Nuke
+    name: Legacy - AlexaV3LogC
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -249,8 +249,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - PLogLin
-    family: Nuke
+    name: Legacy - PLogLin
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -264,8 +264,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - SLog
-    family: Nuke
+    name: Legacy - SLog
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |
@@ -279,8 +279,8 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
-    name: Nuke - raw
-    family: Nuke
+    name: Legacy - raw
+    family: Legacy
     equalitygroup: ""
     bitdepth: 32f
     description: |

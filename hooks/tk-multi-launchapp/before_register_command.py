@@ -30,10 +30,13 @@ class BeforeRegisterCommand(HookBaseClass):
         # We're going to end up getting a SoftwareVersion for Nuke Studio that
         # wants to route us to the tk-nuke engine instance. We don't want that, so
         # we'll redirect to tk-nukestudio.
-        if software_version.product == "NukeStudio":
-            engine_instance_name = "tk-nukestudio"
+        # if software_version.product == "NukeStudio":
+        #     engine_instance_name = "tk-nukestudio"
+        #
+        # if software_version.product == "Hiero":
+        #     engine_instance_name = "tk-hiero"
 
-        if software_version.product == "Hiero":
+        if software_version.product in ["NukeStudio", "Hiero"]:
             engine_instance_name = "tk-hiero"
 
         return engine_instance_name

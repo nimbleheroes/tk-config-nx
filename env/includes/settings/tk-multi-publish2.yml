@@ -131,9 +131,9 @@ settings.tk-multi-publish2.nuke.shot_step:
 
 ################################################################################
 
-# ---- NukeStudio
+# ---- Hiero
 
-settings.tk-multi-publish2.nukestudio:
+settings.tk-multi-publish2.hiero:
   collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
   collector_settings:
       Work Template: show_hiero_work_file

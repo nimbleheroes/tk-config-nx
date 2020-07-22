@@ -116,15 +116,15 @@ class ContextChange(get_hook_baseclass()):
                         env_vars["CAMERA_RAW"] = show_camera_raw
                         env_vars["LUT"] = show_lut
 
-                if type == "Project":
-                    show_id = next_context.project['id']
-                    show_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', show_id]], ['code', field_camera_raw, field_lut])
-                    show_code = show_entity.get('code')
-                    show_camera_raw, show_lut = show_entity.get(field_camera_raw), show_entity.get(field_lut)
-                    env_vars["SHOW"] = show_code
-                    if show_camera_raw and show_lut:
-                        env_vars["CAMERA_RAW"] = show_camera_raw
-                        env_vars["LUT"] = show_lut
+            if next_context.project:
+                show_id = next_context.project['id']
+                show_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', show_id]], ['code', field_camera_raw, field_lut])
+                show_code = show_entity.get('code')
+                show_camera_raw, show_lut = show_entity.get(field_camera_raw), show_entity.get(field_lut)
+                env_vars["SHOW"] = show_code
+                if show_camera_raw and show_lut:
+                    env_vars["CAMERA_RAW"] = show_camera_raw
+                    env_vars["LUT"] = show_lut
 
             # set the env variables for OCIO to pick up
             for key, value in env_vars.iteritems():
