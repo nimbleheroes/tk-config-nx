@@ -53,6 +53,28 @@ settings.tk-multi-publish2.maya.asset_step:
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
+# sequence step
+settings.tk-multi-publish2.maya.seq_step:
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector_settings:
+      Work Template: seq_maya_work_file
+  publish_plugins:
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py"
+    settings: {}
+  - name: Upload for review
+    hook: "{self}/upload_version.py"
+    settings: {}
+  - name: Begin file versioning
+    hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
+    settings: {}
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    settings:
+        Publish Template: seq_maya_pub_file
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
 # shot step
 settings.tk-multi-publish2.maya.shot_step:
   collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"

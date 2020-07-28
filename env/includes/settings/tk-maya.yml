@@ -84,6 +84,28 @@ settings.tk-maya.shot:
   - {app_instance: tk-multi-workfiles2, name: File Open...}
   location: "@engines.tk-maya.location"
 
+# seq_step
+settings.tk-maya.seq_step:
+  apps:
+    tk-multi-about:
+      location: "@apps.tk-multi-about.location"
+    tk-multi-breakdown:
+      location: "@apps.tk-multi-breakdown.location"
+    tk-multi-loader2: "@settings.tk-multi-loader2.maya"
+    tk-multi-publish2: "@settings.tk-multi-publish2.maya.seq_step"
+    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
+    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.maya"
+    tk-multi-snapshot: "@settings.tk-multi-snapshot.maya.seq_step"
+    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.maya.seq_step"
+    tk-multi-reviewsubmission: "@settings.tk-multi-reviewsubmission.maya"
+  menu_favourites:
+  - {app_instance: tk-multi-workfiles2, name: File Open...}
+  - {app_instance: tk-multi-snapshot, name: Snapshot...}
+  - {app_instance: tk-multi-workfiles2, name: File Save...}
+  - {app_instance: tk-multi-publish2, name: Publish...}
+  template_project: seq_maya_work_area
+  location: "@engines.tk-maya.location"
+
 # shot_step
 settings.tk-maya.shot_step:
   apps:

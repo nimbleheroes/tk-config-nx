@@ -177,6 +177,21 @@ paths:
     # Sequence level paths
     #
 
+    #
+    # Maya
+    #
+
+    seq_maya_work_area:
+        definition: '@seq_work_area/maya'
+    seq_maya_pub_area:
+        definition: '@seq_pub_area/maya'
+
+    seq_maya_work_file:
+        definition: '@seq_work_area/maya/{Sequence}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
+    seq_maya_snapshot:
+        definition: '@seq_work_area/maya/snapshots/{Sequence}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
+    seq_maya_pub_file:
+        definition: '@seq_pub_area/maya/{Sequence}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
 
     ##########################################################################################
     #
