@@ -122,6 +122,43 @@ settings.tk-multi-workfiles2.maya.asset_step:
   location: "@apps.tk-multi-workfiles2.location"
 
 # shot_step
+settings.tk-multi-workfiles2.maya.seq_step:
+  saveas_default_name: scene
+  template_publish: seq_maya_pub_file
+  template_publish_area: seq_maya_pub_area
+  template_work: seq_maya_work_file
+  template_work_area: seq_maya_work_area
+  entities:
+  - caption: Assets
+    entity_type: Asset
+    hierarchy: [sg_asset_type, code]
+    filters:
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Sequences
+    entity_type: Sequence
+    filters:
+    hierarchy: [code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Shots
+    entity_type: Shot
+    filters:
+    hierarchy: [sg_sequence, code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  location: '@apps.tk-multi-workfiles2.location'
+
+# shot_step
 settings.tk-multi-workfiles2.maya.shot_step:
   saveas_default_name: scene
   template_publish: shot_maya_pub_file

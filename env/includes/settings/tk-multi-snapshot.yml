@@ -23,6 +23,12 @@ settings.tk-multi-snapshot.maya.asset_step:
   template_work: asset_maya_work_file
   location: "@apps.tk-multi-snapshot.location"
 
+# seq step
+settings.tk-multi-snapshot.maya.seq_step:
+  template_snapshot: seq_maya_snapshot
+  template_work: seq_maya_work_file
+  location: "@apps.tk-multi-snapshot.location"
+
 # shot step
 settings.tk-multi-snapshot.maya.shot_step:
   template_snapshot: shot_maya_snapshot
