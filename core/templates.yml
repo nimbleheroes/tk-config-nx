@@ -149,6 +149,8 @@ paths:
         definition: 'pipe/maya/modules'
     pipe_maya_plugin_path:
         definition: 'pipe/maya/plugins'
+    pipe_maya_library_path:
+        definition: 'pipe/maya/library'
 
     ##########################################################################################
     #
