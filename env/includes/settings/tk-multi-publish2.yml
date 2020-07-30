@@ -47,7 +47,7 @@ settings.tk-multi-publish2.maya.asset_step:
     settings:
         Publish Template: asset_maya_pub_file
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session_geometry.py"
+    hook: "{self}/publish_file.py:{config}/tk-multi-publish2/maya/publish_session_geometry.py"
     settings:
         Publish Template: asset_alembic_cache
   help_url: *help_url
