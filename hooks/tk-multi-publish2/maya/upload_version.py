@@ -208,19 +208,16 @@ class UploadVersionPlugin(HookBaseClass):
         # populate the publish template on the item if found
         publish_template_setting = settings.get("Playblast Publish Template")
         work_template_setting = settings.get("Playblast Work Template")
-        publish_template = publisher.engine.get_template_by_name(
+
+        item.properties["publish_template"] = publisher.engine.get_template_by_name(
             publish_template_setting.value
         )
-        if publish_template:
-            item.properties["publish_template"] = publish_template
 
-        work_template = publisher.engine.get_template_by_name(
+        item.properties["work_template"] = publisher.engine.get_template_by_name(
             work_template_setting.value
         )
-        if work_template:
-            item.properties["work_template"] = work_template
-
-        return True
+        if item.properties["publish_template"] and item.properties["work_template"]:
+            return True
 
     def publish(self, settings, item):
         """
