@@ -1,0 +1,36 @@
+################################################################################
+
+includes:
+- ../app_locations.yml
+
+################################################################################
+
+#settings
+settings.tk-maya-playblast.shot_step:
+  hook_post_playblast: "{self}/post_playblast.py"
+  hook_setup_window: "{self}/setup_window.py"
+  location: "@apps.tk-maya-playblast.location"
+  template_work_file: shot_maya_work_file
+  template_work_playblast: shot_maya_work_playblast
+  scale_options: [100, 50]
+  camera_name_pattern: ".*_cam"
+
+#settings
+settings.tk-maya-playblast.seq_step:
+  hook_post_playblast: "{self}/post_playblast.py"
+  hook_setup_window: "{self}/setup_window.py"
+  location: "@apps.tk-maya-playblast.location"
+  template_work_file: seq_maya_work_file
+  template_work_playblast: seq_maya_work_playblast
+  scale_options: [100, 50]
+  camera_name_pattern: ".*_cam"
+
+#settings
+settings.tk-maya-playblast.asset_step:
+  hook_post_playblast: "{self}/post_playblast.py"
+  hook_setup_window: "{self}/setup_window.py"
+  location: "@apps.tk-maya-playblast.location"
+  template_work_file: asset_maya_work_file
+  template_work_playblast: asset_maya_work_playblast
+  scale_options: [100, 50]
+  camera_name_pattern: ".*_cam"

@@ -10,6 +10,7 @@ includes:
 - ./tk-multi-shotgunpanel.yml
 - ./tk-multi-snapshot.yml
 - ./tk-multi-workfiles2.yml
+- ./tk-maya-playblast.yml
 
 ################################################################################
 
@@ -40,11 +41,13 @@ settings.tk-maya.asset_step:
     tk-multi-snapshot: "@settings.tk-multi-snapshot.maya.asset_step"
     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.maya.asset_step"
     tk-multi-reviewsubmission: "@settings.tk-multi-reviewsubmission.maya"
+    tk-maya-playblast: "@settings.tk-maya-playblast.asset_step"
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open...}
   - {app_instance: tk-multi-snapshot, name: Snapshot...}
   - {app_instance: tk-multi-workfiles2, name: File Save...}
   - {app_instance: tk-multi-publish2, name: Publish...}
+  - {app_instance: tk-maya-playblast, name: Maya Playblast...}
   template_project: asset_maya_work_area
   location: "@engines.tk-maya.location"
 
@@ -98,11 +101,13 @@ settings.tk-maya.seq_step:
     tk-multi-snapshot: "@settings.tk-multi-snapshot.maya.seq_step"
     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.maya.seq_step"
     tk-multi-reviewsubmission: "@settings.tk-multi-reviewsubmission.maya"
+    tk-maya-playblast: "@settings.tk-maya-playblast.seq_step"
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open...}
   - {app_instance: tk-multi-snapshot, name: Snapshot...}
   - {app_instance: tk-multi-workfiles2, name: File Save...}
   - {app_instance: tk-multi-publish2, name: Publish...}
+  - {app_instance: tk-maya-playblast, name: Maya Playblast...}
   template_project: seq_maya_work_area
   location: "@engines.tk-maya.location"
 
@@ -122,10 +127,12 @@ settings.tk-maya.shot_step:
     tk-multi-snapshot: "@settings.tk-multi-snapshot.maya.shot_step"
     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.maya.shot_step"
     tk-multi-reviewsubmission: "@settings.tk-multi-reviewsubmission.maya"
+    tk-maya-playblast: "@settings.tk-maya-playblast.shot_step"
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open...}
   - {app_instance: tk-multi-snapshot, name: Snapshot...}
   - {app_instance: tk-multi-workfiles2, name: File Save...}
   - {app_instance: tk-multi-publish2, name: Publish...}
+  - {app_instance: tk-maya-playblast, name: Maya Playblast...}
   template_project: shot_maya_work_area
   location: "@engines.tk-maya.location"

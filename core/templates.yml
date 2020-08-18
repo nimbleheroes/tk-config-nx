@@ -114,9 +114,11 @@ paths:
 
     show_work_area: show/work/{Step}/{current_user}
     show_pub_area: show/pub/{Step}
+    show_mov_area: show/movs
 
     seq_work_area: seqs/{Sequence}/work/{Step}/{current_user}
     seq_pub_area: seqs/{Sequence}/pub/{Step}
+    seq_mov_area: seqs/{Sequence}/movs
 
     shot_work_area: shots/{Shot}/work/{Step}/{current_user}
     shot_pub_area: shots/{Shot}/pub/{Step}
@@ -157,6 +159,9 @@ paths:
     # Show level paths
     #
 
+    show_review_movies:
+      definition: '@show_mov_area/{Step}_v{version}.mov'
+
     #
     # Hiero
     #
@@ -179,6 +184,9 @@ paths:
     # Sequence level paths
     #
 
+    seq_review_movies:
+      definition: '@seq_mov_area/{Sequence}_{Step}_v{version}.mov'
+
     #
     # Maya
     #
@@ -192,6 +200,8 @@ paths:
         definition: '@seq_work_area/maya/{Sequence}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
     seq_maya_snapshot:
         definition: '@seq_work_area/maya/snapshots/{Sequence}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
+    seq_maya_work_playblast:
+        definition: '@seq_work_area/maya/data/{Sequence}_{Step}_v{version}.mov'
     seq_maya_pub_file:
         definition: '@seq_pub_area/maya/{Sequence}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
 
@@ -199,6 +209,9 @@ paths:
     #
     # Shot level paths
     #
+
+    shot_review_movies:
+      definition: '@shot_mov_area/{Shot}_{Step}_v{version}.mov'
 
     #
     # Photoshop
@@ -229,6 +242,8 @@ paths:
         definition: '@shot_work_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
     shot_maya_snapshot:
         definition: '@shot_work_area/maya/snapshots/{Shot}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
+    shot_maya_work_playblast:
+        definition: '@shot_work_area/maya/data/{Shot}_{Step}_v{version}.mov'
     shot_maya_pub_file:
         definition: '@shot_pub_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
 
@@ -337,6 +352,8 @@ paths:
         definition: '@asset_work_area/maya/{Asset}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
     asset_maya_snapshot:
         definition: '@asset_work_area/maya/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
+    asset_maya_work_playblast:
+        definition: '@asset_work_area/maya/data/{Asset}_{Step}_v{version}.mov'
     asset_maya_pub_file:
         definition: '@asset_pub_area/maya/{Asset}_{Step}_{name}_v{version}.{maya_extension}'
 
