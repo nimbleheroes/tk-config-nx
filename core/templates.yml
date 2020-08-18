@@ -316,6 +316,9 @@ paths:
     ##########################################################################################
     # Asset pipeline
 
+    asset_review_movies:
+      definition: '@asset_mov_area/{Asset}_{Step}_v{version}.mov'
+
     #
     # Alembic caches
     #
