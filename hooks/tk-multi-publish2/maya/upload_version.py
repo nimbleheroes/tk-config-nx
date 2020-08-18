@@ -217,7 +217,7 @@ class UploadVersionPlugin(HookBaseClass):
         work_template = publisher.engine.get_template_by_name(
             work_template_setting.value
         )
-        if publish_template:
+        if work_template:
             item.properties["work_template"] = work_template
 
         return True
