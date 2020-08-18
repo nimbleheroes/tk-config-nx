@@ -187,6 +187,18 @@ apps.tk-nuke-tools.location:
   # type: dev
   # path: ~/Documents/Github/tk-nuke-tools_nx
 
+# maya-playblast
+apps.tk-maya-playblast.location:
+  name: tk-maya-playblast
+  ### Toolkit Component Entity
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 5034 #tk-maya-playblast-2.0
+  ## Dev
+  # type: dev
+  # path: ~/Documents/Github/tk-maya-playblast
+
 # deadline_render
 # apps.tk-multi-deadline-render.location:
 #   name: tk-multi-deadline-render
