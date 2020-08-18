@@ -37,8 +37,10 @@ settings.tk-multi-publish2.maya.asset_step:
     hook: "{self}/publish_file.py"
     settings: {}
   - name: Upload for review
-    hook: "{self}/upload_version.py"
-    settings: {}
+    hook: "{config}/tk-multi-publish2/maya/upload_version.py"
+    settings:
+        Playblast Work Template: asset_maya_work_playblast
+        Playblast Publish Template: asset_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -63,8 +65,10 @@ settings.tk-multi-publish2.maya.seq_step:
     hook: "{self}/publish_file.py"
     settings: {}
   - name: Upload for review
-    hook: "{self}/upload_version.py"
-    settings: {}
+    hook: "{config}/tk-multi-publish2/maya/upload_version.py"
+    settings:
+        Playblast Work Template: seq_maya_work_playblast
+        Playblast Publish Template: seq_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -85,8 +89,10 @@ settings.tk-multi-publish2.maya.shot_step:
     hook: "{self}/publish_file.py"
     settings: {}
   - name: Upload for review
-    hook: "{self}/upload_version.py"
-    settings: {}
+    hook: "{config}/tk-multi-publish2/maya/upload_version.py"
+    settings:
+        Playblast Work Template: shot_maya_work_playblast
+        Playblast Publish Template: shot_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
