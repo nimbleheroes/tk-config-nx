@@ -194,7 +194,7 @@ apps.tk-maya-playblast.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 5034 #tk-maya-playblast-2.0
+  version: 6557 #tk-maya-playblast-2.1
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-maya-playblast

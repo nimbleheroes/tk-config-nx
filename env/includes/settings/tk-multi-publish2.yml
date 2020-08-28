@@ -29,7 +29,7 @@ settings.tk-multi-publish2.standalone:
 
 # asset step
 settings.tk-multi-publish2.maya.asset_step:
-  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector: "{self}/collector.py:{config}/tk-multi-publish2/maya/collector.py"
   collector_settings:
       Work Template: asset_maya_work_file
   publish_plugins:
@@ -57,7 +57,7 @@ settings.tk-multi-publish2.maya.asset_step:
 
 # sequence step
 settings.tk-multi-publish2.maya.seq_step:
-  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector: "{self}/collector.py:{config}/tk-multi-publish2/maya/collector.py"
   collector_settings:
       Work Template: seq_maya_work_file
   publish_plugins:
@@ -81,7 +81,7 @@ settings.tk-multi-publish2.maya.seq_step:
 
 # shot step
 settings.tk-multi-publish2.maya.shot_step:
-  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector: "{self}/collector.py:{config}/tk-multi-publish2/maya/collector.py"
   collector_settings:
       Work Template: shot_maya_work_file
   publish_plugins:
