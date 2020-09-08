@@ -120,7 +120,7 @@ settings.tk-nuke.project:
       location: "@apps.tk-multi-about.location"
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2"
+    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.launch_at_startup"
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
@@ -168,9 +168,7 @@ settings.tk-nuke.shot_step:
       location: "@apps.tk-multi-breakdown.location"
     tk-multi-setframerange:
       location: "@apps.tk-multi-setframerange.location"
-      sg_in_frame_field: sg_head_in
-      sg_out_frame_field: sg_tail_out
-      always_lock_range: true
+      lock_range: true
     tk-multi-loader2: "@settings.tk-multi-loader2.nuke"
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nuke"
@@ -197,8 +195,6 @@ settings.tk-nuke.shot_step:
 #       location: "@apps.tk-multi-about.location"
 #     tk-multi-setframerange:
 #       location: "@apps.tk-multi-setframerange.location"
-#       sg_in_frame_field: sg_head_in
-#       sg_out_frame_field: sg_tail_out
 #       always_lock_range: true
 #     tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
 #     tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio"
@@ -327,9 +323,7 @@ settings.tk-nuke.shot_step:
 #       location: "@apps.tk-multi-about.location"
 #     tk-multi-setframerange:
 #       location: "@apps.tk-multi-setframerange.location"
-#       sg_in_frame_field: sg_head_in
-#       sg_out_frame_field: sg_tail_out
-#       always_lock_range: true
+#       lock_range: true
 #     tk-multi-breakdown: "@settings.tk-multi-breakdown.nukestudio"
 #     tk-multi-loader2: "@settings.tk-multi-loader2.nukestudio"
 #     tk-multi-publish2: "@settings.tk-multi-publish2.nukestudio"

@@ -64,9 +64,18 @@ apps.tk-multi-screeningroom.location:
 
 # setframerange
 apps.tk-multi-setframerange.location:
-  type: app_store
   name: tk-multi-setframerange
-  version: v0.4.1
+  ### App Store
+  # type: app_store
+  # version: v0.4.1
+  ### Toolkit Component Entity
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 7572 #tk-multi-setframerange-0.4.1-nx
+  ## Dev
+  # type: dev
+  # path: ~/Documents/Github/tk-multi-setframerange_nx
 
 # shotgun panel
 apps.tk-multi-shotgunpanel.location:

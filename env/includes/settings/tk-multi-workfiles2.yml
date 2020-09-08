@@ -70,7 +70,8 @@ settings.tk-multi-workfiles2.launch_at_startup:
 # ---- hiero/nukestudio
 
 settings.tk-multi-workfiles2.hiero.project:
-  # saveas_default_name: edit
+  launch_at_startup: true
+  # saveas_default_name: null
   template_publish: show_hiero_pub_file
   template_publish_area: show_hiero_pub_area
   template_work: show_hiero_work_file
@@ -95,6 +96,7 @@ settings.tk-multi-workfiles2.hiero.project:
 
 # asset_step
 settings.tk-multi-workfiles2.maya.asset_step:
+  launch_at_startup: true
   saveas_default_name: scene
   template_publish: asset_maya_pub_file
   template_publish_area: asset_maya_pub_area
@@ -121,8 +123,9 @@ settings.tk-multi-workfiles2.maya.asset_step:
       hierarchy: [step]
   location: "@apps.tk-multi-workfiles2.location"
 
-# shot_step
+# seq_step
 settings.tk-multi-workfiles2.maya.seq_step:
+  launch_at_startup: true
   saveas_default_name: scene
   template_publish: seq_maya_pub_file
   template_publish_area: seq_maya_pub_area
@@ -160,6 +163,7 @@ settings.tk-multi-workfiles2.maya.seq_step:
 
 # shot_step
 settings.tk-multi-workfiles2.maya.shot_step:
+  launch_at_startup: true
   saveas_default_name: scene
   template_publish: shot_maya_pub_file
   template_publish_area: shot_maya_pub_area
@@ -192,6 +196,7 @@ settings.tk-multi-workfiles2.maya.shot_step:
 
 # asset_step
 settings.tk-multi-workfiles2.nuke.asset_step:
+  launch_at_startup: true
   saveas_default_name: comp
   template_publish: asset_nuke_pub_file
   template_publish_area: asset_nuke_pub_area
@@ -220,6 +225,7 @@ settings.tk-multi-workfiles2.nuke.asset_step:
 
 # shot_step
 settings.tk-multi-workfiles2.nuke.shot_step:
+  launch_at_startup: true
   saveas_default_name: comp
   template_publish: shot_nuke_pub_file
   template_publish_area: shot_nuke_pub_area
@@ -252,6 +258,7 @@ settings.tk-multi-workfiles2.nuke.shot_step:
 
 # asset_step
 settings.tk-multi-workfiles2.photoshop.asset_step:
+  launch_at_startup: true
   saveas_default_name: art
   template_publish: asset_photoshop_pub_file
   template_publish_area: asset_photoshop_pub_area
@@ -280,6 +287,7 @@ settings.tk-multi-workfiles2.photoshop.asset_step:
 
 # shot_step
 settings.tk-multi-workfiles2.photoshop.shot_step:
+  launch_at_startup: true
   saveas_default_name: art
   template_publish: shot_photoshop_pub_file
   template_publish_area: shot_photoshop_pub_area
