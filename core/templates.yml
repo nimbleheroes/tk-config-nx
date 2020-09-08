@@ -258,48 +258,48 @@ paths:
         definition: '@shot_pub_area/nuke'
 
     shot_nuke_work_file:
-        definition: '@shot_work_area/nuke/{Shot}_{Step}_{current_user}_{name}_v{version}.nk'
+        definition: '@shot_work_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
     shot_nuke_snapshot:
-        definition: '@shot_work_area/nuke/snapshots/{Shot}_{Step}_{current_user}_{name}_v{version}.{timestamp}.nk'
+        definition: '@shot_work_area/nuke/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.nk'
     shot_nuke_pub_file:
-        definition: '@shot_pub_area/nuke/{Shot}_{Step}_{current_user}_{name}_v{version}.nk'
+        definition: '@shot_pub_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
     # main output
-    shot_nuke_work_out: '{Shot}_{Step}_{current_user}_out[-{nuke.output}]_v{version}/{Shot}_{Step}_{current_user}_out[-{nuke.output}]_v{version}.{SEQ}.exr'
+    shot_nuke_work_out: '{Shot}_{Step}_out[-{nuke.output}]_v{version}/{Shot}_{Step}_out[-{nuke.output}]_v{version}.{SEQ}.exr'
     shot_nuke_work_out_file:
         definition: '@shot_work_area/images/@shot_nuke_work_out'
     shot_nuke_pub_out_file:
         definition: '@shot_pub_area/images/@shot_nuke_work_out'
     # precomp output
-    shot_nuke_work_prc: '{Shot}_{Step}_{current_user}_prc[-{nuke.output}]_v{version}/{Shot}_{Step}_{current_user}_prc[-{nuke.output}]_v{version}.{SEQ}.exr'
+    shot_nuke_work_prc: '{Shot}_{Step}_prc[-{nuke.output}]_v{version}/{Shot}_{Step}_prc[-{nuke.output}]_v{version}.{SEQ}.exr'
     shot_nuke_work_prc_file:
         definition: '@shot_work_area/images/@shot_nuke_work_prc'
     shot_nuke_pub_prc_file:
         definition: '@shot_pub_area/images/@shot_nuke_work_prc'
     # smartvector output
-    shot_nuke_work_smt: '{Shot}_{Step}_{current_user}_smt[-{nuke.output}]_v{version}/{Shot}_{Step}_{current_user}_smt[-{nuke.output}]_v{version}.{SEQ}.exr'
+    shot_nuke_work_smt: '{Shot}_{Step}_smt[-{nuke.output}]_v{version}/{Shot}_{Step}_smt[-{nuke.output}]_v{version}.{SEQ}.exr'
     shot_nuke_work_smt_file:
         definition: '@shot_work_area/images/@shot_nuke_work_smt'
     shot_nuke_pub_smt_file:
         definition: '@shot_pub_area/images/@shot_nuke_work_smt'
     # matte output
-    shot_nuke_work_mat: '{Shot}_{Step}_{current_user}_mat[-{nuke.output}]_v{version}/{Shot}_{Step}_{current_user}_mat[-{nuke.output}]_v{version}.{SEQ}.exr'
+    shot_nuke_work_mat: '{Shot}_{Step}_mat[-{nuke.output}]_v{version}/{Shot}_{Step}_mat[-{nuke.output}]_v{version}.{SEQ}.exr'
     shot_nuke_work_mat_file:
         definition: '@shot_work_area/images/@shot_nuke_work_mat'
     shot_nuke_pub_mat_file:
         definition: '@shot_pub_area/images/@shot_nuke_work_mat'
     # jpg output
-    shot_nuke_work_jpg: '{Shot}_{Step}_{current_user}_jpg[-{nuke.output}]_v{version}/{Shot}_{Step}_{current_user}_jpg[-{nuke.output}]_v{version}.{SEQ}.jpg'
+    shot_nuke_work_jpg: '{Shot}_{Step}_jpg[-{nuke.output}]_v{version}/{Shot}_{Step}_jpg[-{nuke.output}]_v{version}.{SEQ}.jpg'
     shot_nuke_work_jpg_file:
         definition: '@shot_work_area/images/@shot_nuke_work_jpg'
     shot_nuke_pub_jpg_file:
         definition: '@shot_pub_area/images/@shot_nuke_work_jpg'
     # mov output
     shot_nuke_work_mov_file:
-        definition: '@shot_work_area/images/{Shot}_{Step}_{current_user}_mov[-{nuke.output}]_v{version}.mov'
+        definition: '@shot_work_area/images/{Shot}_{Step}_mov[-{nuke.output}]_v{version}.mov'
     shot_nuke_pub_mov_file:
-        definition: '@shot_pub_area/images/{Shot}_{Step}_{current_user}_mov[-{nuke.output}]_v{version}.mov'
+        definition: '@shot_pub_area/images/{Shot}_{Step}_mov[-{nuke.output}]_v{version}.mov'
 
     #
     # Hiero
