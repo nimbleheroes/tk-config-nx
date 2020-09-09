@@ -43,6 +43,9 @@ settings.tk-multi-workfiles2:
 
 # launches at startup.
 settings.tk-multi-workfiles2.launch_at_startup:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   entities:
   - caption: Assets
@@ -96,6 +99,9 @@ settings.tk-multi-workfiles2.hiero.project:
 
 # asset_step
 settings.tk-multi-workfiles2.maya.asset_step:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   saveas_default_name: scene
   template_publish: asset_maya_pub_file
@@ -125,6 +131,9 @@ settings.tk-multi-workfiles2.maya.asset_step:
 
 # seq_step
 settings.tk-multi-workfiles2.maya.seq_step:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   saveas_default_name: scene
   template_publish: seq_maya_pub_file
@@ -163,6 +172,9 @@ settings.tk-multi-workfiles2.maya.seq_step:
 
 # shot_step
 settings.tk-multi-workfiles2.maya.shot_step:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   saveas_default_name: scene
   template_publish: shot_maya_pub_file
@@ -196,6 +208,9 @@ settings.tk-multi-workfiles2.maya.shot_step:
 
 # asset_step
 settings.tk-multi-workfiles2.nuke.asset_step:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   saveas_default_name: comp
   template_publish: asset_nuke_pub_file
@@ -225,6 +240,9 @@ settings.tk-multi-workfiles2.nuke.asset_step:
 
 # shot_step
 settings.tk-multi-workfiles2.nuke.shot_step:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   saveas_default_name: comp
   template_publish: shot_nuke_pub_file
@@ -258,6 +276,9 @@ settings.tk-multi-workfiles2.nuke.shot_step:
 
 # asset_step
 settings.tk-multi-workfiles2.photoshop.asset_step:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   saveas_default_name: art
   template_publish: asset_photoshop_pub_file
@@ -287,6 +308,9 @@ settings.tk-multi-workfiles2.photoshop.asset_step:
 
 # shot_step
 settings.tk-multi-workfiles2.photoshop.shot_step:
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
   saveas_default_name: art
   template_publish: shot_photoshop_pub_file

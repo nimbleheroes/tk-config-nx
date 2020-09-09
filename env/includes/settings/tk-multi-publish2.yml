@@ -29,7 +29,7 @@ settings.tk-multi-publish2.standalone:
 
 # asset step
 settings.tk-multi-publish2.maya.asset_step:
-  collector: "{self}/collector.py:{config}/tk-multi-publish2/maya/collector.py"
+  collector: "{self}/collector.py:{config}/tk-multi-publish2/tk-maya/collector.py"
   collector_settings:
       Work Template: asset_maya_work_file
   publish_plugins:
@@ -37,7 +37,7 @@ settings.tk-multi-publish2.maya.asset_step:
     hook: "{self}/publish_file.py"
     settings: {}
   - name: Upload for review
-    hook: "{config}/tk-multi-publish2/maya/upload_version.py"
+    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
     settings:
         Playblast Work Template: asset_maya_work_playblast
         Playblast Publish Template: asset_review_movies
@@ -49,7 +49,7 @@ settings.tk-multi-publish2.maya.asset_step:
     settings:
         Publish Template: asset_maya_pub_file
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{config}/tk-multi-publish2/maya/publish_session_geometry.py"
+    hook: "{self}/publish_file.py:{config}/tk-multi-publish2/tk-maya/publish_session_geometry.py"
     settings:
         Publish Template: asset_alembic_cache
   help_url: *help_url
@@ -57,7 +57,7 @@ settings.tk-multi-publish2.maya.asset_step:
 
 # sequence step
 settings.tk-multi-publish2.maya.seq_step:
-  collector: "{self}/collector.py:{config}/tk-multi-publish2/maya/collector.py"
+  collector: "{self}/collector.py:{config}/tk-multi-publish2/tk-maya/collector.py"
   collector_settings:
       Work Template: seq_maya_work_file
   publish_plugins:
@@ -65,7 +65,7 @@ settings.tk-multi-publish2.maya.seq_step:
     hook: "{self}/publish_file.py"
     settings: {}
   - name: Upload for review
-    hook: "{config}/tk-multi-publish2/maya/upload_version.py"
+    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
     settings:
         Playblast Work Template: seq_maya_work_playblast
         Playblast Publish Template: seq_review_movies
@@ -89,7 +89,7 @@ settings.tk-multi-publish2.maya.shot_step:
     hook: "{self}/publish_file.py"
     settings: {}
   - name: Upload for review
-    hook: "{config}/tk-multi-publish2/maya/upload_version.py"
+    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
     settings:
         Playblast Work Template: shot_maya_work_playblast
         Playblast Publish Template: shot_review_movies
