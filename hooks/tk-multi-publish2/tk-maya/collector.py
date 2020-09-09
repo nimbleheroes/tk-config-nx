@@ -113,6 +113,8 @@ class MayaSessionCollector(HookBaseClass):
         if cmds.ls(geometry=True, noIntermediate=True):
             self._collect_session_geometry(item)
 
+        self._collect_session_cameras(item)
+
     def collect_current_maya_session(self, settings, parent_item):
         """
         Creates an item that represents the current maya session.
@@ -220,6 +222,22 @@ class MayaSessionCollector(HookBaseClass):
         icon_path = os.path.join(self.disk_location, "icons", "geometry.png")
 
         geo_item.set_icon_from_path(icon_path)
+
+    def _collect_session_cameras(self, parent_item):
+
+        cams = []
+        for shp in cmds.ls(type='camera'):
+            tfm = cmds.listRelatives(shp, parent=True)[0]
+            if tfm in ['persp', 'top', 'front', 'side', 'left', 'bottom', 'back']:
+                continue
+            if ':' in tfm:
+                cam_name = tfm.split(':')[0]
+            else:
+                cam_name = tfm
+
+            cam_item = parent_item.create_item(
+                "maya.session.camera", "Camera", cam_name
+            )
 
     def collect_playblasts(self, parent_item, project_root):
         """
