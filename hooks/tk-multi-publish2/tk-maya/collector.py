@@ -140,7 +140,7 @@ class MayaSessionCollector(HookBaseClass):
         )
 
         # get the icon path to display for this item
-        icon_path = os.path.join(self.disk_location, os.pardir, "icons", "maya.png")
+        icon_path = os.path.join(self.disk_location, "icons", "maya.png")
         session_item.set_icon_from_path(icon_path)
 
         # discover the project root which helps in discovery of other
@@ -217,7 +217,7 @@ class MayaSessionCollector(HookBaseClass):
         )
 
         # get the icon path to display for this item
-        icon_path = os.path.join(self.disk_location, os.pardir, "icons", "geometry.png")
+        icon_path = os.path.join(self.disk_location, "icons", "geometry.png")
 
         geo_item.set_icon_from_path(icon_path)
 

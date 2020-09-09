@@ -59,7 +59,7 @@ frameworks:
       type: app_store
       name: tk-framework-desktopclient
 
-# ---- Nimble Heroes frameworks
+# ---- NEXODUS frameworks
 
   # nx - NX studio utilities
   tk-framework-nx_v0.0.x:
@@ -73,3 +73,16 @@ frameworks:
       ## Dev
       # type: dev
       # path: ~/Documents/Github/tk-framework-nx
+
+  # nx - NX studio utilities
+  tk-framework-editorial_v0.0.x:
+    location:
+      name: tk-framework-editorial
+      ### Toolkit Component Entity
+      type: shotgun
+      entity_type: CustomNonProjectEntity13
+      field: sg_uploaded_app
+      version: 7737 #tk-framework-editorial-0.0.1
+      ## Dev
+      # type: dev
+      # path: ~/Documents/Github/tk-framework-editorial

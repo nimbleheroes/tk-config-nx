@@ -1,0 +1,27 @@
+################################################################################
+
+includes:
+- ../app_locations.yml
+
+################################################################################
+
+# ---- Stand alone EDL importer
+
+settings.tk-multi-importcut:
+  cut_link_field: sg_entity
+  default_head_in: 1001
+  default_head_in_duration: 8
+  default_tail_out_duration: 8
+  # display_name: Import Cut
+  # ensure_sg_setup_hook: '{self}/post_install.py'
+  omit_statuses: [hld, omt]
+  reinstate_status: ip
+  report_to_group: Production
+  sg_cut_item_entity: CutItem
+  use_smart_fields: false
+  timecode_frame_mapping:
+      timecode: "relative"
+      frame: 1001
+      timecode_mapping: 00:00:00:00
+      frame_mapping: 1001
+  location: "@apps.tk-multi-importcut.location"
