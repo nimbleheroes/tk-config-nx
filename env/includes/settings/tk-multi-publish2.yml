@@ -81,7 +81,7 @@ settings.tk-multi-publish2.maya.seq_step:
 
 # shot step
 settings.tk-multi-publish2.maya.shot_step:
-  collector: "{self}/collector.py:{config}/tk-multi-publish2/maya/collector.py"
+  collector: "{self}/collector.py:{config}/tk-multi-publish2/tk-maya/collector.py"
   collector_settings:
       Work Template: shot_maya_work_file
   publish_plugins:
