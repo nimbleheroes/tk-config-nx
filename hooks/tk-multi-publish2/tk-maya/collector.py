@@ -114,7 +114,7 @@ class MayaSessionCollector(HookBaseClass):
             self._collect_session_geometry(item)
 
         self._collect_session_cameras(item)
-        self._collect_session_rigs(settings, item)
+        self._collect_session_rigs(item)
 
     def collect_current_maya_session(self, settings, parent_item):
         """
