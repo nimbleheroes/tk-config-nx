@@ -255,10 +255,6 @@ class MayaSessionCollector(HookBaseClass):
 
         :param parent_item: Parent Item instance
         """
-        rig_roots_setting = settings.get("Rig Root Names")
-
-        if not rig_roots_setting:
-            pass
 
         for ref_node in cmds.ls(type='reference'):
 
