@@ -57,11 +57,6 @@ class MayaSessionCollector(HookBaseClass):
                 "to publish plugins via the collected item's "
                 "properties. ",
             },
-            "Rig Root Names": {
-                "type": "list",
-                "default": None,
-                "description": "List of rig root names to collect.",
-            },
         }
 
         # update the base settings with these settings
@@ -267,7 +262,10 @@ class MayaSessionCollector(HookBaseClass):
 
         for ref_node in cmds.ls(type='reference'):
 
-            ref_file = str(cmds.referenceQuery(ref_node, filename=True))
+            try:
+                ref_file = str(cmds.referenceQuery(ref_node, filename=True))
+            except RuntimeError:
+                ref_file = None
             ref_namespace = str(cmds.file(ref_file, query=True, namespace=True))
 
             if not ref_file:
@@ -288,7 +286,7 @@ class MayaSessionCollector(HookBaseClass):
                 continue
 
             rig_item = parent_item.create_item(
-                "maya.session.rig", "Rig", "rig_name"
+                "maya.session.rig", "Rig", ref_namespace
             )
 
             rig_item.properties["ref_file"] = ref_file
