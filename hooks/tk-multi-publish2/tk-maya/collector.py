@@ -57,6 +57,11 @@ class MayaSessionCollector(HookBaseClass):
                 "to publish plugins via the collected item's "
                 "properties. ",
             },
+            "Rig Root Names": {
+                "type": "list",
+                "default": None,
+                "description": "List of rig root names to collect.",
+            },
         }
 
         # update the base settings with these settings
@@ -114,6 +119,7 @@ class MayaSessionCollector(HookBaseClass):
             self._collect_session_geometry(item)
 
         self._collect_session_cameras(item)
+        self._collect_session_rigs(settings, item)
 
     def collect_current_maya_session(self, settings, parent_item):
         """
@@ -224,8 +230,11 @@ class MayaSessionCollector(HookBaseClass):
         geo_item.set_icon_from_path(icon_path)
 
     def _collect_session_cameras(self, parent_item):
+        """
+        Creates items for session cameras to be exported.
 
-        cams = []
+        :param parent_item: Parent Item instance
+        """
         for shp in cmds.ls(type='camera'):
             tfm = cmds.listRelatives(shp, parent=True)[0]
             if tfm in ['persp', 'top', 'front', 'side', 'left', 'bottom', 'back']:
@@ -238,6 +247,57 @@ class MayaSessionCollector(HookBaseClass):
             cam_item = parent_item.create_item(
                 "maya.session.camera", "Camera", cam_name
             )
+
+            cam_item.properties["cam_tfm"] = tfm
+
+            # get the icon path to display for this item
+            icon_path = os.path.join(self.disk_location, "icons", "camera.png")
+            cam_item.set_icon_from_path(icon_path)
+
+    def _collect_session_rigs(self, settings, parent_item):
+        """
+        Creates items for session rigs to be exported.
+
+        :param parent_item: Parent Item instance
+        """
+        rig_roots_setting = settings.get("Rig Root Names")
+
+        if not rig_roots_setting:
+            pass
+
+        for ref_node in cmds.ls(type='reference'):
+
+            ref_file = str(cmds.referenceQuery(ref_node, filename=True))
+            ref_namespace = str(cmds.file(ref_file, query=True, namespace=True))
+
+            if not ref_file:
+                continue
+            if not cmds.referenceQuery(ref_node, isLoaded=True):
+                continue
+            if cmds.referenceQuery(ref_node, parentNamespace=True)[0]:
+                continue
+
+            # Test for root node
+            ref_has_root = False
+            for root in rig_roots_setting:
+                node = '{}:{}'.format(ref_namespace, root)
+                if cmds.objExists(node):
+                    ref_has_root = True
+                    break
+            if not ref_has_root:
+                continue
+
+            rig_item = parent_item.create_item(
+                "maya.session.rig", "Rig", "rig_name"
+            )
+
+            rig_item.properties["ref_file"] = ref_file
+            rig_item.properties["ref_namespace"] = ref_namespace
+            rig_item.properties["ref_node"] = ref_node
+
+            # get the icon path to display for this item
+            icon_path = os.path.join(self.disk_location, "icons", "rig.png")
+            rig_item.set_icon_from_path(icon_path)
 
     def collect_playblasts(self, parent_item, project_root):
         """

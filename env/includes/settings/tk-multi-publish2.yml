@@ -84,6 +84,11 @@ settings.tk-multi-publish2.maya.shot_step:
   collector: "{self}/collector.py:{config}/tk-multi-publish2/maya/collector.py"
   collector_settings:
       Work Template: shot_maya_work_file
+      Rig Root Names:
+        - root
+        - JNT_Grp
+        - Bind_Joint_GRP
+        - skeletonGrp
   publish_plugins:
   - name: Publish to Shotgun
     hook: "{self}/publish_file.py"
