@@ -249,7 +249,7 @@ class MayaSessionCollector(HookBaseClass):
             icon_path = os.path.join(self.disk_location, "icons", "camera.png")
             cam_item.set_icon_from_path(icon_path)
 
-    def _collect_session_rigs(self, settings, parent_item):
+    def _collect_session_rigs(self, parent_item):
         """
         Creates items for session rigs to be exported.
 
@@ -276,14 +276,14 @@ class MayaSessionCollector(HookBaseClass):
                 continue
 
             # Test for root node
-            ref_has_root = False
-            for root in rig_roots_setting:
-                node = '{}:{}'.format(ref_namespace, root)
-                if cmds.objExists(node):
-                    ref_has_root = True
-                    break
-            if not ref_has_root:
-                continue
+            # ref_has_root = False
+            # for root in rig_roots_setting:
+            #     node = '{}:{}'.format(ref_namespace, root)
+            #     if cmds.objExists(node):
+            #         ref_has_root = True
+            #         break
+            # if not ref_has_root:
+            #     continue
 
             rig_item = parent_item.create_item(
                 "maya.session.rig", "Rig", ref_namespace

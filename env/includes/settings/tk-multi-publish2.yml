@@ -101,15 +101,18 @@ settings.tk-multi-publish2.maya.shot_step:
     settings:
         Publish Template: shot_maya_pub_file
   - name: Export FBX
-    hook: "{config}/tk-multi-publish2/tk-maya/export_fbx.py"
+    hook: "{config}/tk-multi-publish2/tk-maya/export_camera_fbx.py"
     settings:
         Camera FBX Template: shot_pub_camera_fbx
-        Rig FBX Template: shot_pub_rig_fbx
-        Rig Root Names:
-          - root
-          - JNT_Grp
-          - Bind_Joint_GRP
-          - skeletonGrp
+  # - name: Export FBX
+  #   hook: "{config}/tk-multi-publish2/tk-maya/export_rig_fbx.py"
+  #   settings:
+  #       Rig FBX Template: shot_pub_rig_fbx
+  #       Rig Root Names:
+  #         - root
+  #         - JNT_Grp
+  #         - Bind_Joint_GRP
+  #         - skeletonGrp
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 

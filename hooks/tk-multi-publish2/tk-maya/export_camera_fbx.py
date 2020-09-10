@@ -100,23 +100,11 @@ class MayaCameraPublishPlugin(HookBaseClass):
                                "correspond to a template defined in "
                                "templates.yml.",
             },
-            "Rig FBX Template": {
-                "type": "template",
-                "default": None,
-                "description": "Template path for published camera. Should"
-                               "correspond to a template defined in "
-                               "templates.yml.",
-            },
             "Cameras": {
                 "type": "list",
                 "default": ["*_cam"],
                 "description": "Glob-style list of camera names to publish. "
                                "Example: ['camMain', 'camAux*']."
-            },
-            "Rig Root Names": {
-                "type": "list",
-                "default": None,
-                "description": "List of rig root names to collect.",
             },
         }
 
