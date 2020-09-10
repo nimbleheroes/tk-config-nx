@@ -249,6 +249,8 @@ class MayaSessionCollector(HookBaseClass):
             icon_path = os.path.join(self.disk_location, "icons", "camera.png")
             cam_item.set_icon_from_path(icon_path)
 
+            self.logger.info("Collected camera {}".format(cam_name))
+
     def _collect_session_rigs(self, parent_item):
         """
         Creates items for session rigs to be exported.
@@ -292,6 +294,8 @@ class MayaSessionCollector(HookBaseClass):
             # get the icon path to display for this item
             icon_path = os.path.join(self.disk_location, "icons", "rig.png")
             rig_item.set_icon_from_path(icon_path)
+
+            self.logger.info("Collected rig {}".format(ref_namespace))
 
     def collect_playblasts(self, parent_item, project_root):
         """
