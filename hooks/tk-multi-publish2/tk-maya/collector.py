@@ -230,26 +230,28 @@ class MayaSessionCollector(HookBaseClass):
 
         :param parent_item: Parent Item instance
         """
-        for shp in cmds.ls(type='camera'):
-            tfm = cmds.listRelatives(shp, parent=True)[0]
-            if tfm in ['persp', 'top', 'front', 'side', 'left', 'bottom', 'back']:
+        for cam_shp in cmds.ls(type='camera'):
+            cam_tfm = cmds.listRelatives(cam_shp, parent=True)[0]
+            if cam_tfm in ['persp', 'top', 'front', 'side', 'left', 'bottom', 'back']:
                 continue
-            if ':' in tfm:
-                cam_name = tfm.split(':')[0]
+            if ':' in cam_tfm:
+                cam_name = cam_tfm.split(':')[0]
             else:
-                cam_name = tfm
+                cam_name = cam_tfm
 
             cam_item = parent_item.create_item(
                 "maya.session.camera", "Camera", cam_name
             )
 
-            cam_item.properties["cam_tfm"] = tfm
+            cam_item.properties["camera_transform"] = cam_tfm
+            cam_item.properties["camera_shape"] = cam_shp
+            cam_item.properties["camera_name"] = cam_name
 
             # get the icon path to display for this item
             icon_path = os.path.join(self.disk_location, "icons", "camera.png")
             cam_item.set_icon_from_path(icon_path)
 
-            self.logger.info("Collected camera {}".format(cam_name))
+            self.logger.info("Collected camera: {}".format(cam_name))
 
     def _collect_session_rigs(self, parent_item):
         """
@@ -295,7 +297,7 @@ class MayaSessionCollector(HookBaseClass):
             icon_path = os.path.join(self.disk_location, "icons", "rig.png")
             rig_item.set_icon_from_path(icon_path)
 
-            self.logger.info("Collected rig {}".format(ref_namespace))
+            self.logger.info("Collected rig: {}".format(ref_namespace))
 
     def collect_playblasts(self, parent_item, project_root):
         """
