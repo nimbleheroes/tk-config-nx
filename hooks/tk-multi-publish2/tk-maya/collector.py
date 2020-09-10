@@ -251,7 +251,7 @@ class MayaSessionCollector(HookBaseClass):
             icon_path = os.path.join(self.disk_location, "icons", "camera.png")
             cam_item.set_icon_from_path(icon_path)
 
-            self.logger.info("Collected camera: {}".format(cam_name))
+            self.logger.info("Collected camera: {} / {} / {}".format(cam_name, cam_shp, cam_tfm))
 
     def _collect_session_rigs(self, parent_item):
         """
