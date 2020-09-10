@@ -132,7 +132,7 @@ class MayaCameraPublishPlugin(HookBaseClass):
         Strings can contain glob patters such as ``*``, for example ``["maya.*",
         "file.maya"]``.
         """
-        return ["maya.session.camera", "maya.session.rig"]
+        return ["maya.session.camera"]
 
     def accept(self, settings, item):
         """
@@ -184,7 +184,7 @@ class MayaCameraPublishPlugin(HookBaseClass):
         """
 
         publisher = self.parent
-        template_name = settings["Publish Template"].value
+        template_name = settings["Camera FBX Template"].value
 
         # validate the camera name first
         cam_name = item.properties.get("camera_name")
