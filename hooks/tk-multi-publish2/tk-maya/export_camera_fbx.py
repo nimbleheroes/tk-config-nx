@@ -15,6 +15,7 @@ import maya.cmds as cmds
 import maya.mel as mel
 
 import sgtk
+import fbx_exporter
 
 # this method returns the evaluated hook base class. This could be the Hook
 # class defined in Toolkit core or it could be the publisher app's base publish
@@ -22,7 +23,7 @@ import sgtk
 HookBaseClass = sgtk.get_hook_baseclass()
 
 
-class MayaCameraPublishPlugin(HookBaseClass):
+class MayaCameraFbxExportPlugin(HookBaseClass):
     """
     This class defines the required interface for a publish plugin. Publish
     plugins are responsible for operating on items collected by the collector
@@ -89,10 +90,10 @@ class MayaCameraPublishPlugin(HookBaseClass):
            for additional example implementations.
         """
         # inherit the settings from the base publish plugin
-        plugin_settings = super(MayaCameraPublishPlugin, self).settings or {}
+        plugin_settings = super(MayaCameraFbxExportPlugin, self).settings or {}
 
         # settings specific to this class
-        maya_camera_publish_settings = {
+        maya_camera_export_settings = {
             "Camera FBX Template": {
                 "type": "template",
                 "default": None,
@@ -109,7 +110,7 @@ class MayaCameraPublishPlugin(HookBaseClass):
         }
 
         # update the base settings
-        plugin_settings.update(maya_camera_publish_settings)
+        plugin_settings.update(maya_camera_export_settings)
 
         return plugin_settings
 
@@ -325,7 +326,7 @@ class MayaCameraPublishPlugin(HookBaseClass):
             item.properties["publish_version"] = work_fields["version"]
 
         # run the base class validation
-        return super(MayaCameraPublishPlugin, self).validate(settings, item)
+        return True
 
     def publish(self, settings, item):
         """
@@ -357,22 +358,29 @@ class MayaCameraPublishPlugin(HookBaseClass):
         publish_folder = os.path.dirname(publish_path)
         self.parent.ensure_folder_exists(publish_folder)
 
-        fbx_export_cmd = 'FBXExport -f "%s" -s' % (publish_path.replace(os.path.sep, "/"),)
+        start_frame = int(cmds.playbackOptions(query=True, minTime=True))
+        end_frame = int(cmds.playbackOptions(query=True, maxTime=True))
+        range = (start_frame, end_frame)
+
+        cam = fbx_exporter._Camera(cam_shape)
+        cam.export(publish_path, range)
+
+        # fbx_export_cmd = 'FBXExport -f "%s" -s' % (publish_path.replace(os.path.sep, "/"),)
 
         # ...and execute it:
-        try:
-            self.logger.debug("Executing command: %s" % fbx_export_cmd)
-            mel.eval(fbx_export_cmd)
-        except Exception, e:
-            self.logger.error("Failed to export camera: %s" % e)
-            return
+        # try:
+        #     self.logger.debug("Executing command: %s" % fbx_export_cmd)
+        #     mel.eval(fbx_export_cmd)
+        # except Exception, e:
+        #     self.logger.error("Failed to export camera: %s" % e)
+        #     return
 
         # set the publish type in the item's properties. the base plugin will
         # use this when registering the file with Shotgun
         item.properties["publish_type"] = "FBX Camera"
 
         # Now that the path has been generated, hand it off to the
-        super(MayaCameraPublishPlugin, self).publish(settings, item)
+        super(MayaCameraFbxExportPlugin, self).publish(settings, item)
 
         # restore selection
         cmds.select(cur_selection)
