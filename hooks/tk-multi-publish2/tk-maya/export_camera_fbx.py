@@ -344,13 +344,13 @@ class MayaCameraFbxExportPlugin(HookBaseClass):
 
         # keep track of everything currently selected. we will restore at the
         # end of the publish method
-        cur_selection = cmds.ls(selection=True)
+        # cur_selection = cmds.ls(selection=True)
 
         # the camera to publish
-        cam_shape = item.properties["camera_shape"]
+        cam_transform = item.properties["camera_transform"]
 
         # make sure it is selected
-        cmds.select(cam_shape)
+        # cmds.select(cam_shape)
 
         # get the path to create and publish
         publish_path = item.properties["publish_path"]
@@ -364,7 +364,7 @@ class MayaCameraFbxExportPlugin(HookBaseClass):
         range = (start_frame, end_frame)
 
         fbx_exporter = imp.load_source('fbx_exporter', os.path.join(self.disk_location, 'fbx_exporter.py'))
-        cam = fbx_exporter._Camera(cam_shape)
+        cam = fbx_exporter._Camera(cam_transform)
         cam.export(publish_path, range)
 
         # fbx_export_cmd = 'FBXExport -f "%s" -s' % (publish_path.replace(os.path.sep, "/"),)
@@ -385,7 +385,7 @@ class MayaCameraFbxExportPlugin(HookBaseClass):
         super(MayaCameraFbxExportPlugin, self).publish(settings, item)
 
         # restore selection
-        cmds.select(cur_selection)
+        # cmds.select(cur_selection)
 
     def _cam_name_matches_settings(self, cam_name, settings):
         """
