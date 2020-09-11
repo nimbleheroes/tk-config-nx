@@ -303,7 +303,7 @@ class MayaCameraPublishPlugin(HookBaseClass):
         work_fields = work_template.get_fields(path)
 
         # include the camera name in the fields
-        work_fields["name"] = cam_name
+        work_fields["camera"] = cam_name
 
         # ensure the fields work for the publish template
         missing_keys = publish_template.missing_keys(work_fields)

@@ -254,9 +254,9 @@ paths:
         definition: '@shot_pub_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
 
     shot_pub_camera_fbx:
-        definition: '@shot_pub_area/data/{Shot}_{Step}_cam-{name}_v{version}.fbx'
+        definition: '@shot_pub_area/data/{Shot}_{Step}_cam-{camera}_v{version}.fbx'
     shot_pub_rig_fbx:
-        definition: '@shot_pub_area/data/{Shot}_{Step}_rig-{name}_v{version}.fbx'
+        definition: '@shot_pub_area/data/{Shot}_{Step}_rig-{rig}_v{version}.fbx'
 
     #
     # Nuke
