@@ -9,13 +9,14 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 import fnmatch
+import imp
 import os
 
 import maya.cmds as cmds
 import maya.mel as mel
 
 import sgtk
-import fbx_exporter
+
 
 # this method returns the evaluated hook base class. This could be the Hook
 # class defined in Toolkit core or it could be the publisher app's base publish
@@ -362,6 +363,7 @@ class MayaCameraFbxExportPlugin(HookBaseClass):
         end_frame = int(cmds.playbackOptions(query=True, maxTime=True))
         range = (start_frame, end_frame)
 
+        fbx_exporter = imp.load_source('fbx_exporter', os.path.join(self.disk_location, 'fbx_exporter.py'))
         cam = fbx_exporter._Camera(cam_shape)
         cam.export(publish_path, range)
 
