@@ -88,7 +88,7 @@ settings.tk-multi-publish2.maya.shot_step:
   - name: Publish to Shotgun
     hook: "{self}/publish_file.py"
     settings: {}
-  - name: Upload for review
+  - name: Submit for Review
     hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
     settings:
         Playblast Work Template: shot_maya_work_playblast
@@ -100,8 +100,8 @@ settings.tk-multi-publish2.maya.shot_step:
     hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: shot_maya_pub_file
-  - name: Export FBX
-    hook: "{config}/tk-multi-publish2/tk-maya/export_camera_fbx.py"
+  - name: Publish FBX to SWC Perforce
+    hook: "{self}/publish_file.py:{config}/tk-multi-publish2/tk-maya/export_camera_fbx.py"
     settings:
         Camera FBX Template: shot_pub_camera_fbx
   # - name: Export FBX
