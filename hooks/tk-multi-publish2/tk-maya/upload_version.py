@@ -119,6 +119,11 @@ class UploadVersionPlugin(HookBaseClass):
                 "correspond to a template defined in "
                 "templates.yml.",
             },
+            "Task Status upon Submit": {
+                "type": "str",
+                "default": None,
+                "description": "Changes the task status to the given value (short name)",
+            },
         }
 
     @property
@@ -335,6 +340,7 @@ class UploadVersionPlugin(HookBaseClass):
 
         path = item.properties["path"]
         version = item.properties["sg_version_data"]
+        task = item.context.task
 
         self.logger.info(
             "Version uploaded for file: %s" % (path,),
@@ -346,6 +352,15 @@ class UploadVersionPlugin(HookBaseClass):
                 }
             },
         )
+
+        try:
+            task_status = settings.get("Task Status upon Submit")
+            self.parent.shotgun.update(
+                "Task", task["id"], {"sg_status_list": task_status}
+            )
+            self.logger.info("Set task status to '{}'".format())
+        except:
+            self.logger.info("Tried to set task status but failed.")
 
     def _get_version_entity(self, item):
         """
