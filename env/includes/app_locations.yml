@@ -215,7 +215,7 @@ apps.tk-multi-importcut.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 7735 #tk-multi-importcut-0.0.1
+  version: 9956 #tk-multi-importcut-0.0.2
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-multi-importcut
