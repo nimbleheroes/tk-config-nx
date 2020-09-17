@@ -64,36 +64,37 @@ class BeforeAppLaunch(sgtk.Hook):
         nx_fw = self.load_framework("tk-framework-nx_v0.0.x")
         nx_utils = nx_fw.import_module("utils")
 
-        # make a dict to store env variables
-        env_dict = defaultdict(list)
-
         # get all the pipe templates and set env vars
-        pipe_templates = {
-            k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
+        pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
         for k, v in pipe_templates.iteritems():
             v = nx_utils.resolve_template(v, current_context)
             v = os.path.expandvars(v)
             k = k.upper()
-            self.logger.debug("Setting env {}={}".format(k, v))
+            self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(k, v))
             os.environ[k] = v
 
-        # get env var plugins
+        # Apply Environment Variable entities
         if engine_name:
-            plugins = self.__get_env_vars(
-                current_context, engine_name, version)
-            for plugin in plugins:
-                paths = plugins[plugin]
-                self.logger.debug("[NEXODUS] Parsing plugin: {} = {}".format(
-                    plugin, plugins[plugin]))
-                for path in paths:
-                    env_dict.setdefault(plugin, []).append(path)
+            env_dicts = self.__get_env_vars(current_context, engine_name, version)
 
-        for k, vlist in env_dict.iteritems():
-            for v in vlist:
-                v = os.path.expandvars(v)
-                self.logger.debug(
-                    "[NEXODUS] Appending env var: {}={}".format(k, v))
-                sgtk.util.append_path_to_env_var(k, v)
+            replace_envs = env_dicts["replace"]
+            prepend_envs = env_dicts["prepend"]
+            append_envs = env_dicts["append"]
+
+            for env_key, value_list in replace_envs.iteritems():
+                for env_value in value_list:
+                    self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(env_key, env_value))
+                    os.environ[env_key] = env_value
+
+            for env_key, value_list in prepend_envs.iteritems():
+                for env_value in value_list:
+                    self.logger.debug("[NEXODUS] Prepending env var: {} = {}".format(env_key, env_value))
+                    sgtk.util.prepend_path_to_env_var(env_key, env_value)
+
+            for env_key, value_list in append_envs.iteritems():
+                for env_value in value_list:
+                    self.logger.debug("[NEXODUS] Appending env var: {} = {}".format(env_key, env_value))
+                    sgtk.util.append_path_to_env_var(env_key, env_value)
 
         # Sets the current task to in progress
         if self.parent.context.task:
@@ -138,39 +139,39 @@ class BeforeAppLaunch(sgtk.Hook):
         os_envs = {'win32': 'sg_env_win',
                    'linux2': 'sg_env_linux', 'darwin': 'sg_env_mac'}
         fields = ['code', 'sg_version',
-                  'sg_host_min_version', 'sg_host_max_version']
+                  'sg_host_min_version', 'sg_host_max_version', 'sg_default_method']
         fields.append(os_envs[sys.platform])
         results = self.parent.shotgun.find(
             self.__env_vars_entity, filters, fields)
 
-        env_list = []
+        env_lists = {"append": [], "prepend": [], "replace": []}
         for result in results:
             if (
                 self.__min_check(app_version, result.get('sg_host_min_version')) and
-                self.__max_check(
-                    app_version, result.get('sg_host_max_version'))
+                self.__max_check(app_version, result.get('sg_host_max_version'))
             ):
                 try:
                     self.logger.debug(
                         "[NEXODUS] Valid plugin found: {}".format(result.get('code')))
-                    env_list.extend(result.get(
+                    env_lists[result.get('sg_default_method')].extend(result.get(
                         os_envs[sys.platform]).split('\n'))
                 except AttributeError as e:
                     self.logger.error(
                         'AttributeError on plugin \'{}\': {}'.format(result.get('code'), e))
                     pass
 
-        env_dict = {}
-        for i in env_list:
-            try:
-                env_dict.setdefault(
-                    i.split('=')[0], []).append(i.split('=')[1])
-            except IndexError as e:
-                self.logger.error(
-                    'IndexError on plugin \'{}\': {}'.format(result.get('code'), e))
-                pass
+        env_dicts = {"append": {}, "prepend": {}, "replace": {}}
+        for key, env_list in env_lists.iteritems():
+            for i in env_list:
+                try:
+                    env_dicts[key].setdefault(
+                        i.split('=')[0], []).append(i.split('=')[1])
+                except IndexError as e:
+                    self.logger.error(
+                        'IndexError on plugin \'{}\': {}'.format(result.get('code'), e))
+                    pass
 
-        return env_dict
+        return env_dicts
 
     def __min_check(self, curr_version, min_version):
         if min_version is None:
