@@ -212,13 +212,13 @@ apps.tk-maya-playblast.location:
 apps.tk-multi-importcut.location:
   name: tk-multi-importcut
   ### Toolkit Component Entity
-  # type: shotgun
-  # entity_type: CustomNonProjectEntity13
-  # field: sg_uploaded_app
-  # version: 7735 #tk-multi-importcut-0.0.1
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 9956 #tk-multi-importcut-0.0.2
   ## Dev
-  type: dev
-  path: ~/Documents/Github/tk-multi-importcut
+  # type: dev
+  # path: ~/Documents/Github/tk-multi-importcut
 
 # deadline_render
 # apps.tk-multi-deadline-render.location:
