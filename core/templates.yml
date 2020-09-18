@@ -147,7 +147,7 @@ paths:
         definition: 'pipe/maya'
     pipe_maya_script_path:
         definition: 'pipe/maya/scripts'
-    pipe_maya_moldule_path:
+    pipe_maya_module_path:
         definition: 'pipe/maya/modules'
     pipe_maya_plugin_path:
         definition: 'pipe/maya/plugins'
