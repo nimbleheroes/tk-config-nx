@@ -84,17 +84,21 @@ class BeforeAppLaunch(sgtk.Hook):
             for env_key, value_list in replace_envs.iteritems():
                 for env_value in value_list:
                     self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(env_key, env_value))
-                    os.environ[env_key] = env_value
+                    os.environ[env_key] = os.path.expandvars(env_value)
 
             for env_key, value_list in prepend_envs.iteritems():
                 for env_value in value_list:
                     self.logger.debug("[NEXODUS] Prepending env var: {} = {}".format(env_key, env_value))
-                    sgtk.util.prepend_path_to_env_var(env_key, env_value)
+                    sgtk.util.prepend_path_to_env_var(env_key, os.path.expandvars(env_value))
 
             for env_key, value_list in append_envs.iteritems():
                 for env_value in value_list:
                     self.logger.debug("[NEXODUS] Appending env var: {} = {}".format(env_key, env_value))
-                    sgtk.util.append_path_to_env_var(env_key, env_value)
+                    sgtk.util.append_path_to_env_var(env_key, os.path.expandvars(env_value))
+
+            for method, env_dict in env_dicts.iteritems():
+                for env_key in env_dict.keys():
+                    self.logger.debug("[NEXODUS] Env Var check: {} = {}".format(env_key, os.getenv(env_key)))
 
         # Sets the current task to in progress
         if self.parent.context.task:
