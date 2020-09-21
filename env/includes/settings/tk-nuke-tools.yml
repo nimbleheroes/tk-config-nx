@@ -30,3 +30,4 @@ settings.tk-nuke-tools:
     Keylight.outsideComponent: Inverted Alpha
     Write.channels: rgba
     Write.create_directories: true
+    # Root.colorManagement: OCIO

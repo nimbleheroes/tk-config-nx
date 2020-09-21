@@ -57,11 +57,32 @@ keys:
         type: str
         filter_by: alphanumeric
 
+    nuke.layer:
+        alias: output
+        type: str
+        filter_by: alphanumeric
+
+    nuke.pass:
+        alias: pass
+        type: str
+        filter_by: alphanumeric
+
+    nuke.view:
+        alias: view
+        type: str
+
     SEQ:
         type: sequence
         format_spec: "04"
 
-    eye:
+    ext:
+        alias: extension
+        type: str
+
+    image_category:
+        type: str
+
+    frame_format:
         type: str
 
     # these are used by the Hiero exporter and pipeline
@@ -108,25 +129,28 @@ paths:
     #
     # These don't require the standard formatting (with definition and root_name) because they
     # will be set within each template that uses the alias.
+
+    show_root: show/
     asset_root: assets/{Asset}
     seq_root: seqs/{Sequence}
     shot_root: shots/{Shot}
 
-    show_work_area: show/work/{Step}/{current_user}
-    show_pub_area: show/pub/{Step}
+    show_work_area: show/tasks/{Step}
+    show_pubs_area: show/pubs
     show_mov_area: show/movs
 
-    seq_work_area: seqs/{Sequence}/work/{Step}/{current_user}
-    seq_pub_area: seqs/{Sequence}/pub/{Step}
+    asset_work_area: assets/{Asset}/tasks/{Step}
+    asset_pubs_area: assets/{Asset}/pubs
+    asset_mov_area: assets/{Asset}/movs
+
+    seq_work_area: seqs/{Sequence}/tasks/{Step}
+    seq_pubs_area: seqs/{Sequence}/pubs
     seq_mov_area: seqs/{Sequence}/movs
 
-    shot_work_area: shots/{Shot}/work/{Step}/{current_user}
-    shot_pub_area: shots/{Shot}/pub/{Step}
+    shot_work_area: shots/{Shot}/tasks/{Step}
+    shot_pubs_area: shots/{Shot}/pubs
     shot_mov_area: shots/{Shot}/movs
 
-    asset_work_area: assets/{Asset}/work/{Step}/{current_user}
-    asset_pub_area: assets/{Asset}/pub/{Step}
-    asset_mov_area: assets/{Asset}/movs
 
     ##########################################################################################
     #
@@ -136,7 +160,7 @@ paths:
     pipe_ocio_area:
         definition: 'pipe/ocio'
     pipe_ocio_config:
-        definition: 'pipe/ocio/default.ocio'
+        definition: 'pipe/ocio/config.ocio'
 
     pipe_nuke_path:
         definition: 'pipe/nuke/python'
@@ -160,23 +184,23 @@ paths:
     #
 
     show_review_movies:
-      definition: '@show_mov_area/{Step}_v{version}.mov'
+      definition: '@show_mov_area/{Show}_{Step}[_{name}]_v{version}.mov'
 
     #
     # Hiero
     #
 
     show_hiero_work_area:
-        definition: '@show_work_area/hiero'
-    show_hiero_pub_area:
-        definition: '@show_pub_area/hiero'
+        definition: '@show_work_area/workfiles/hiero'
+    show_hiero_pubs_area:
+        definition: '@show_pubs_area/workfiles/hiero'
 
     show_hiero_work_file:
-        definition: '@show_work_area/hiero/{name}_v{version}.hrox'
+        definition: '@show_hiero_work_area/{Show}_{Step}[_{name}]_v{version}.hrox'
     show_hiero_snapshot:
-        definition: '@show_work_area/hiero/snapshots/{name}_v{version}.{timestamp}.hrox'
+        definition: '@show_hiero_work_area/snapshots/{Show}_{Step}[_{name}]_v{version}.{timestamp}.hrox'
     show_hiero_pub_file:
-        definition: '@show_pub_area/hiero/{name}_v{version}.hrox'
+        definition: '@show_hiero_pubs_area/{Show}_{Step}[_{name}]_v{version}.hrox'
 
 
     ##########################################################################################
@@ -185,25 +209,25 @@ paths:
     #
 
     seq_review_movies:
-      definition: '@seq_mov_area/{Sequence}_{Step}_v{version}.mov'
+      definition: '@seq_mov_area/{Sequence}_{Step}[_{name}]_v{version}.mov'
 
     #
     # Maya
     #
 
     seq_maya_work_area:
-        definition: '@seq_work_area/maya'
-    seq_maya_pub_area:
-        definition: '@seq_pub_area/maya'
+        definition: '@seq_work_area/workfiles/maya'
+    seq_maya_pubs_area:
+        definition: '@seq_pubs_area/workfiles/maya'
 
     seq_maya_work_file:
-        definition: '@seq_work_area/maya/{Sequence}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
+        definition: '@seq_maya_work_area/{Sequence}_{Step}[_{name}]_v{version}.{maya_extension}'
     seq_maya_snapshot:
-        definition: '@seq_work_area/maya/snapshots/{Sequence}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
+        definition: '@seq_maya_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.{maya_extension}'
     seq_maya_work_playblast:
-        definition: '@seq_work_area/maya/data/{Sequence}_{Step}_v{version}.mov'
+        definition: '@seq_maya_work_area/data/{Sequence}_{Step}[_{name}]_v{version}.mov'
     seq_maya_pub_file:
-        definition: '@seq_pub_area/maya/{Sequence}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
+        definition: '@seq_maya_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.{maya_extension}'
 
     ##########################################################################################
     #
@@ -211,41 +235,41 @@ paths:
     #
 
     shot_review_movies:
-      definition: '@shot_mov_area/{Shot}_{Step}_v{version}.mov'
+      definition: '@shot_mov_area/{Shot}_{Step}[_{name}]_v{version}.mov'
 
     #
     # Photoshop
     #
 
     shot_photoshop_work_area:
-        definition: '@shot_work_area/photoshop'
-    shot_photoshop_pub_area:
-        definition: '@shot_pub_area/photoshop'
+        definition: '@shot_work_area/workfiles/photoshop'
+    shot_photoshop_pubs_area:
+        definition: '@shot_pubs_area/workfiles/photoshop'
 
     shot_photoshop_work_file:
-        definition: '@shot_work_area/photoshop/{Shot}_{Step}_{current_user}_{name}_v{version}.psd'
+        definition: '@shot_photoshop_work_area/{Shot}_{Step}[_{name}]_v{version}.psd'
     shot_photoshop_snapshot:
-        definition: '@shot_work_area/photoshop/snapshots/{Shot}_{Step}_{current_user}_{name}_v{version}.{timestamp}.psd'
+        definition: '@shot_photoshop_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.psd'
     shot_photoshop_pub_file:
-        definition: '@shot_pub_area/photoshop/{Shot}_{Step}_{current_user}_{name}_v{version}.psd'
+        definition: '@shot_photoshop_pubs_area/{Shot}_{Step}[_{name}]_v{version}.psd'
 
     #
     # Maya
     #
 
     shot_maya_work_area:
-        definition: '@shot_work_area/maya'
-    shot_maya_pub_area:
-        definition: '@shot_pub_area/maya'
+        definition: '@shot_work_area/workfiles/maya'
+    shot_maya_pubs_area:
+        definition: '@shot_pubs_area/workfiles/maya'
 
     shot_maya_work_file:
-        definition: '@shot_work_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
+        definition: '@shot_maya_work_area/{Shot}_{Step}[_{name}]_v{version}.{maya_extension}'
     shot_maya_snapshot:
-        definition: '@shot_work_area/maya/snapshots/{Shot}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
+        definition: '@shot_maya_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.{maya_extension}'
     shot_maya_work_playblast:
-        definition: '@shot_work_area/maya/data/{Shot}_{Step}_v{version}.mov'
+        definition: '@shot_maya_work_area/data/{Shot}_{Step}[_{name}]_v{version}.mov'
     shot_maya_pub_file:
-        definition: '@shot_pub_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
+        definition: '@shot_maya_pubs_area/{Shot}_{Step}[_{name}]_v{version}.{maya_extension}'
 
 
     #
@@ -253,165 +277,121 @@ paths:
     #
 
     shot_nuke_work_area:
-        definition: '@shot_work_area/nuke'
-    shot_nuke_pub_area:
-        definition: '@shot_pub_area/nuke'
+        definition: '@shot_work_area/workfiles/nuke'
+    shot_nuke_pubs_area:
+        definition: '@shot_pubs_area/workfiles/nuke'
 
     shot_nuke_work_file:
-        definition: '@shot_work_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
+        definition: '@shot_nuke_work_area/{Shot}_{Step}[_{name}]_v{version}.nk'
     shot_nuke_snapshot:
-        definition: '@shot_work_area/nuke/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.nk'
+        definition: '@shot_nuke_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.nk'
     shot_nuke_pub_file:
-        definition: '@shot_pub_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
+        definition: '@shot_nuke_pubs_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
-    # main output
-    shot_nuke_work_out: '{Shot}_{Step}_out[-{nuke.output}]_v{version}/{Shot}_{Step}_out[-{nuke.output}]_v{version}.{SEQ}.exr'
-    shot_nuke_work_out_file:
-        definition: '@shot_work_area/images/@shot_nuke_work_out'
-    shot_nuke_pub_out_file:
-        definition: '@shot_pub_area/images/@shot_nuke_work_out'
-    # precomp output
-    shot_nuke_work_prc: '{Shot}_{Step}_prc[-{nuke.output}]_v{version}/{Shot}_{Step}_prc[-{nuke.output}]_v{version}.{SEQ}.exr'
-    shot_nuke_work_prc_file:
-        definition: '@shot_work_area/images/@shot_nuke_work_prc'
-    shot_nuke_pub_prc_file:
-        definition: '@shot_pub_area/images/@shot_nuke_work_prc'
-    # smartvector output
-    shot_nuke_work_smt: '{Shot}_{Step}_smt[-{nuke.output}]_v{version}/{Shot}_{Step}_smt[-{nuke.output}]_v{version}.{SEQ}.exr'
-    shot_nuke_work_smt_file:
-        definition: '@shot_work_area/images/@shot_nuke_work_smt'
-    shot_nuke_pub_smt_file:
-        definition: '@shot_pub_area/images/@shot_nuke_work_smt'
-    # matte output
-    shot_nuke_work_mat: '{Shot}_{Step}_mat[-{nuke.output}]_v{version}/{Shot}_{Step}_mat[-{nuke.output}]_v{version}.{SEQ}.exr'
-    shot_nuke_work_mat_file:
-        definition: '@shot_work_area/images/@shot_nuke_work_mat'
-    shot_nuke_pub_mat_file:
-        definition: '@shot_pub_area/images/@shot_nuke_work_mat'
-    # jpg output
-    shot_nuke_work_jpg: '{Shot}_{Step}_jpg[-{nuke.output}]_v{version}/{Shot}_{Step}_jpg[-{nuke.output}]_v{version}.{SEQ}.jpg'
-    shot_nuke_work_jpg_file:
-        definition: '@shot_work_area/images/@shot_nuke_work_jpg'
-    shot_nuke_pub_jpg_file:
-        definition: '@shot_pub_area/images/@shot_nuke_work_jpg'
-    # mov output
-    shot_nuke_work_mov_file:
-        definition: '@shot_work_area/images/{Shot}_{Step}_mov[-{nuke.output}]_v{version}.mov'
-    shot_nuke_pub_mov_file:
-        definition: '@shot_pub_area/images/{Shot}_{Step}_mov[-{nuke.output}]_v{version}.mov'
+    # frame sequence
+    shot_nuke_render_seq: '{Shot}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Shot}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
+    shot_nuke_work_render_seq:
+        definition: '@shot_work_area/images/{image_category}/@shot_nuke_render_seq'
+    shot_nuke_pub_render_seq:
+        definition: '@shot_pubs_area/images/{image_category}/@shot_nuke_render_seq'
+
+    # movie output
+    shot_nuke_render_mov: '{Shot}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Shot}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{ext}'
+    shot_nuke_work_render_mov:
+        definition: '@shot_work_area/images/{image_category}/@shot_nuke_render_mov'
+    shot_nuke_pub_render_mov:
+        definition: '@shot_pubs_area/images/{image_category}/@shot_nuke_render_mov'
 
     #
     # Hiero
     #
 
-    shot_hiero_elem_file: '{Shot}_{track}_v{version}/{Shot}_{track}_v{version}.{SEQ}.exr'
-    shot_hiero_elem:
-        definition: '@shot_root/elem/@shot_hiero_elem_file'
-    shot_hiero_qt:
-        definition: '@shot_root/movs/{Shot}_{track}_v{version}.mov'
-    shot_hiero_audio:
-        definition: '@shot_root/audio/{Shot}_{track}_v{version}.wav'
+    # shot_hiero_elem_file: '{Shot}_{track}_v{version}/{Shot}_{track}_v{version}.{SEQ}.exr'
+    # shot_hiero_elem:
+    #     definition: '@shot_root/elem/@shot_hiero_elem_file'
+    # shot_hiero_qt:
+    #     definition: '@shot_root/movs/{Shot}_{track}_v{version}.mov'
+    # shot_hiero_audio:
+    #     definition: '@shot_root/audio/{Shot}_{track}_v{version}.wav'
 
     ##########################################################################################
     # Asset pipeline
 
     asset_review_movies:
-      definition: '@asset_mov_area/{Asset}_{Step}_v{version}.mov'
+      definition: '@asset_mov_area/{Asset}_{Step}[_{name}]_v{version}.mov'
 
     #
     # Alembic caches
     #
 
     asset_alembic_cache:
-        definition: '@asset_pub_area/caches/{Asset}_{Step}_{current_user}_{name}_v{version}.abc'
+        definition: '@asset_pubs_area/data/{Asset}_{Step}[_{name}]_v{version}.abc'
 
     #
     # Photoshop
     #
 
     asset_photoshop_work_area:
-        definition: '@asset_work_area/photoshop'
-    asset_photoshop_pub_area:
-        definition: '@asset_pub_area/photoshop'
+        definition: '@asset_work_area/workfiles/photoshop'
+    asset_photoshop_pubs_area:
+        definition: '@asset_pubs_area/workfiles/photoshop'
 
     asset_photoshop_work_file:
-        definition: '@asset_work_area/photoshop/{Asset}_{Step}_{current_user}_{name}_v{version}.psd'
+        definition: '@asset_photoshop_work_area/{Asset}_{Step}[_{name}]_v{version}.psd'
     asset_photoshop_snapshot:
-        definition: '@asset_work_area/photoshop/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.psd'
+        definition: '@asset_photoshop_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.psd'
     asset_photoshop_pub_file:
-        definition: '@asset_pub_area/photoshop/{Asset}_{Step}_{current_user}_{name}_v{version}.psd'
+        definition: '@asset_photoshop_pubs_area/{Asset}_{Step}[_{name}]_v{version}.psd'
 
     #
     # Maya
     #
 
     asset_maya_work_area:
-        definition: '@asset_work_area/maya'
-    asset_maya_pub_area:
-        definition: '@asset_pub_area/maya'
+        definition: '@asset_work_area/workfiles/maya'
+    asset_maya_pubs_area:
+        definition: '@asset_pubs_area/workfiles/maya'
 
     asset_maya_work_file:
-        definition: '@asset_work_area/maya/{Asset}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
+        definition: '@asset_maya_work_area/{Asset}_{Step}[_{name}]_v{version}.{maya_extension}'
     asset_maya_snapshot:
-        definition: '@asset_work_area/maya/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.{maya_extension}'
+        definition: '@asset_maya_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.{maya_extension}'
     asset_maya_work_playblast:
-        definition: '@asset_work_area/maya/data/{Asset}_{Step}_v{version}.mov'
+        definition: '@asset_maya_work_area/data/{Asset}_{Step}[_{name}]_v{version}.mov'
     asset_maya_pub_file:
-        definition: '@asset_pub_area/maya/{Asset}_{Step}_{name}_v{version}.{maya_extension}'
+        definition: '@asset_maya_pubs_area/{Asset}_{Step}[_{name}]_v{version}.{maya_extension}'
 
     #
     # Nuke
     #
 
     asset_nuke_work_area:
-        definition: '@asset_work_area/nuke'
-    asset_nuke_pub_area:
-        definition: '@asset_pub_area/nuke'
+        definition: '@asset_work_area/workfiles/nuke'
+    asset_nuke_pubs_area:
+        definition: '@asset_pubs_area/workfiles/nuke'
 
     asset_nuke_work_file:
-        definition: '@asset_work_area/nuke/{Asset}_{Step}_{current_user}_{name}_v{version}.nk'
+        definition: '@asset_nuke_work_area/{Asset}_{Step}[_{name}]_v{version}.nk'
     asset_nuke_snapshot:
-        definition: '@asset_work_area/nuke/snapshots/{Asset}_{Step}_{current_user}_{name}_v{version}.{timestamp}.nk'
+        definition: '@asset_nuke_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.nk'
     asset_nuke_pub_file:
-        definition: '@asset_pub_area/nuke/{Asset}_{Step}_{current_user}_{name}_v{version}_v{version}.nk'
+        definition: '@asset_nuke_pubs_area/{Asset}_{Step}[_{name}]_v{version}_v{version}.nk'
 
     # Write node locations
-    # main output
-    asset_nuke_work_out: '{Asset}_{Step}_{current_user}_out[-{nuke.output}]_v{version}/{Asset}_{Step}_{current_user}_out[-{nuke.output}]_v{version}.{SEQ}.exr'
-    asset_nuke_work_out_file:
-        definition: '@asset_work_area/images/@asset_nuke_work_out'
-    asset_nuke_pub_out_file:
-        definition: '@asset_pub_area/images/@asset_nuke_work_out'
-    # precomp output
-    asset_nuke_work_prc: '{Asset}_{Step}_{current_user}_prc[-{nuke.output}]_v{version}/{Asset}_{Step}_{current_user}_prc[-{nuke.output}]_v{version}.{SEQ}.exr'
-    asset_nuke_work_prc_file:
-        definition: '@asset_work_area/images/@asset_nuke_work_prc'
-    asset_nuke_pub_prc_file:
-        definition: '@asset_pub_area/images/@asset_nuke_work_prc'
-    # smartvector output
-    asset_nuke_work_smt: '{Asset}_{Step}_{current_user}_smt[-{nuke.output}]_v{version}/{Asset}_{Step}_{current_user}_smt[-{nuke.output}]_v{version}.{SEQ}.exr'
-    asset_nuke_work_smt_file:
-        definition: '@asset_work_area/images/@asset_nuke_work_smt'
-    asset_nuke_pub_smt_file:
-        definition: '@asset_pub_area/images/@asset_nuke_work_smt'
-    # matte output
-    asset_nuke_work_mat: '{Asset}_{Step}_{current_user}_mat[-{nuke.output}]_v{version}/{Asset}_{Step}_{current_user}_mat[-{nuke.output}]_v{version}.{SEQ}.exr'
-    asset_nuke_work_mat_file:
-        definition: '@asset_work_area/images/@asset_nuke_work_mat'
-    asset_nuke_pub_mat_file:
-        definition: '@asset_pub_area/images/@asset_nuke_work_mat'
-    # jpg output
-    asset_nuke_work_jpg: '{Asset}_{Step}_{current_user}_jpg[-{nuke.output}]_v{version}/{Asset}_{Step}_{current_user}_jpg[-{nuke.output}]_v{version}.{SEQ}.jpg'
-    asset_nuke_work_jpg_file:
-        definition: '@asset_work_area/images/@asset_nuke_work_jpg'
-    asset_nuke_pub_jpg_file:
-        definition: '@asset_pub_area/images/@asset_nuke_work_jpg'
-    # mov output
-    asset_nuke_work_mov_file:
-        definition: '@asset_work_area/images/{Asset}_{Step}_{current_user}_mov[-{nuke.output}]_v{version}.mov'
-    asset_nuke_pub_mov_file:
-        definition: '@asset_pub_area/images/{Asset}_{Step}_{current_user}_mov[-{nuke.output}]_v{version}.mov'
+    # frame sequence
+    asset_nuke_render_seq: '{Asset}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Asset}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
+    asset_nuke_work_render_seq:
+        definition: '@asset_work_area/images/{image_category}/@asset_nuke_render_seq'
+    asset_nuke_pub_render_seq:
+        definition: '@asset_pubs_area/images/{image_category}/@asset_nuke_render_seq'
+
+    # movie output
+    asset_nuke_render_mov: '{Asset}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Asset}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{ext}'
+    asset_nuke_work_render_mov:
+        definition: '@asset_work_area/images/{image_category}/@asset_nuke_render_mov'
+    asset_nuke_pub_render_mov:
+        definition: '@asset_pubs_area/images/{image_category}/@asset_nuke_render_mov'
 
 
 #

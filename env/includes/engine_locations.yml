@@ -6,7 +6,7 @@
 engines.tk-desktop.location:
   type: app_store
   name: tk-desktop
-  version: v2.5.3
+  version: v2.5.7
 
 # Desktop2
 engines.tk-desktop2.location:
@@ -38,21 +38,6 @@ engines.tk-maya.location:
   name: tk-maya
   version: v0.10.1
 
-# Nuke
-engines.tk-nuke.location:
-  name: tk-nuke
-  ### App Store
-  # type: app_store
-  # version: v0.12.7
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 1965 #tk-nuke-0.12.7.1
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-nuke_nx
-
 # Photoshop
 engines.tk-photoshopcc.location:
   type: app_store
@@ -69,4 +54,21 @@ engines.tk-shell.location:
 engines.tk-shotgun.location:
   type: app_store
   name: tk-shotgun
-  version: v0.8.2
+  version: v0.9.0
+
+# ---- SHOTGUN ENGINE TAKEOVERS
+
+# Nuke
+engines.tk-nuke.location:
+  name: tk-nuke
+  ### App Store
+  # type: app_store
+  # version: v0.12.7
+  ### Toolkit Component Entity
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 10351 #tk-nuke-0.12.7.2
+  ## Dev
+  # type: dev
+  # path: ~/Documents/Github/tk-nuke_nx
