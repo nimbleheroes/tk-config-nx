@@ -1,6 +1,0 @@
-# the type of dynamic content
-type: "user_workspace"
-
-# the shotgun field to use for the folder name
-name: "login"
-

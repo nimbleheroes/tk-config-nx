@@ -52,6 +52,7 @@ class ContextChange(get_hook_baseclass()):
         :param next_context: The context the engine is switching to.
         :type next_context: :class:`~sgtk.Context`
         """
+
         if next_context != current_context and next_context is not None:
 
             env_vars = {
@@ -85,14 +86,18 @@ class ContextChange(get_hook_baseclass()):
                     env_vars["SEQ"] = seq_code
                     env_vars["SHOT"] = shot_code
 
-                    if shot_camera_raw and shot_lut:
+                    if shot_camera_raw:
                         env_vars["CAMERA_RAW"] = shot_camera_raw
-                        env_vars["LUT"] = shot_lut
-                    elif seq_camera_raw and seq_lut:
+                    elif seq_camera_raw:
                         env_vars["CAMERA_RAW"] = seq_camera_raw
-                        env_vars["LUT"] = seq_lut
-                    elif show_camera_raw and show_lut:
+                    elif show_camera_raw:
                         env_vars["CAMERA_RAW"] = show_camera_raw
+
+                    if shot_lut:
+                        env_vars["LUT"] = shot_lut
+                    elif seq_lut:
+                        env_vars["LUT"] = seq_lut
+                    elif show_lut:
                         env_vars["LUT"] = show_lut
 
                 if type == "Sequence":
@@ -109,11 +114,14 @@ class ContextChange(get_hook_baseclass()):
                     env_vars["SHOW"] = show_code
                     env_vars["SEQ"] = seq_code
 
-                    if seq_camera_raw and seq_lut:
+                    if seq_camera_raw:
                         env_vars["CAMERA_RAW"] = seq_camera_raw
-                        env_vars["LUT"] = seq_lut
-                    elif show_camera_raw and show_lut:
+                    elif show_camera_raw:
                         env_vars["CAMERA_RAW"] = show_camera_raw
+
+                    if seq_lut:
+                        env_vars["LUT"] = seq_lut
+                    elif show_lut:
                         env_vars["LUT"] = show_lut
 
             if next_context.project:
@@ -122,8 +130,9 @@ class ContextChange(get_hook_baseclass()):
                 show_code = show_entity.get('code')
                 show_camera_raw, show_lut = show_entity.get(field_camera_raw), show_entity.get(field_lut)
                 env_vars["SHOW"] = show_code
-                if show_camera_raw and show_lut:
+                if show_camera_raw:
                     env_vars["CAMERA_RAW"] = show_camera_raw
+                if show_lut:
                     env_vars["LUT"] = show_lut
 
             # set the env variables for OCIO to pick up

@@ -42,7 +42,7 @@ apps.tk-multi-loader2.location:
 apps.tk-multi-publish2.location:
   type: app_store
   name: tk-multi-publish2
-  version: v2.5.3
+  version: v2.5.4
 
 # pythonconsole
 apps.tk-multi-pythonconsole.location:
@@ -62,21 +62,6 @@ apps.tk-multi-screeningroom.location:
   name: tk-multi-screeningroom
   version: v0.4.0
 
-# setframerange
-apps.tk-multi-setframerange.location:
-  name: tk-multi-setframerange
-  ### App Store
-  # type: app_store
-  # version: v0.4.1
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 7572 #tk-multi-setframerange-0.4.1-nx
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-multi-setframerange_nx
-
 # shotgun panel
 apps.tk-multi-shotgunpanel.location:
   type: app_store
@@ -95,12 +80,6 @@ apps.tk-multi-workfiles.location:
   name: tk-multi-workfiles
   version: v0.7.4
 
-# workfiles2
-apps.tk-multi-workfiles2.location:
-  type: app_store
-  name: tk-multi-workfiles2
-  version: v0.12.3
-
 # dev utils
 apps.tk-multi-devutils.location:
   type: app_store
@@ -108,18 +87,6 @@ apps.tk-multi-devutils.location:
   version: v1.0.0
 
 # ---- Shotgun apps
-
-# shotgun folders
-apps.tk-shotgun-folders.location:
-  name: tk-shotgun-folders
-  ### App Store
-  # type: app_store
-  # version: v0.1.7
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 1498 #tk-shotgun-folders-0.1.7.1
 
 # shotgun launchfolder
 apps.tk-shotgun-launchfolder.location:
@@ -131,7 +98,7 @@ apps.tk-shotgun-launchfolder.location:
 apps.tk-shotgun-launchpublish.location:
   type: app_store
   name: tk-shotgun-launchpublish
-  version: v0.3.2
+  version: v0.4.0
 
 # ---- Hiero apps
 
@@ -155,6 +122,35 @@ apps.tk-nuke-quickreview.location:
   name: tk-nuke-quickreview
   version: v1.0.3
 
+# ---- SHOTGUN APP TAKEOVERS
+
+# workfiles2
+apps.tk-multi-workfiles2.location:
+  name: tk-multi-workfiles2
+  ### App Store
+  # type: app_store
+  # version: v0.12.3
+  ### Toolkit Component Entity
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 10573 #tk-multi-workfiles2-0.12.3.2
+  ## Dev
+  # type: dev
+  # path: ~/Documents/GitHub/tk-multi-workfiles2_nx
+
+# shotgun folders
+apps.tk-shotgun-folders.location:
+  name: tk-shotgun-folders
+  ### App Store
+  # type: app_store
+  # version: v0.1.7
+  ### Toolkit Component Entity
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 1498 #tk-shotgun-folders-0.1.7.1
+
 # writenode
 apps.tk-nuke-writenode.location:
   name: tk-nuke-writenode
@@ -165,12 +161,27 @@ apps.tk-nuke-writenode.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 748 #tk-nuke-writenode-1.4.2-niho.2
+  version: 10574 #tk-nuke-writenode-1.4.2.12
   ## Dev
   # type: dev
-  # path: ~/Desktop/github/tk-nuke-writenode-niho
+  # path: ~/Documents/GitHub/tk-nuke-writenode_nx
 
-# ---- Nimble Heroes apps
+# setframerange
+apps.tk-multi-setframerange.location:
+  name: tk-multi-setframerange
+  ### App Store
+  # type: app_store
+  # version: v0.4.1
+  ### Toolkit Component Entity
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 10350 #tk-multi-setframerange-0.4.2
+  ## Dev
+  # type: dev
+  # path: ~/Documents/Github/tk-multi-setframerange_nx
+
+# ---- NEXODUS Custom apps
 
 # ocio
 apps.tk-multi-ocio.location:
@@ -179,7 +190,7 @@ apps.tk-multi-ocio.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 1563 #tk-multi-ocio-0.1.1
+  version: 10349 #tk-multi-ocio-0.2.0
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-multi-ocio_nx
