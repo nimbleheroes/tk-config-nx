@@ -161,7 +161,7 @@ apps.tk-nuke-writenode.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 10574 #tk-nuke-writenode-1.4.2.12
+  version: 11133 #tk-nuke-writenode-1.4.2.13
   ## Dev
   # type: dev
   # path: ~/Documents/GitHub/tk-nuke-writenode_nx
@@ -202,7 +202,7 @@ apps.tk-nuke-tools.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 1614 #tk-nuke_tools-0.0.2
+  version: 11131 #tk-nuke_tools-0.1.0
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-nuke-tools_nx

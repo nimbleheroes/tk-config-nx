@@ -77,11 +77,11 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 10569 #tk-framework-nx-0.1.1
+      version: 11130 #tk-framework-nx-0.1.2
       ## Dev
       # type: dev
       # path: ~/Documents/Github/tk-framework-nx
-    Custom Format Entity: CustomNonProjectEntity03
+    Custom Format Entity: "CustomNonProjectEntity03"
 
 
   # nx - NX studio utilities
