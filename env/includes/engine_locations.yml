@@ -72,3 +72,15 @@ engines.tk-nuke.location:
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-nuke_nx
+
+# Generic
+# engines.tk-generic.location:
+#   name: tk-generic
+  ### Toolkit Component Entity
+  # type: shotgun
+  # entity_type: CustomNonProjectEntity13
+  # field: sg_uploaded_app
+  # version: #### #tk-generic-0.0.#
+  ## Dev
+  # type: dev
+  # path: ~/Documents/Github/tk-generic_nx

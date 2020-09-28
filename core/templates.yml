@@ -156,6 +156,9 @@ paths:
     #
     # Pipeline paths
     #
+    # Any path template starting with "pipe_" will get an environment variable automatically
+    # set before application launch by the before_app_launch.py hook.
+    #
 
     pipe_ocio_area:
         definition: 'pipe/ocio'
@@ -177,6 +180,9 @@ paths:
         definition: 'pipe/maya/plugins'
     pipe_maya_library_path:
         definition: 'pipe/maya/library'
+
+    pipe_cache_area:
+        definition: 'cache/'
 
     ##########################################################################################
     #
