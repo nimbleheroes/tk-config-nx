@@ -74,31 +74,30 @@ class BeforeAppLaunch(sgtk.Hook):
             os.environ[k] = v
 
         # Apply Environment Variable entities
-        if engine_name:
-            env_dicts = self.__get_env_vars(current_context, engine_name, version)
+        env_dicts = self.__get_env_vars(current_context, engine_name, version)
 
-            replace_envs = env_dicts["replace"]
-            prepend_envs = env_dicts["prepend"]
-            append_envs = env_dicts["append"]
+        replace_envs = env_dicts["replace"]
+        prepend_envs = env_dicts["prepend"]
+        append_envs = env_dicts["append"]
 
-            for env_key, value_list in replace_envs.iteritems():
-                for env_value in value_list:
-                    self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(env_key, env_value))
-                    os.environ[env_key] = os.path.expandvars(env_value)
+        for env_key, value_list in replace_envs.iteritems():
+            for env_value in value_list:
+                self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(env_key, env_value))
+                os.environ[env_key] = os.path.expandvars(env_value)
 
-            for env_key, value_list in prepend_envs.iteritems():
-                for env_value in value_list:
-                    self.logger.debug("[NEXODUS] Prepending env var: {} = {}".format(env_key, env_value))
-                    sgtk.util.prepend_path_to_env_var(env_key, os.path.expandvars(env_value))
+        for env_key, value_list in prepend_envs.iteritems():
+            for env_value in value_list:
+                self.logger.debug("[NEXODUS] Prepending env var: {} = {}".format(env_key, env_value))
+                sgtk.util.prepend_path_to_env_var(env_key, os.path.expandvars(env_value))
 
-            for env_key, value_list in append_envs.iteritems():
-                for env_value in value_list:
-                    self.logger.debug("[NEXODUS] Appending env var: {} = {}".format(env_key, env_value))
-                    sgtk.util.append_path_to_env_var(env_key, os.path.expandvars(env_value))
+        for env_key, value_list in append_envs.iteritems():
+            for env_value in value_list:
+                self.logger.debug("[NEXODUS] Appending env var: {} = {}".format(env_key, env_value))
+                sgtk.util.append_path_to_env_var(env_key, os.path.expandvars(env_value))
 
-            for method, env_dict in env_dicts.iteritems():
-                for env_key in env_dict.keys():
-                    self.logger.debug("[NEXODUS] Env Var check: {} = {}".format(env_key, os.getenv(env_key)))
+        for method, env_dict in env_dicts.iteritems():
+            for env_key in env_dict.keys():
+                self.logger.debug("[NEXODUS] Env Var check: {} = {}".format(env_key, os.getenv(env_key)))
 
         # Sets the current task to in progress
         if self.parent.context.task:
@@ -121,13 +120,6 @@ class BeforeAppLaunch(sgtk.Hook):
             {
                 'filter_operator': 'any',
                 'filters': [
-                    ['sg_host_engines', 'contains', engine_name],
-                    ['sg_host_engines', 'is', None],
-                ]
-            },
-            {
-                'filter_operator': 'any',
-                'filters': [
                     ['sg_projects', 'in', context.project],
                     ['sg_projects', 'is', None],
                 ]
@@ -140,6 +132,23 @@ class BeforeAppLaunch(sgtk.Hook):
                 ]
             }
         ]
+
+        if engine_name is None:
+
+            no_engine_filter = ['sg_host_engines', 'is', None]
+            filters.append(no_engine_filter)
+
+        else:
+
+            with_engine_filter = {
+                'filter_operator': 'any',
+                'filters': [
+                    ['sg_host_engines', 'contains', engine_name],
+                    ['sg_host_engines', 'is', None],
+                ]
+            }
+            filters.append(with_engine_filter)
+
         os_envs = {'win32': 'sg_env_win',
                    'linux2': 'sg_env_linux', 'darwin': 'sg_env_mac'}
         fields = ['code', 'sg_version',

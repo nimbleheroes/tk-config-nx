@@ -202,7 +202,7 @@ apps.tk-nuke-tools.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 11131 #tk-nuke_tools-0.1.0
+  version: 12008 #tk-nuke_tools-0.1.1
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-nuke-tools_nx

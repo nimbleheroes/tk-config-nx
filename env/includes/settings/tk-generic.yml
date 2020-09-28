@@ -1,0 +1,12 @@
+################################################################################
+
+includes:
+- ../app_locations.yml
+- ../engine_locations.yml
+
+################################################################################
+# Hiero
+
+settings.tk-generic:
+  apps: null
+  location: "@engines.tk-generic.location"

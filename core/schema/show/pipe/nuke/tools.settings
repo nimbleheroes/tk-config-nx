@@ -1,4 +1,4 @@
-# The tool library is a folder contaning .nk and .gizmo files
+# The tool library is a folder containing .nk and .gizmo files
 # that will be loaded into nuke when its location is added
 # to the NUKE_TOOLS_PATH env variable. You can organize your
 # tools inside the folder however you want your tool library
@@ -10,7 +10,7 @@
 
 # This .settings file will configure some aspects about how the
 # menus are loaded into the UI. It must match the name of the
-# tool libary folder on disk and live beside it.
+# tool library folder on disk and live beside it.
 
 # You can also place a .png file next to the library folder with
 # the same name as well that will serve as the menu icon for
@@ -31,7 +31,7 @@ menu_locations:
   - "Node Graph"
 
 # Tools places inside the following hidden folders in your library
-# will still be loaded by nuke (for backwards compatability), but will
+# will still be loaded by nuke (for backwards compatibility), but will
 # be hidden from menus.
 hidden_folders:
   - "Deprecated"
