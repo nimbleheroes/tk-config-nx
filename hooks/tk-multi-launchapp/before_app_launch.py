@@ -72,6 +72,15 @@ class BeforeAppLaunch(sgtk.Hook):
             k = k.upper()
             self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(k, v))
             os.environ[k] = v
+            # if sys.platform == 'win32':
+            #     try:
+            #         import win32wnet
+            #         k_unc = k + "_UNC"
+            #         v_unc = win32wnet.WNetGetUniversalName(v)
+            #         self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(k_unc, v_unc))
+            #         os.environ[k_unc] = v_unc
+            #     except:
+            #         pass
 
         # Apply Environment Variable entities
         env_dicts = self.__get_env_vars(current_context, engine_name, version)

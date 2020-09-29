@@ -69,7 +69,7 @@ class ContextChange(get_hook_baseclass()):
                 "SHOW": None,
                 "SEQ": None,
                 "SHOT": None,
-                "LUT": None,
+                "LUT": "default.cube",
                 "CAMERA_RAW": None,
                 "EDIT_CUT_IN": None,
                 "EDIT_CUT_OUT": None,
