@@ -51,23 +51,22 @@ keys:
         shotgun_entity_type: HumanUser
         shotgun_field_name: login
 
-    # Represents the optional output name for frames written by the Shotgun Write Node
-    nuke.output:
+    output:
         alias: output
         type: str
         filter_by: alphanumeric
 
-    nuke.layer:
+    layer:
         alias: output
         type: str
         filter_by: alphanumeric
 
-    nuke.pass:
+    pass:
         alias: pass
         type: str
         filter_by: alphanumeric
 
-    nuke.view:
+    view:
         alias: view
         type: str
 
@@ -80,6 +79,9 @@ keys:
         type: str
 
     image_category:
+        type: str
+
+    data_category:
         type: str
 
     frame_format:
@@ -419,3 +421,6 @@ strings:
 
     # defines how the {tk_version} token in Hiero gets formatted back to tk.
     hiero_version: "{version}"
+
+    rep_name: "[{layer}_][{view}_]{frame_format}_{ext}"
+    rep_filename: "[{layer}_][{view}_]{frame_format}"
