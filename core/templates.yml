@@ -161,6 +161,9 @@ paths:
     pipe_maya_library_path:
         definition: 'pipe/maya/library'
 
+    pipe_houdini_path:
+        definition: 'pipe/houdini'
+
     ##########################################################################################
     #
     # Show level paths
