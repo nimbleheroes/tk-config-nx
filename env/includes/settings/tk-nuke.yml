@@ -84,6 +84,7 @@ settings.tk-nuke.asset:
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
+  - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: "F12"}
   location: "@engines.tk-nuke.location"
 
 # asset_step
@@ -101,6 +102,7 @@ settings.tk-nuke.asset_step:
     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nuke"
     tk-multi-snapshot: "@settings.tk-multi-snapshot.nuke.asset_step"
     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.nuke.asset_step"
+    tk-multi-publish2: "@settings.tk-multi-publish2.nuke.asset_step"
     tk-nuke-writenode: "@settings.tk-nuke-writenode.asset"
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
@@ -109,6 +111,7 @@ settings.tk-nuke.asset_step:
   - {app_instance: tk-multi-loader2, name: Load..., hotkey: "F2"}
   - {app_instance: tk-multi-breakdown, name: Scene Breakdown..., hotkey: "F3"}
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
+  - {app_instance: tk-multi-publish2, name: Publish..., hotkey: "F12"}
   location: "@engines.tk-nuke.location"
 
 # project
@@ -124,6 +127,7 @@ settings.tk-nuke.project:
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
+  - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: "F12"}
   location: "@engines.tk-nuke.location"
 
 # sequence
@@ -174,6 +178,7 @@ settings.tk-nuke.shot_step:
     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nuke"
     tk-multi-snapshot: "@settings.tk-multi-snapshot.nuke.shot_step"
     tk-multi-workfiles2: "@settings.tk-multi-workfiles2.nuke.shot_step"
+    tk-multi-publish2: "@settings.tk-multi-publish2.nuke.shot_step"
     tk-nuke-writenode: "@settings.tk-nuke-writenode.shot"
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
@@ -182,7 +187,8 @@ settings.tk-nuke.shot_step:
   - {app_instance: tk-multi-loader2, name: Load..., hotkey: "F2"}
   - {app_instance: tk-multi-breakdown, name: Scene Breakdown..., hotkey: "F3"}
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
-  - {app_instance: tk-multi-setframerange, name: Sync Frame Range with Shotgun, hotkey: "F8"}
+  - {app_instance: tk-multi-setframerange, name: Sync Editorial Data from Shotgun, hotkey: "F8"}
+  - {app_instance: tk-multi-publish2, name: Publish..., hotkey: "F12"}
   location: "@engines.tk-nuke.location"
 
 ################################################################################

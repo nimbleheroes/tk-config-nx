@@ -11,6 +11,7 @@ includes:
 - ./includes/settings/tk-shell.yml
 - ./includes/settings/tk-shotgun.yml
 - ./includes/settings/tk-houdini.yml
+# - ./includes/settings/tk-generic.yml
 
 ################################################################################
 # configuration for all engines to load in a project context
@@ -25,6 +26,7 @@ engines:
   tk-shell: "@settings.tk-shell.project"
   tk-shotgun: "@settings.tk-shotgun.project"
   tk-houdini: "@settings.tk-houdini.project"
+  # tk-generic: "@settings.tk-generic"
 
 ################################################################################
 # reference all of the common frameworks

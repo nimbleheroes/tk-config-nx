@@ -109,7 +109,7 @@ settings.tk-multi-publish2.maya.shot_step:
 
 # asset step
 settings.tk-multi-publish2.nuke.asset_step:
-  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
   collector_settings:
       Work Template: asset_nuke_work_file
   publish_plugins:
@@ -134,7 +134,7 @@ settings.tk-multi-publish2.nuke.asset_step:
 
 # shot step
 settings.tk-multi-publish2.nuke.shot_step:
-  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
   collector_settings:
       Work Template: shot_nuke_work_file
   publish_plugins:

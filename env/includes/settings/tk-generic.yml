@@ -2,10 +2,11 @@
 
 includes:
 - ../app_locations.yml
+- ../engine_locations.yml
 
 ################################################################################
+# Hiero
 
-# settings
-settings.tk-nuke-tools:
-  location: "@apps.tk-nuke-tools.location"
-  tool_library_env: NUKE_TOOLS_PATH
+settings.tk-generic:
+  apps: null
+  location: "@engines.tk-generic.location"
