@@ -16,6 +16,7 @@ includes:
 - ./includes/settings/tk-photoshopcc.yml
 - ./includes/settings/tk-shell.yml
 - ./includes/settings/tk-shotgun.yml
+- ./includes/settings/tk-houdini.yml
 
 ################################################################################
 # configuration for all engines to load in an asset context
@@ -26,6 +27,7 @@ engines:
   tk-photoshopcc: "@settings.tk-photoshopcc.asset"
   tk-shell: "@settings.tk-shell.asset"
   tk-shotgun: "@settings.tk-shotgun.asset"
+  tk-houdini: "@settings.tk-houdini.asset"
 
 ################################################################################
 # reference all of the common frameworks

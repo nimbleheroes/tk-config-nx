@@ -337,3 +337,61 @@ settings.tk-multi-workfiles2.photoshop.shot_step:
       link_field: entity
       hierarchy: [step]
   location: "@apps.tk-multi-workfiles2.location"
+
+################################################################################
+
+# ---- Houdini
+
+# asset_step
+settings.tk-multi-workfiles2.houdini.asset_step:
+  template_publish: asset_houdini_pub_file
+  template_publish_area: asset_houdini_pub_area
+  template_work: asset_houdini_work_file
+  template_work_area: asset_houdini_work_area
+  entities:
+  - caption: Assets
+    entity_type: Asset
+    hierarchy: [sg_asset_type, code]
+    filters:
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Shots
+    entity_type: Shot
+    filters:
+    hierarchy: [sg_sequence, code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  location: "@apps.tk-multi-workfiles2.location"
+
+# shot_step
+settings.tk-multi-workfiles2.houdini.shot_step:
+  template_publish: shot_houdini_pub_file
+  template_publish_area: shot_houdini_pub_area
+  template_work: shot_houdini_work_file
+  template_work_area: shot_houdini_work_area
+  entities:
+  - caption: Assets
+    entity_type: Asset
+    hierarchy: [sg_asset_type, code]
+    filters:
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Shots
+    entity_type: Shot
+    filters:
+    hierarchy: [sg_sequence, code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  location: '@apps.tk-multi-workfiles2.location'

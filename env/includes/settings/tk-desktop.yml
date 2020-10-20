@@ -30,9 +30,13 @@ settings.tk-desktop.project:
   show_recents: false
   groups:
   - matches:
+    - "*Gimp*"
+    - "*Blender*"
     - "*Maya*"
+    - "*Substance*"
     - "*Nuke*"
     - "*Photoshop*"
+    - "*Houdini*"
     name: Creative Tools
   - matches:
     - "*Hiero*"

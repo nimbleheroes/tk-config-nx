@@ -181,6 +181,20 @@ apps.tk-multi-setframerange.location:
   # type: dev
   # path: ~/Documents/Github/tk-multi-setframerange_nx
 
+# ---- Houdini apps
+
+# houdini alembicnode
+apps.tk-houdini-alembicnode.location:
+  type: app_store
+  name: tk-houdini-alembicnode
+  version: v0.4.1
+
+# houdini mantranode
+apps.tk-houdini-mantranode.location:
+  type: app_store
+  name: tk-houdini-mantranode
+  version: v0.4.1
+
 # ---- NEXODUS Custom apps
 
 # ocio
