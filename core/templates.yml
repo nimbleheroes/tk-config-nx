@@ -64,6 +64,13 @@ keys:
     eye:
         type: str
 
+    # houdini stuffs
+    houdini.node:
+        alias: node
+        type: str
+    aov_name:
+        type: str
+
     # these are used by the Hiero exporter and pipeline
     YYYY:
         type: int
@@ -247,6 +254,38 @@ paths:
     shot_maya_pub_file:
         definition: '@shot_pub_area/maya/{Shot}_{Step}_{current_user}_{name}_v{version}.{maya_extension}'
 
+    #
+    # Houdini
+    #
+
+    # define the location of a work area
+    shot_houdini_work_area:
+        definition: '@shot_work_area/houdini'
+    # define the location of a publish area
+    shot_houdini_pub_area:
+        definition: '@shot_pub_area/houdini'
+    # The location of WIP files
+    shot_houdini_work_file:
+        definition: '@shot_work_area/houdini/{Shot}_{Step}[_{name}]_v{version}.hip'
+    # The location of backups of WIP files
+    shot_houdini_snapshot:
+        definition: '@shot_work_area/houdini/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.hip'
+    # The location of published houdini files
+    shot_houdini_pub_file:
+        definition: '@shot_pub_area/houdini/{Shot}_{Step}[_{name}]_v{version}.hip'
+    # Alembic caches
+    shot_houdini_work_alembic_cache:
+        definition: '@shot_work_area/houdini/cache/alembic/{name}/{houdini.node}/v{version}/{Shot}_{name}_v{version}.abc'
+    # Rendered images
+    shot_houdini_render:
+        definition: '@shot_work_area/images/{name}/{houdini.node}/v{version}/{width}x{height}/{Shot}_{name}_v{version}.{SEQ}.exr'
+    # Additional mantra outputs
+    shot_houdini_ifd:
+        definition: '@shot_work_area/ifds/{name}/{houdini.node}/v{version}/{width}x{height}/{Shot}_{name}_v{version}.{SEQ}.ifd'
+    shot_houdini_dcm:
+        definition: '@shot_work_area/dcms/{name}/{houdini.node}/v{version}/{width}x{height}/{Shot}_{name}_v{version}.{SEQ}.dcm'
+    shot_houdini_extra_plane:
+        definition: '@shot_work_area/images/{name}/{houdini.node}/{aov_name}/v{version}/{width}x{height}/{Shot}_{name}_v{version}.{SEQ}.exr'
 
     #
     # Nuke
@@ -359,6 +398,39 @@ paths:
         definition: '@asset_work_area/maya/data/{Asset}_{Step}_v{version}.mov'
     asset_maya_pub_file:
         definition: '@asset_pub_area/maya/{Asset}_{Step}_{name}_v{version}.{maya_extension}'
+
+    #
+    # Houdini
+    #
+
+    # define the location of a work area
+    asset_houdini_work_area:
+        definition: '@asset_work_area/houdini'
+    # define the location of a publish area
+    asset_houdini_pub_area:
+        definition: '@asset_pub_area/houdini'
+    # The location of WIP files
+    asset_houdini_work_file:
+        definition: '@asset_work_area/houdini/{Asset}_{Step}[_{name}]_v{version}.hip'
+    # The location of backups of WIP files
+    asset_houdini_snapshot:
+        definition: '@asset_work_area/houdini/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.hip'
+    # The location of published houdini files
+    asset_houdini_pub_file:
+        definition: '@asset_pub_area/houdini/{Asset}_{Step}[_{name}]_v{version}.hip'
+    # Alembic caches
+    asset_houdini_work_alembic_cache:
+        definition: '@asset_work_area/houdini/cache/alembic/{name}/{houdini.node}/v{version}/{Asset}_{name}_v{version}.abc'
+    # Rendered images
+    asset_houdini_render:
+        definition: '@asset_work_area/images/{name}/{houdini.node}/v{version}/{width}x{height}/{Asset}_{name}_v{version}.{SEQ}.exr'
+    # Additional mantra outputs
+    asset_houdini_ifd:
+        definition: '@asset_work_area/ifds/{name}/{houdini.node}/v{version}/{width}x{height}/{Asset}_{name}_v{version}.{SEQ}.ifd'
+    asset_houdini_dcm:
+        definition: '@asset_work_area/dcms/{name}/{houdini.node}/v{version}/{width}x{height}/{Asset}_{name}_v{version}.{SEQ}.dcm'
+    asset_houdini_extra_plane:
+        definition: '@asset_work_area/images/{name}/{houdini.node}/{aov_name}/v{version}/{width}x{height}/{Asset}_{name}_v{version}.{SEQ}.exr'
 
     #
     # Nuke

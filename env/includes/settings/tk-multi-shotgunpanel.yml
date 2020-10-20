@@ -163,3 +163,29 @@ settings.tk-multi-shotgunpanel.photoshop:
     - actions: [quicktime_clipboard, sequence_clipboard, add_to_playlist]
       filters: {}
   location: "@apps.tk-multi-shotgunpanel.location"
+
+# houdini
+settings.tk-multi-shotgunpanel.houdini:
+  action_mappings:
+    PublishedFile:
+    - actions: [import]
+      filters: {published_file_type: Alembic Cache}
+    - actions: [merge]
+      filters: {published_file_type: Houdini Scene}
+    - actions: [file_cop]
+      filters: {published_file_type: Image}
+    - actions: [file_cop]
+      filters: {published_file_type: Photoshop Image}
+    - actions: [file_cop]
+      filters: {published_file_type: Rendered Image}
+    - actions: [file_cop]
+      filters: {published_file_type: Texture}
+    - actions: [publish_clipboard]
+      filters: {}
+    Task:
+    - actions: [assign_task, task_to_ip]
+      filters: {}
+    Version:
+    - actions: [quicktime_clipboard, sequence_clipboard, add_to_playlist]
+      filters: {}
+  location: "@apps.tk-multi-shotgunpanel.location"
