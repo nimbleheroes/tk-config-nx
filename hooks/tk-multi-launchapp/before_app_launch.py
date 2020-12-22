@@ -168,7 +168,9 @@ class BeforeAppLaunch(sgtk.Hook):
 
         env_lists = {"append": [], "prepend": [], "replace": []}
         for result in results:
-            if (
+            if not result.get(os_envs[sys.platform]):
+                pass
+            elif (
                 self.__min_check(app_version, result.get('sg_host_min_version')) and
                 self.__max_check(app_version, result.get('sg_host_max_version'))
             ):
