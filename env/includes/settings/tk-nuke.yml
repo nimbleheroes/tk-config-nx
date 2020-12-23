@@ -86,6 +86,11 @@ settings.tk-nuke.asset:
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
   - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: F12}
   location: '@engines.tk-nuke.location'
+  project_favourite_name: ""
+  favourite_directories:
+  - display_name: "Current Project"
+    template_directory: "project_root"
+    icon: ""
 
 # asset_step
 settings.tk-nuke.asset_step:
@@ -113,6 +118,11 @@ settings.tk-nuke.asset_step:
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
   - {app_instance: tk-multi-publish2, name: Publish..., hotkey: F12}
   location: '@engines.tk-nuke.location'
+  project_favourite_name: ""
+  favourite_directories:
+  - display_name: "Current Project"
+    template_directory: "project_root"
+    icon: ""
 
 # project
 settings.tk-nuke.project:
@@ -130,6 +140,11 @@ settings.tk-nuke.project:
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
   - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: F12}
   location: '@engines.tk-nuke.location'
+  project_favourite_name: ""
+  favourite_directories:
+  - display_name: "Current Project"
+    template_directory: "project_root"
+    icon: ""
 
 # sequence
 settings.tk-nuke.sequence:
@@ -145,6 +160,17 @@ settings.tk-nuke.sequence:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
   location: '@engines.tk-nuke.location'
+  project_favourite_name: ""
+  favourite_directories:
+  - display_name: "Current Project"
+    template_directory: "project_root"
+    icon: ""
+  - display_name: "Sequence Publishes"
+    template_directory: "seq_pubs_area"
+    icon: ""
+  - display_name: "Sequence Work Area"
+    template_directory: "seq_work_area"
+    icon: ""
 
 # shot
 settings.tk-nuke.shot:
@@ -160,6 +186,14 @@ settings.tk-nuke.shot:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
   - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
   location: '@engines.tk-nuke.location'
+  project_favourite_name: ""
+  favourite_directories:
+  - display_name: "Current Project"
+    template_directory: "project_root"
+    icon: ""
+  - display_name: "Shot Publishes"
+    template_directory: "shot_pubs_area"
+    icon: ""
 
 # shot_step
 settings.tk-nuke.shot_step:
@@ -192,6 +226,18 @@ settings.tk-nuke.shot_step:
     hotkey: F8}
   - {app_instance: tk-multi-publish2, name: Publish..., hotkey: F12}
   location: '@engines.tk-nuke.location'
+  project_favourite_name: ""
+  favourite_directories:
+  - display_name: "Current Project"
+    template_directory: "project_root"
+    icon: ""
+  - display_name: "Shot Publishes"
+    template_directory: "shot_pubs_area"
+    icon: ""
+  - display_name: "Shot Work Area"
+    template_directory: "shot_work_area"
+    icon: ""
+
 ################################################################################
 # NukeStudio
 
@@ -370,6 +416,8 @@ settings.tk-nuke.render.project:
     tk-nuke-tools: '@settings.tk-nuke-tools'
     tk-multi-ocio: '@settings.tk-multi-ocio'
   location: '@engines.tk-nuke.location'
+  automatic_context_switch: false
+
 # asset_step
 settings.tk-nuke.render.asset_step:
   apps:
@@ -377,6 +425,8 @@ settings.tk-nuke.render.asset_step:
     tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-nuke-writenode: '@settings.tk-nuke-writenode.asset'
   location: '@engines.tk-nuke.location'
+  automatic_context_switch: false
+
 # shot_step
 settings.tk-nuke.render.shot_step:
   apps:
@@ -384,9 +434,4 @@ settings.tk-nuke.render.shot_step:
     tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-nuke-writenode: '@settings.tk-nuke-writenode.shot'
   location: '@engines.tk-nuke.location'
-frameworks:
-  tk-framework-widget_v1.x.x:
-    location:
-      version: v1.0.0
-      type: app_store
-      name: tk-framework-widget
+  automatic_context_switch: false

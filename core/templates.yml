@@ -130,6 +130,8 @@ paths:
     # These don't require the standard formatting (with definition and root_name) because they
     # will be set within each template that uses the alias.
 
+    project_root: ./
+
     show_root: show/
     asset_root: assets/{Asset}
     seq_root: seqs/{Sequence}
