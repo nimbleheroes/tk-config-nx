@@ -41,10 +41,17 @@ frameworks:
       version: v5.7.6
       type: app_store
       name: tk-framework-shotgunutils
+
   # widget - QT Widget Framework for Tank Apps (qtwidgets fw predecessor)
   tk-framework-widget_v0.2.x:
     location:
       version: v0.2.8
+      type: app_store
+      name: tk-framework-widget
+
+  tk-framework-widget_v1.x.x:
+    location:
+      version: v1.0.0
       type: app_store
       name: tk-framework-widget
 
