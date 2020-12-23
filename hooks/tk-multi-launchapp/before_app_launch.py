@@ -89,6 +89,11 @@ class BeforeAppLaunch(sgtk.Hook):
         prepend_envs = env_dicts["prepend"]
         append_envs = env_dicts["append"]
 
+        env_keys = list(set(replace_envs.keys() + prepend_envs.keys() + append_envs.keys()))
+        for key in env_keys:
+            sgtk.util.append_path_to_env_var("SGTK_ENV_VARS", os.path.expandvars(key))
+        self.logger.debug("[NEXODUS] SGTK_ENV_VARS = {}".format(os.getenv("SGTK_ENV_VARS")))
+
         for env_key, value_list in replace_envs.iteritems():
             for env_value in value_list:
                 self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(env_key, env_value))
