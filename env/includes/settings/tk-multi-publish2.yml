@@ -12,13 +12,13 @@ publish_help_url: &help_url "https://support.shotgunsoftware.com/hc/en-us/articl
 # ---- Stand alone publish
 
 settings.tk-multi-publish2.standalone:
-  collector: "{self}/collector.py"
+  collector: "{config}/tk-multi-publish2/standalone/collector.py"
   publish_plugins:
+  # - name: Ingest as Shot Plate
+  #   hook: "{config}/tk-multi-publish2/standalone/ingest_plate.py"
+  #   settings: {}
   - name: Publish to Shotgun
     hook: "{self}/publish_file.py"
-    settings: {}
-  - name: Upload for review
-    hook: "{self}/upload_version.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"

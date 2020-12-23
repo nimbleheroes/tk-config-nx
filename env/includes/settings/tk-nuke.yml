@@ -22,175 +22,176 @@ includes:
 settings.tk-nuke.hiero.project:
   apps:
     tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-publish2: "@settings.tk-multi-publish2.hiero"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.hiero"
-    tk-multi-snapshot: "@settings.tk-multi-snapshot.hiero"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.hiero.project"
+      location: '@apps.tk-multi-about.location'
+    tk-multi-publish2: '@settings.tk-multi-publish2.hiero'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel.hiero'
+    tk-multi-snapshot: '@settings.tk-multi-snapshot.hiero'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.hiero.project'
     tk-hiero-openinshotgun:
-      location: "@apps.tk-hiero-openinshotgun.location"
-    tk-hiero-export: "@settings.tk-hiero-export"
-    tk-multi-breakdown: "@settings.tk-multi-breakdown.hiero"
-    tk-multi-loader2: "@settings.tk-multi-loader2.hiero.project"
+      location: '@apps.tk-hiero-openinshotgun.location'
+    tk-hiero-export: '@settings.tk-hiero-export'
+    tk-multi-breakdown: '@settings.tk-multi-breakdown.hiero'
+    tk-multi-loader2: '@settings.tk-multi-loader2.hiero.project'
   # engine settings
   bin_context_menu:
   - app_instance: tk-multi-workfiles2
     keep_in_menu: false
-    name: "Open..."
+    name: Open...
     requires_selection: true
   - app_instance: tk-multi-workfiles2
     keep_in_menu: false
-    name: "File Save..."
+    name: File Save...
     requires_selection: true
   - app_instance: tk-multi-snapshot
     keep_in_menu: false
-    name: "Snapshot..."
+    name: Snapshot...
     requires_selection: true
   - app_instance: tk-multi-snapshot
     keep_in_menu: false
-    name: "Snapshot History..."
+    name: Snapshot History...
     requires_selection: true
   - app_instance: tk-multi-publish2
     keep_in_menu: false
-    name: "Publish..."
+    name: Publish...
     requires_selection: true
   spreadsheet_context_menu:
   - app_instance: tk-hiero-openinshotgun
     keep_in_menu: false
-    name: "Open in Shotgun"
+    name: Open in Shotgun
     requires_selection: true
   timeline_context_menu:
   - app_instance: tk-hiero-openinshotgun
     keep_in_menu: false
-    name: "Open in Shotgun"
+    name: Open in Shotgun
     requires_selection: true
   menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  location: "@engines.tk-nuke.location"
-
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  location: '@engines.tk-nuke.location'
 ################################################################################
 # Nuke
 
 # asset
 settings.tk-nuke.asset:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2"
+      location: '@apps.tk-multi-about.location'
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2'
   menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
-  - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: "F12"}
-  location: "@engines.tk-nuke.location"
+  - {app_instance: tk-multi-workfiles2, name: Change Context...}
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
+  - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: F12}
+  location: '@engines.tk-nuke.location'
 
 # asset_step
 settings.tk-nuke.asset_step:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-multi-about:
-      location: "@apps.tk-multi-about.location"
+      location: '@apps.tk-multi-about.location'
     tk-multi-breakdown:
-      location: "@apps.tk-multi-breakdown.location"
-    tk-multi-loader2: "@settings.tk-multi-loader2.nuke"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nuke.asset_step"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nuke"
-    tk-multi-snapshot: "@settings.tk-multi-snapshot.nuke.asset_step"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.nuke.asset_step"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nuke.asset_step"
-    tk-nuke-writenode: "@settings.tk-nuke-writenode.asset"
+      location: '@apps.tk-multi-breakdown.location'
+    tk-multi-loader2: '@settings.tk-multi-loader2.nuke'
+    tk-multi-publish2: '@settings.tk-multi-publish2.nuke.asset_step'
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel.nuke'
+    tk-multi-snapshot: '@settings.tk-multi-snapshot.nuke.asset_step'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.nuke.asset_step'
+    tk-nuke-writenode: '@settings.tk-nuke-writenode.asset'
   menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  - {app_instance: tk-multi-workfiles2, name: File Save..., hotkey: "ctrl+shift+s"}
-  - {app_instance: tk-multi-snapshot, name: Snapshot..., hotkey: "alt+shift+s"}
-  - {app_instance: tk-multi-loader2, name: Load..., hotkey: "F2"}
-  - {app_instance: tk-multi-breakdown, name: Scene Breakdown..., hotkey: "F3"}
-  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
-  - {app_instance: tk-multi-publish2, name: Publish..., hotkey: "F12"}
-  location: "@engines.tk-nuke.location"
+  - {app_instance: tk-multi-workfiles2, name: Change Context...}
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-workfiles2, name: File Save..., hotkey: ctrl+shift+s}
+  - {app_instance: tk-multi-snapshot, name: Snapshot..., hotkey: alt+shift+s}
+  - {app_instance: tk-multi-loader2, name: Load..., hotkey: F2}
+  - {app_instance: tk-multi-breakdown, name: Scene Breakdown..., hotkey: F3}
+  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
+  - {app_instance: tk-multi-publish2, name: Publish..., hotkey: F12}
+  location: '@engines.tk-nuke.location'
 
 # project
 settings.tk-nuke.project:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.launch_at_startup"
+      location: '@apps.tk-multi-about.location'
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.launch_at_startup'
   menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
-  - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: "F12"}
-  location: "@engines.tk-nuke.location"
+  - {app_instance: tk-multi-workfiles2, name: Change Context...}
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
+  - {app_instance: tk-multi-workfiles2, name: Publish..., hotkey: F12}
+  location: '@engines.tk-nuke.location'
 
 # sequence
 settings.tk-nuke.sequence:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2"
+      location: '@apps.tk-multi-about.location'
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2'
   menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
-  location: "@engines.tk-nuke.location"
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
+  location: '@engines.tk-nuke.location'
 
 # shot
 settings.tk-nuke.shot:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-multi-about:
-      location: "@apps.tk-multi-about.location"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.launch_at_startup"
+      location: '@apps.tk-multi-about.location'
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.launch_at_startup'
   menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
-  location: "@engines.tk-nuke.location"
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
+  location: '@engines.tk-nuke.location'
 
 # shot_step
 settings.tk-nuke.shot_step:
   apps:
     # tk-multi-deadline-render: "@settings.tk-multi-deadline-render"
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-multi-about:
-      location: "@apps.tk-multi-about.location"
+      location: '@apps.tk-multi-about.location'
     tk-multi-breakdown:
-      location: "@apps.tk-multi-breakdown.location"
+      location: '@apps.tk-multi-breakdown.location'
     tk-multi-setframerange:
-      location: "@apps.tk-multi-setframerange.location"
+      location: '@apps.tk-multi-setframerange.location'
       lock_range: true
-    tk-multi-loader2: "@settings.tk-multi-loader2.nuke"
-    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
-    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel.nuke"
-    tk-multi-snapshot: "@settings.tk-multi-snapshot.nuke.shot_step"
-    tk-multi-workfiles2: "@settings.tk-multi-workfiles2.nuke.shot_step"
-    tk-multi-publish2: "@settings.tk-multi-publish2.nuke.shot_step"
-    tk-nuke-writenode: "@settings.tk-nuke-writenode.shot"
+    tk-multi-loader2: '@settings.tk-multi-loader2.nuke'
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel.nuke'
+    tk-multi-snapshot: '@settings.tk-multi-snapshot.nuke.shot_step'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.nuke.shot_step'
+    tk-multi-publish2: '@settings.tk-multi-publish2.nuke.shot_step'
+    tk-nuke-writenode: '@settings.tk-nuke-writenode.shot'
   menu_favourites:
-  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: "ctrl+o"}
-  - {app_instance: tk-multi-workfiles2, name: File Save..., hotkey: "ctrl+shift+s"}
-  - {app_instance: tk-multi-snapshot, name: Snapshot..., hotkey: "alt+shift+s"}
-  - {app_instance: tk-multi-loader2, name: Load..., hotkey: "F2"}
-  - {app_instance: tk-multi-breakdown, name: Scene Breakdown..., hotkey: "F3"}
-  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: "F4"}
-  - {app_instance: tk-multi-setframerange, name: Sync Editorial Data from Shotgun, hotkey: "F8"}
-  - {app_instance: tk-multi-publish2, name: Publish..., hotkey: "F12"}
-  location: "@engines.tk-nuke.location"
-
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-workfiles2, name: File Save..., hotkey: ctrl+shift+s}
+  - {app_instance: tk-multi-snapshot, name: Snapshot..., hotkey: alt+shift+s}
+  - {app_instance: tk-multi-loader2, name: Load..., hotkey: F2}
+  - {app_instance: tk-multi-breakdown, name: Scene Breakdown..., hotkey: F3}
+  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
+  - {app_instance: tk-multi-setframerange, name: Sync Editorial Data from Shotgun,
+    hotkey: F8}
+  - {app_instance: tk-multi-publish2, name: Publish..., hotkey: F12}
+  location: '@engines.tk-nuke.location'
 ################################################################################
 # NukeStudio
 
@@ -366,22 +367,26 @@ settings.tk-nuke.shot_step:
 # project
 settings.tk-nuke.render.project:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
-  location: "@engines.tk-nuke.location"
-
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
+  location: '@engines.tk-nuke.location'
 # asset_step
 settings.tk-nuke.render.asset_step:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
-    tk-nuke-writenode: "@settings.tk-nuke-writenode.asset"
-  location: "@engines.tk-nuke.location"
-
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
+    tk-nuke-writenode: '@settings.tk-nuke-writenode.asset'
+  location: '@engines.tk-nuke.location'
 # shot_step
 settings.tk-nuke.render.shot_step:
   apps:
-    tk-nuke-tools: "@settings.tk-nuke-tools"
-    tk-multi-ocio: "@settings.tk-multi-ocio"
-    tk-nuke-writenode: "@settings.tk-nuke-writenode.shot"
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
+    tk-nuke-writenode: '@settings.tk-nuke-writenode.shot'
   location: '@engines.tk-nuke.location'
+frameworks:
+  tk-framework-widget_v1.x.x:
+    location:
+      version: v1.0.0
+      type: app_store
+      name: tk-framework-widget
