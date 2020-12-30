@@ -47,6 +47,7 @@ settings.tk-multi-workfiles2.launch_at_startup:
     - ['task_assignees', 'is', '{context.user}']
     - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
   launch_at_startup: true
+  show_change_context: true
   entities:
   - caption: Assets
     entity_type: Asset
@@ -72,9 +73,8 @@ settings.tk-multi-workfiles2.launch_at_startup:
 
 # ---- hiero/nukestudio
 
-settings.tk-multi-workfiles2.hiero.project:
+settings.tk-multi-workfiles2.hiero.project_step:
   launch_at_startup: true
-  # saveas_default_name: null
   template_publish: show_hiero_pub_file
   template_publish_area: show_hiero_pubs_area
   template_work: show_hiero_work_file

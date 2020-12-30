@@ -23,13 +23,25 @@ settings.tk-nuke.hiero.project:
   apps:
     tk-multi-about:
       location: '@apps.tk-multi-about.location'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.launch_at_startup'
+  # engine settings
+  menu_favourites:
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-workfiles2, name: Change Context...}
+  location: '@engines.tk-nuke.location'
+
+
+settings.tk-nuke.hiero.project_step:
+  apps:
+    tk-multi-about:
+      location: '@apps.tk-multi-about.location'
     tk-multi-publish2: '@settings.tk-multi-publish2.hiero'
     tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel.hiero'
     tk-multi-snapshot: '@settings.tk-multi-snapshot.hiero'
-    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.hiero.project'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.hiero.project_step'
     tk-hiero-openinshotgun:
       location: '@apps.tk-hiero-openinshotgun.location'
-    tk-hiero-export: '@settings.tk-hiero-export'
+    # tk-hiero-export: '@settings.tk-hiero-export'
     tk-multi-breakdown: '@settings.tk-multi-breakdown.hiero'
     tk-multi-loader2: '@settings.tk-multi-loader2.hiero.project'
   # engine settings
@@ -67,6 +79,7 @@ settings.tk-nuke.hiero.project:
   menu_favourites:
   - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
   location: '@engines.tk-nuke.location'
+
 ################################################################################
 # Nuke
 
