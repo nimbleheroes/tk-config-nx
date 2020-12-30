@@ -68,7 +68,7 @@ engines.tk-nuke.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 40078 #tk-nuke-0.12.10.1
+  version: 40605 #tk-nuke-0.12.10.2
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-nuke_nx

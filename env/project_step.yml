@@ -16,7 +16,7 @@ includes:
 
 engines:
   tk-desktop: "@settings.tk-desktop.project"
-  tk-hiero: "@settings.tk-nuke.hiero.project"
+  tk-hiero: "@settings.tk-nuke.hiero.project_step"
   tk-maya: "@settings.tk-maya.project"
   tk-nuke: "@settings.tk-nuke.project"
   tk-nuke-render: "@settings.tk-nuke.render.project"

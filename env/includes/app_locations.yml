@@ -134,7 +134,7 @@ apps.tk-multi-workfiles2.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 10573 #tk-multi-workfiles2-0.12.3.2
+  version: 40627 #tk-multi-workfiles2-0.12.6.2
   ## Dev
   # type: dev
   # path: ~/Documents/GitHub/tk-multi-workfiles2_nx
