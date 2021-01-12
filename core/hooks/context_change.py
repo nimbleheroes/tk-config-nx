@@ -78,6 +78,7 @@ class ContextChange(get_hook_baseclass()):
             }
 
             if next_context.entity:
+                self.logger.debug("Switching Context: {}".format(next_context))
                 type = next_context.entity['type']
                 id = next_context.entity['id']
                 if type == "Shot":
@@ -143,7 +144,7 @@ class ContextChange(get_hook_baseclass()):
                     elif show_lut:
                         env_vars["LUT"] = show_lut
 
-            if next_context.project:
+            elif next_context.project:
                 show_id = next_context.project['id']
                 show_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', show_id]], self.__show_fields)
                 show_code = show_entity.get('code')

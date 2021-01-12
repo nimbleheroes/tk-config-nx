@@ -254,6 +254,9 @@ class NukeSessionCollector(HookBaseClass):
             # get all the instances of the node type
             all_nodes_of_type = [n for n in nuke.allNodes() if n.Class() == node_type]
 
+            first_frame = int(nuke.root()["first_frame"].value())
+            last_frame = int(nuke.root()["last_frame"].value())
+
             # iterate over each instance
             for node in all_nodes_of_type:
 
@@ -273,6 +276,15 @@ class NukeSessionCollector(HookBaseClass):
                 item = super(NukeSessionCollector, self)._collect_file(
                     parent_item, file_path, frame_sequence=True
                 )
+
+                item.properties["node"] = node
+                item.properties["first_frame"] = first_frame
+                item.properties["last_frame"] = last_frame
+
+                if node.knob("use_limit"):
+                    if node.knob("use_limit").getValue():
+                        item.properties["first_frame"] = int(node.knob("first").getValue())
+                        item.properties["last_frame"] = int(node.knob("last").getValue())
 
                 # the item has been created. update the display name to include
                 # the nuke node to make it clear to the user how it was
@@ -321,10 +333,19 @@ class NukeSessionCollector(HookBaseClass):
                 parent_item, file_path, frame_sequence=True
             )
 
+            # check if the theres a slate frame
+            slate_frame = node.input(0).metadata().get('nx/slate_frame')
+            if slate_frame:
+                item.properties["slate_frame"] = int(slate_frame)
+
             item.properties["sequence_paths"] = rendered_files
+            item.properties["node"] = node
             item.properties["first_frame"] = first_frame
             item.properties["last_frame"] = last_frame
-            item.properties["sg_writenode"] = node
+
+            if node.knob("use_limit").getValue():
+                item.properties["first_frame"] = int(node.knob("first").getValue())
+                item.properties["last_frame"] = int(node.knob("last").getValue())
 
             # the item has been created. update the display name to include
             # the nuke node to make it clear to the user how it was
