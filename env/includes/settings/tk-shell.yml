@@ -51,6 +51,14 @@ settings.tk-shell.shot:
     tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
   location: '@engines.tk-shell.location'
 
+# seq_step
+settings.tk-shell.seq_step:
+  apps:
+    tk-multi-launchapp: '@settings.tk-multi-launchapp'
+    tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+  location: '@engines.tk-shell.location'
+
 # shot_step
 settings.tk-shell.shot_step:
   apps:

@@ -246,6 +246,48 @@ settings.tk-multi-workfiles2.nuke.asset_step:
       hierarchy: [step]
   location: "@apps.tk-multi-workfiles2.location"
 
+# seq_step
+settings.tk-multi-workfiles2.nuke.seq_step:
+  launch_at_startup: true
+  show_change_context: true
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
+  saveas_default_name: comp
+  template_publish: seq_nuke_pub_file
+  template_publish_area: seq_nuke_pubs_area
+  template_work: seq_nuke_work_file
+  template_work_area: seq_nuke_work_area
+  entities:
+  - caption: Assets
+    entity_type: Asset
+    hierarchy: [sg_asset_type, code]
+    filters:
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Sequences
+    entity_type: Sequence
+    filters:
+    hierarchy: [code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Shots
+    entity_type: Shot
+    filters:
+    hierarchy: [sg_sequence, code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  location: "@apps.tk-multi-workfiles2.location"
+
 # shot_step
 settings.tk-multi-workfiles2.nuke.shot_step:
   launch_at_startup: true
@@ -300,6 +342,48 @@ settings.tk-multi-workfiles2.photoshop.asset_step:
     entity_type: Asset
     hierarchy: [sg_asset_type, code]
     filters:
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Shots
+    entity_type: Shot
+    filters:
+    hierarchy: [sg_sequence, code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  location: "@apps.tk-multi-workfiles2.location"
+
+# seq_step
+settings.tk-multi-workfiles2.photoshop.seq_step:
+  launch_at_startup: true
+  show_change_context: true
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
+  saveas_default_name: art
+  template_publish: seq_photoshop_pub_file
+  template_publish_area: seq_photoshop_pubs_area
+  template_work: seq_photoshop_work_file
+  template_work_area: seq_photoshop_work_area
+  entities:
+  - caption: Assets
+    entity_type: Asset
+    hierarchy: [sg_asset_type, code]
+    filters:
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Sequences
+    entity_type: Sequence
+    filters:
+    hierarchy: [code]
     sub_hierarchy:
       entity_type: Task
       filters:

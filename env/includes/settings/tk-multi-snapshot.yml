@@ -45,6 +45,12 @@ settings.tk-multi-snapshot.nuke.asset_step:
   template_work: asset_nuke_work_file
   location: "@apps.tk-multi-snapshot.location"
 
+# seq step
+settings.tk-multi-snapshot.nuke.seq_step:
+  template_snapshot: seq_nuke_snapshot
+  template_work: seq_nuke_work_file
+  location: "@apps.tk-multi-snapshot.location"
+
 # shot step
 settings.tk-multi-snapshot.nuke.shot_step:
   template_snapshot: shot_nuke_snapshot
@@ -59,6 +65,12 @@ settings.tk-multi-snapshot.nuke.shot_step:
 settings.tk-multi-snapshot.photoshop.asset_step:
   template_snapshot: asset_photoshop_snapshot
   template_work: asset_photoshop_work_file
+  location: "@apps.tk-multi-snapshot.location"
+
+# seq step
+settings.tk-multi-snapshot.photoshop.seq_step:
+  template_snapshot: seq_photoshop_snapshot
+  template_work: seq_photoshop_work_file
   location: "@apps.tk-multi-snapshot.location"
 
 # shot step

@@ -94,6 +94,78 @@ settings.tk-nuke-writenode.asset:
     tile_color: []
   location: "@apps.tk-nuke-writenode.location"
 
+# sequence
+## note that the options here are required fields, you cannot comment
+## entire lines or the write nodes will break
+settings.tk-nuke-writenode.seq:
+  template_script_work: seq_nuke_work_file
+  show_convert_actions: True
+  image_categories: *image_categories
+  write_nodes:
+  - file_type: exr
+    name: EXRs
+    promote_write_knobs: [compression, autocrop]
+    proxy_publish_template:
+    proxy_render_template:
+    render_template: seq_nuke_work_render_seq
+    publish_template: seq_nuke_pub_render_seq
+    settings:
+      colorspace: ACES - ACEScg
+      autocrop: True
+      channels: rgb
+      compression: Zip (1 scanline)
+      dw_compression_level: 20
+      datatype: 16 bit half
+      metadata: all metadata
+    tank_type: Rendered Image
+    tile_color: []
+  - file_type: dpx
+    name: DPXs
+    promote_write_knobs: [datatype]
+    proxy_publish_template:
+    proxy_render_template:
+    render_template: seq_nuke_work_render_seq
+    publish_template: seq_nuke_pub_render_seq
+    settings:
+      channels: rgb
+      datatype: "16 bit"
+      colorspace: "Camera Raw"
+    tank_type: Rendered Image
+    tile_color: []
+  - file_type: jpg
+    name: JPGs
+    promote_write_knobs: []
+    proxy_publish_template:
+    proxy_render_template:
+    render_template: seq_nuke_work_render_seq
+    publish_template: seq_nuke_pub_render_seq
+    settings:
+      colorspace: "Output - Rec.709"
+      channels: rgb
+      _jpeg_quality: 0.9
+      _jpeg_sub_sampling: "4:4:4"
+    tank_type: Rendered Image
+    tile_color: []
+  - file_type: exr
+    name: SmartVectors
+    # promote_write_knobs: [autocrop, datatype, compression]
+    promote_write_knobs: []
+    proxy_publish_template:
+    proxy_render_template:
+    render_template: seq_nuke_work_render_seq
+    publish_template: seq_nuke_pub_render_seq
+    settings:
+      colorspace: ACES - ACEScg
+      channels: all
+      compression: Zip (1 scanline)
+      datatype: 16 bit half
+      metadata: all metadata except input/*
+      interleave: channels
+      write_full_layer_names: True
+    tank_type: Rendered Image
+    tile_color: []
+  location: "@apps.tk-nuke-writenode.location"
+
 # shot
 ## note that the options here are required fields, you cannot comment
 ## entire lines or the write nodes will break

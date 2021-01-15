@@ -208,6 +208,48 @@ settings.tk-nuke.shot:
     template_directory: "shot_pubs_area"
     icon: ""
 
+# seq_step
+settings.tk-nuke.seq_step:
+  apps:
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
+    tk-multi-about:
+      location: '@apps.tk-multi-about.location'
+    tk-multi-breakdown:
+      location: '@apps.tk-multi-breakdown.location'
+    # tk-multi-setframerange:
+    #   location: '@apps.tk-multi-setframerange.location'
+    #   lock_range: true
+    tk-multi-loader2: '@settings.tk-multi-loader2.nuke'
+    tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+    tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel.nuke'
+    tk-multi-snapshot: '@settings.tk-multi-snapshot.nuke.seq_step'
+    tk-multi-workfiles2: '@settings.tk-multi-workfiles2.nuke.seq_step'
+    tk-multi-publish2: '@settings.tk-multi-publish2.nuke.seq_step'
+    tk-nuke-writenode: '@settings.tk-nuke-writenode.seq'
+  menu_favourites:
+  - {app_instance: tk-multi-workfiles2, name: File Open..., hotkey: ctrl+o}
+  - {app_instance: tk-multi-workfiles2, name: File Save..., hotkey: ctrl+shift+s}
+  - {app_instance: tk-multi-snapshot, name: Snapshot..., hotkey: alt+shift+s}
+  - {app_instance: tk-multi-loader2, name: Load..., hotkey: F2}
+  - {app_instance: tk-multi-breakdown, name: Scene Breakdown..., hotkey: F3}
+  - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel..., hotkey: F4}
+  # - {app_instance: tk-multi-setframerange, name: Sync Editorial Data from Shotgun,
+  #   hotkey: F8}
+  - {app_instance: tk-multi-publish2, name: Publish..., hotkey: F12}
+  location: '@engines.tk-nuke.location'
+  project_favourite_name: ""
+  favourite_directories:
+  - display_name: "Current Project"
+    template_directory: "project_root"
+    icon: ""
+  - display_name: "Seq Publishes"
+    template_directory: "seq_pubs_area"
+    icon: ""
+  - display_name: "Seq Work Area"
+    template_directory: "seq_work_area"
+    icon: ""
+
 # shot_step
 settings.tk-nuke.shot_step:
   apps:
@@ -446,5 +488,14 @@ settings.tk-nuke.render.shot_step:
     tk-nuke-tools: '@settings.tk-nuke-tools'
     tk-multi-ocio: '@settings.tk-multi-ocio'
     tk-nuke-writenode: '@settings.tk-nuke-writenode.shot'
+  location: '@engines.tk-nuke.location'
+  automatic_context_switch: false
+
+# shot_step
+settings.tk-nuke.render.seq_step:
+  apps:
+    tk-nuke-tools: '@settings.tk-nuke-tools'
+    tk-multi-ocio: '@settings.tk-multi-ocio'
+    tk-nuke-writenode: '@settings.tk-nuke-writenode.seq'
   location: '@engines.tk-nuke.location'
   automatic_context_switch: false

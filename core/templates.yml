@@ -220,6 +220,22 @@ paths:
       definition: '@seq_mov_area/{Sequence}_{Step}[_{name}]_v{version}.mov'
 
     #
+    # Photoshop
+    #
+
+    seq_photoshop_work_area:
+        definition: '@seq_work_area/workfiles/photoshop'
+    seq_photoshop_pubs_area:
+        definition: '@seq_pubs_area/workfiles/photoshop'
+
+    seq_photoshop_work_file:
+        definition: '@seq_photoshop_work_area/{Sequence}_{Step}[_{name}]_v{version}.psd'
+    seq_photoshop_snapshot:
+        definition: '@seq_photoshop_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.psd'
+    seq_photoshop_pub_file:
+        definition: '@seq_photoshop_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.psd'
+
+    #
     # Maya
     #
 
@@ -236,6 +252,38 @@ paths:
         definition: '@seq_maya_work_area/data/{Sequence}_{Step}[_{name}]_v{version}.mov'
     seq_maya_pub_file:
         definition: '@seq_maya_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.{maya_extension}'
+
+    #
+    # Nuke
+    #
+
+    seq_nuke_work_area:
+        definition: '@seq_work_area/workfiles/nuke'
+    seq_nuke_pubs_area:
+        definition: '@seq_pubs_area/workfiles/nuke'
+
+    seq_nuke_work_file:
+        definition: '@seq_nuke_work_area/{Sequence}_{Step}[_{name}]_v{version}.nk'
+    seq_nuke_snapshot:
+        definition: '@seq_nuke_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.nk'
+    seq_nuke_pub_file:
+        definition: '@seq_nuke_pubs_area/nuke/{Sequence}_{Step}[_{name}]_v{version}.nk'
+
+    # Write node locations
+    # frame sequence
+    seq_nuke_render_seq: '{Sequence}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Sequence}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
+    seq_nuke_work_render_seq:
+        definition: '@seq_work_area/images/{image_category}/@seq_nuke_render_seq'
+    seq_nuke_pub_render_seq:
+        definition: '@seq_pubs_area/images/{image_category}/@seq_nuke_render_seq'
+
+    # movie output
+    seq_nuke_render_mov: '{Sequence}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Sequence}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{ext}'
+    seq_nuke_work_render_mov:
+        definition: '@seq_work_area/images/{image_category}/@seq_nuke_render_mov'
+    seq_nuke_pub_render_mov:
+        definition: '@seq_pubs_area/images/{image_category}/@seq_nuke_render_mov'
+
 
     ##########################################################################################
     #
