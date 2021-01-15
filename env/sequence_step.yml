@@ -18,11 +18,11 @@ engines:
   # referencing the DCC-specific shot_step environments included above
   tk-desktop2: "@settings.tk-desktop2.all"
   tk-maya: "@settings.tk-maya.seq_step"
-  tk-nuke: "@settings.tk-nuke.shot_step"
-  tk-nuke-render: "@settings.tk-nuke.render.shot_step"
-  tk-photoshopcc: "@settings.tk-photoshopcc.shot_step"
-  tk-shell: "@settings.tk-shell.shot_step"
-  tk-shotgun: "@settings.tk-shotgun.shot_step"
+  tk-nuke: "@settings.tk-nuke.seq_step"
+  tk-nuke-render: "@settings.tk-nuke.render.seq_step"
+  tk-photoshopcc: "@settings.tk-photoshopcc.seq_step"
+  tk-shell: "@settings.tk-shell.seq_step"
+  tk-shotgun: "@settings.tk-shotgun.seq_step"
 
 ################################################################################
 # reference all of the common frameworks

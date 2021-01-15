@@ -84,6 +84,15 @@ settings.tk-shotgun.shot:
     tk-shotgun-launchfolder: "@settings.tk-shotgun-launchfolder"
   location: "@engines.tk-shotgun.location"
 
+# seq_step
+settings.tk-shotgun.seq_step:
+  apps:
+    tk-multi-launchapp: "@settings.tk-multi-launchapp.shotgun"
+    tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
+    tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
+    tk-shotgun-launchfolder: "@settings.tk-shotgun-launchfolder"
+  location: "@engines.tk-shotgun.location"
+
 # shot_step
 settings.tk-shotgun.shot_step:
   apps:
