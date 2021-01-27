@@ -183,7 +183,6 @@ settings.tk-multi-publish2.nuke.shot_step:
           update:
             entity: Version
             field: sg_path_to_frames
-
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
     settings: {}

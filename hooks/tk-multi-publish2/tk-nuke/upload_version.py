@@ -24,7 +24,6 @@ class UploadVersionPlugin(HookBaseClass):
     Plugin for sending quicktimes and images to shotgun for review.
     """
 
-
     @property
     def icon(self):
         """
@@ -58,8 +57,6 @@ class UploadVersionPlugin(HookBaseClass):
         return """
         Upload the file to Shotgun for review.<br><br>
 
-        DEV BRANCH<br><br>
-        
         A <b>Version</b> entry will be created in Shotgun and a transcoded
         copy of the file will be attached to it. The file can then be reviewed
         via the project's <a href='%s'>Media</a> page, <a href='%s'>RV</a>, or
