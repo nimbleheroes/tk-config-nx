@@ -168,7 +168,22 @@ settings.tk-multi-publish2.nuke.shot_step:
     settings: {}
   - name: Upload for review
     hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
-    settings: {}
+    settings:
+     Source Correlate:  # given a matching rep, assert where it came from.
+        - templates:
+            rep: shot_nuke_work_render_mov # publish item must be from this template
+            source: shot_nuke_pub_render_seq # if so, we'll apply the fields to this template with below field changes
+          fields:
+            rep: # must match these fields when inspecting the path
+              frame_format: hd
+              extension: mov
+            source: # supply these fields when asserting the exact source path
+              frame_format: uhd21
+              extension: exr
+          update:
+            entity: Version
+            field: sg_path_to_frames
+
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
     settings: {}
