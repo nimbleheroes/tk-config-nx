@@ -11,7 +11,7 @@
 import os
 import pprint
 
-
+import re
 import sgtk
 import nuke
 from tank_vendor import six
@@ -104,6 +104,10 @@ class UploadVersionPlugin(HookBaseClass):
                 "default": True,
                 "description": "Should the local file be referenced by Shotgun",
             },
+            "Source Correlate": {
+                "type": "str",
+                "description": "How to correlate abstract reps to their source files",
+            },
         }
 
     @property
@@ -188,6 +192,50 @@ class UploadVersionPlugin(HookBaseClass):
 
         :returns: True if item is valid, False otherwise.
         """
+
+        # get tk object to do some out of scope calls
+        tk = self.parent.sgtk
+        path = item.properties["path"]
+
+        # get the incoming template
+        rep_template = tk.template_from_path(item.properties["path"])
+        rep_fields = rep_template.get_fields(path)
+
+        # rep -> source correlate map
+        correlates = settings.get("Source Correlate").value
+        if correlates:
+            self.logger.debug("Upload media plugin has correlate rules specified")
+
+        # try specified rules to see if uploaded content relates to source content
+        for correlate in correlates:
+            match = []
+            dest_fields = rep_fields.copy()
+            if correlate.get('templates').get('rep') == rep_template.name: # base requirement for triggering a correlate
+                match.append(True)
+                if correlate.get('fields'):
+                    for field, value in correlate.get('fields').get('rep').iteritems():
+                        if field in rep_fields.keys():
+                            if rep_fields.get(field) == value:
+                                match.append(True)
+                                dest_fields[field] = correlate.get('fields').get('source').get(field)
+                            else:
+                                match.append(False)
+
+            if all(match):  # if the template, and field requirements all match...
+                self.logger.info("Upload media correlate match detected.")
+                source_template = tk.templates.get(correlate.get('templates').get('source'))
+                source_path = source_template.apply_fields(dest_fields)
+                self.logger.info("Source path: %s" % source_path)
+
+                # set correlate info into the collected item for use in the publish step
+                item.properties['correlate'] = {
+                    "path" : source_path,
+                    "rule" : correlate
+                }
+                break
+            else:
+                self.logger.warning('Could not correlate the rep to its source')
+
         return True
 
     def publish(self, settings, item):
@@ -202,6 +250,9 @@ class UploadVersionPlugin(HookBaseClass):
 
         publisher = self.parent
         path = item.properties["path"]
+
+        # get tk object to do some out of scope calls
+        tk = publisher.sgtk
 
         # allow the publish name to be supplied via the item properties. this is
         # useful for collectors that have access to templates and can determine
@@ -227,6 +278,20 @@ class UploadVersionPlugin(HookBaseClass):
             "sg_task": item.context.task,
         }
 
+        # if correlates are defined at all, look to see if any matched and then use them
+        if settings.get('Source Correlate'):
+            correlate = item.properties.get('correlate')
+            if correlate:
+
+                update = correlate.get('rule').get('update')
+                if update and update.get('entity').lower() == "version":
+
+                    # if there is a destination field for putting the correlated path
+                    version_data[update.get('field')] = correlate.get('path')
+                    self.logger.info("Correlate media set in %s.%s: %s" % (update.get('entity'),
+                                                                           update.get('field'),
+                                                                           correlate.get('path')))
+
         if all(key in item.properties for key in ('first_frame', 'last_frame')):
             first_frame = item.properties["first_frame"]
             last_frame = item.properties["last_frame"]
@@ -239,8 +304,9 @@ class UploadVersionPlugin(HookBaseClass):
             publish_data = item.properties["sg_publish_data"]
             version_data["published_files"] = [publish_data]
 
-        if settings["Link Local File"].value:
-            version_data["sg_path_to_movie"] = path
+            # make local media link dependent on publish file path
+            if settings["Link Local File"].value:
+                version_data["sg_path_to_movie"] = publish_data.get('path').get('local_path_linux')
 
         # log the version data for debugging
         self.logger.debug(
