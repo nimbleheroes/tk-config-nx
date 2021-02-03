@@ -1,0 +1,11 @@
+################################################################################
+
+includes:
+- ../app_locations.yml
+
+################################################################################
+
+settings.tk-delivery:
+  deny_permissions: []
+  deny_platforms: []
+  location: "@apps.tk-delivery.location"
