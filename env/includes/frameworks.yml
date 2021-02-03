@@ -16,18 +16,14 @@ frameworks:
       version: v0.6.1
       type: app_store
       name: tk-framework-adminui
-  # desktopserver - provides a server to run local commands.
-  tk-framework-desktopserver_v1.x.x:
-    location:
-      version: v1.4.4
-      type: app_store
-      name: tk-framework-desktopserver
+
   # qtwidgets - collection of Toolkit related QT Widgets
   tk-framework-qtwidgets_v2.x.x:
     location:
       version: v2.9.4
       type: app_store
       name: tk-framework-qtwidgets
+
   # shotgunutils v4 - Shotgun Related Utilities
   tk-framework-shotgunutils_v4.x.x:
     location:
@@ -103,3 +99,21 @@ frameworks:
       ## Dev
       # type: dev
       # path: ~/Documents/Github/tk-framework-editorial
+
+  # desktopserver - provides a server to run local commands.
+  tk-framework-desktopserver_v1.x.x:
+    add_ami_entities:
+      - Playlist
+    location:
+      name: tk-framework-desktopserver
+      ### App Store
+      # version: v1.4.4
+      # type: app_store
+      ### Toolkit Component Entity
+      type: shotgun
+      entity_type: CustomNonProjectEntity13
+      field: sg_uploaded_app
+      version: 43474 #tk-framework-desktopserver-1.4.6.1
+      ### Dev
+      # type: dev
+      # path: ~/Documents/Github/tk-framework-desktopserver_nx

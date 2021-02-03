@@ -8,6 +8,7 @@ includes:
 - ./tk-shotgun-folders.yml
 - ./tk-shotgun-launchfolder.yml
 - ./tk-shotgun-launchpublish.yml
+- ./tk-delivery.yml
 
 ################################################################################
 
@@ -62,6 +63,12 @@ settings.tk-shotgun.publishedfile:
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-shotgun-launchpublish: "@settings.tk-shotgun-launchpublish"
     tk-shotgun-launchfolder: "@settings.tk-shotgun-launchfolder"
+  location: "@engines.tk-shotgun.location"
+
+# playlist
+settings.tk-shotgun.playlist:
+  apps:
+    tk-delivery: "@settings.tk-delivery"
   location: "@engines.tk-shotgun.location"
 
 # sequence
