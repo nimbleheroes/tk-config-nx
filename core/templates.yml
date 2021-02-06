@@ -51,6 +51,12 @@ keys:
         shotgun_entity_type: HumanUser
         shotgun_field_name: login
 
+    # delivery keys
+    client_code:
+        type: str
+    playlist_name:
+        type: str
+
     # Represents the optional output name for frames written by the Shotgun Write Node
     nuke.output:
         alias: output
@@ -153,6 +159,18 @@ paths:
     shot_pubs_area: shots/{Shot}/pubs
     shot_mov_area: shots/{Shot}/movs
 
+    ##########################################################################################
+    #
+    # Delivery Paths
+    #
+
+    delivery_inbox: xfer/inbox
+    delivery_outbox: xfer/outbox
+
+    delivery_movie:
+        definition: '@delivery_outbox/{playlist_name}/{client_code}[_{name}]_v{version}.{ext}'
+    delivery_frame_seq:
+        definition: '@delivery_outbox/{playlist_name}/{client_code}[_{name}]_v{version}/{client_code}[_{name}]_v{version}.{SEQ}.{ext}'
 
     ##########################################################################################
     #
