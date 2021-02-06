@@ -158,7 +158,7 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 43472 #tk-delivery-0.0.1
+  version: 44292 #tk-delivery-0.0.2
   ## Dev
   # type: dev
   # path: ~/Documents/GitHub/tk-delivery_nx

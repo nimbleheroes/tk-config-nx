@@ -74,18 +74,31 @@ frameworks:
       # path: ~/Documents/Github/tk-framework-nx
 
   tk-framework-nx_v0.x.x:
+    Custom Format Entity: CustomNonProjectEntity03
     location:
       name: tk-framework-nx
       ### Toolkit Component Entity
       type: shotgun
       entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 12007 #tk-framework-nx-0.1.3
+      version: 44291 #tk-framework-nx-0.1.4
       ## Dev
       # type: dev
       # path: ~/Documents/Github/tk-framework-nx
-    Custom Format Entity: CustomNonProjectEntity03
 
+  # tk-framework-deadline_v0.x.x:
+  #   web_service_machine: 10.0.2.49
+  #   web_service_port: 8082
+  #   location:
+  #     name: tk-framework-deadline
+  #     ### Toolkit Component Entity
+  #     # type: shotgun
+  #     # entity_type: CustomNonProjectEntity13
+  #     # field: sg_uploaded_app
+  #     # version: 00000 #tk-framework-deadline-0.0.0
+  #     ## Dev
+  #     type: dev
+  #     path: ~/Documents/Github/tk-framework-deadline_nx
 
   # nx - NX studio utilities
   tk-framework-editorial_v0.0.x:
