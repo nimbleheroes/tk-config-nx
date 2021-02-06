@@ -81,7 +81,7 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 44291 #tk-framework-nx-0.1.4
+      version: 44294 #tk-framework-nx-0.1.5
       ## Dev
       # type: dev
       # path: ~/Documents/Github/tk-framework-nx
