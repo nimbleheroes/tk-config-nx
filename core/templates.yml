@@ -168,9 +168,9 @@ paths:
     delivery_outbox: xfer/outbox
 
     delivery_movie:
-        definition: '@delivery_outbox/{playlist_name}/{client_code}[_{name}]_v{version}.{ext}'
+        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}.{ext}'
     delivery_frame_seq:
-        definition: '@delivery_outbox/{playlist_name}/{client_code}[_{name}]_v{version}/{client_code}[_{name}]_v{version}.{SEQ}.{ext}'
+        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}/{client_code}_v{version}.{SEQ}.{ext}'
 
     ##########################################################################################
     #
@@ -189,6 +189,9 @@ paths:
         definition: 'pipe/nuke/python'
     pipe_nuke_tools_path:
         definition: 'pipe/nuke/tools'
+
+    pipe_hiero_path:
+        definition: 'pipe/hiero/python'
 
     pipe_maya_path:
         definition: 'pipe/maya'
