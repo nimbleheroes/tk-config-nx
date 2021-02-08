@@ -12,7 +12,7 @@ includes:
 apps.tk-multi-about.location:
   type: app_store
   name: tk-multi-about
-  version: v0.3.2
+  version: v0.3.3
 
 # breakdown
 apps.tk-multi-breakdown.location:
@@ -84,7 +84,7 @@ apps.tk-multi-workfiles.location:
 apps.tk-multi-devutils.location:
   type: app_store
   name: tk-multi-devutils
-  version: v1.0.0
+  version: v1.1.0
 
 # ---- Shotgun apps
 
@@ -98,7 +98,7 @@ apps.tk-shotgun-launchfolder.location:
 apps.tk-shotgun-launchpublish.location:
   type: app_store
   name: tk-shotgun-launchpublish
-  version: v0.4.0
+  version: v0.4.1
 
 # ---- Hiero apps
 

@@ -18,7 +18,7 @@ settings.tk-multi-publish2.standalone:
   #   hook: "{config}/tk-multi-publish2/standalone/ingest_plate.py"
   #   settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
@@ -34,7 +34,7 @@ settings.tk-multi-publish2.maya.asset_step:
       Work Template: asset_maya_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
@@ -45,11 +45,11 @@ settings.tk-multi-publish2.maya.asset_step:
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: asset_maya_pub_file
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{config}/tk-multi-publish2/tk-maya/publish_session_geometry.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/tk-maya/publish_session_geometry.py"
     settings:
         Publish Template: asset_alembic_cache
   help_url: *help_url
@@ -62,7 +62,7 @@ settings.tk-multi-publish2.maya.seq_step:
       Work Template: seq_maya_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
@@ -73,7 +73,7 @@ settings.tk-multi-publish2.maya.seq_step:
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: seq_maya_pub_file
   help_url: *help_url
@@ -86,7 +86,7 @@ settings.tk-multi-publish2.maya.shot_step:
       Work Template: shot_maya_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
@@ -97,7 +97,7 @@ settings.tk-multi-publish2.maya.shot_step:
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: shot_maya_pub_file
   help_url: *help_url
@@ -114,7 +114,7 @@ settings.tk-multi-publish2.nuke.asset_step:
       Work Template: asset_nuke_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{self}/upload_version.py"
@@ -123,7 +123,7 @@ settings.tk-multi-publish2.nuke.asset_step:
     hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: asset_nuke_pub_file
   - name: Submit for Review
@@ -139,7 +139,7 @@ settings.tk-multi-publish2.nuke.seq_step:
       Work Template: seq_nuke_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
@@ -148,7 +148,7 @@ settings.tk-multi-publish2.nuke.seq_step:
     hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: seq_nuke_pub_file
   - name: Submit for Review
@@ -164,7 +164,7 @@ settings.tk-multi-publish2.nuke.shot_step:
       Work Template: shot_nuke_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
@@ -187,7 +187,7 @@ settings.tk-multi-publish2.nuke.shot_step:
     hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: shot_nuke_pub_file
   - name: Submit for Review
@@ -206,7 +206,7 @@ settings.tk-multi-publish2.hiero:
       Work Template: show_hiero_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{self}/upload_version.py"
@@ -215,7 +215,7 @@ settings.tk-multi-publish2.hiero:
     hook: "{engine}/tk-multi-publish2/basic/nukestudio_start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/nukestudio_publish_project.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nukestudio_publish_project.py"
     settings:
         Publish Template: show_hiero_pub_file
   help_url: *help_url
@@ -232,7 +232,7 @@ settings.tk-multi-publish2.photoshop.asset_step:
       Work Template: asset_photoshop_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{self}/upload_version.py"
@@ -241,7 +241,7 @@ settings.tk-multi-publish2.photoshop.asset_step:
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
     settings:
         Publish Template: asset_photoshop_pub_file
   - name: Upload for review
@@ -257,7 +257,7 @@ settings.tk-multi-publish2.photoshop.seq_step:
       Work Template: seq_photoshop_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{self}/upload_version.py"
@@ -266,7 +266,7 @@ settings.tk-multi-publish2.photoshop.seq_step:
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
     settings:
         Publish Template: seq_photoshop_pub_file
   - name: Upload for review
@@ -282,7 +282,7 @@ settings.tk-multi-publish2.photoshop.shot_step:
       Work Template: shot_photoshop_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{self}/upload_version.py"
@@ -291,7 +291,7 @@ settings.tk-multi-publish2.photoshop.shot_step:
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
   - name: Publish to Shotgun
-    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
     settings:
         Publish Template: shot_photoshop_pub_file
   - name: Upload for review

@@ -6,6 +6,6 @@ includes:
 ################################################################################
 
 settings.tk-delivery:
-  deny_permissions: []
+  deny_permissions: ['Artist']
   deny_platforms: []
   location: "@apps.tk-delivery.location"
