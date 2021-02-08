@@ -801,6 +801,10 @@ class BasicFilePublishPlugin(HookBaseClass):
 
         # ---- copy the work files to the publish location
 
+        # import the NX framework
+        nxfw = self.load_framework("tk-framework-nx_v0.x.x")
+        nxfs = nxfw.import_module("utils.filesystem")
+
         for work_file in work_files:
 
             if not work_template.validate(work_file):
@@ -822,10 +826,6 @@ class BasicFilePublishPlugin(HookBaseClass):
                 return
 
             publish_file = publish_template.apply_fields(work_fields)
-
-            # import the NX framework
-            nxfw = self.load_framework("tk-framework-nx_v0.x.x")
-            nxfs = nxfw.import_module("utils.filesystem")
 
             # copy the file
             try:
