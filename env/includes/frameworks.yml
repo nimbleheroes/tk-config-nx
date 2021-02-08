@@ -6,7 +6,7 @@ frameworks:
   # adobe - Common functionality for adobe products
   tk-framework-adobe_v1.x.x:
     location:
-      version: v1.1.0
+      version: v1.1.2
       type: app_store
       name: tk-framework-adobe
 
@@ -34,7 +34,7 @@ frameworks:
   # shotgunutils v5 - Shotgun Related Utilities
   tk-framework-shotgunutils_v5.x.x:
     location:
-      version: v5.7.6
+      version: v5.7.10
       type: app_store
       name: tk-framework-shotgunutils
 
@@ -81,7 +81,7 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 44296 #tk-framework-nx-0.1.6
+      version: 44333 #tk-framework-nx-0.1.7
       ## Dev
       # type: dev
       # path: ~/Documents/Github/tk-framework-nx
@@ -115,8 +115,7 @@ frameworks:
 
   # desktopserver - provides a server to run local commands.
   tk-framework-desktopserver_v1.x.x:
-    add_ami_entities:
-      - Playlist
+    add_ami_entities: [Playlist]
     location:
       name: tk-framework-desktopserver
       ### App Store
