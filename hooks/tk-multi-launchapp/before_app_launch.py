@@ -133,6 +133,8 @@ class BeforeAppLaunch(sgtk.Hook):
 
         filters = [
             ['sg_status_list', 'is', 'act'],
+            ['sg_exclude_projects', 'not_in', context.project],
+            ['sg_exclude_users', 'not_in', context.user],
             {
                 'filter_operator': 'any',
                 'filters': [
