@@ -133,6 +133,8 @@ class BeforeAppLaunch(sgtk.Hook):
 
         filters = [
             ['sg_status_list', 'is', 'act'],
+            ['sg_exclude_projects', 'not_in', context.project],
+            ['sg_exclude_users', 'not_in', context.user],
             {
                 'filter_operator': 'any',
                 'filters': [
@@ -167,9 +169,12 @@ class BeforeAppLaunch(sgtk.Hook):
 
         os_envs = {'win32': 'sg_env_win',
                    'linux2': 'sg_env_linux', 'darwin': 'sg_env_mac'}
+
         fields = ['code', 'sg_version',
                   'sg_host_min_version', 'sg_host_max_version', 'sg_default_method']
+
         fields.append(os_envs[sys.platform])
+
         results = self.parent.shotgun.find(
             self.__env_vars_entity, filters, fields)
 
