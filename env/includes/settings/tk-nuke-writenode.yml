@@ -13,6 +13,7 @@ image_categories: &image_categories
   - roto
   - rotoreview
   - paint
+  - demo
   - animcomp
   - autocomp
   - cfxcomp
@@ -46,6 +47,25 @@ settings.tk-nuke-writenode.asset:
       datatype: 16 bit half
       metadata: all metadata
     tank_type: Rendered Image
+    tile_color: []
+  - file_type: mov
+    name: QuickTime Movie
+    promote_write_knobs: 
+      - mov64_fps
+      - mov64_codec
+      - mov_prores_codec_profile
+      - mov64_dnxhd_codec_profile
+      - mov64_dnxhr_codec_profile
+      - mov_h264_codec_profile
+      - mov64_quality
+    proxy_publish_template:
+    proxy_render_template:
+    render_template: asset_nuke_work_render_mov
+    publish_template: asset_nuke_pub_render_mov
+    settings:
+      colorspace: Output - Rec.709
+      channels: rgb
+    tank_type: Movie
     tile_color: []
   - file_type: dpx
     name: DPXs
@@ -119,6 +139,25 @@ settings.tk-nuke-writenode.seq:
       metadata: all metadata
     tank_type: Rendered Image
     tile_color: []
+  - file_type: mov
+    name: QuickTime Movie
+    promote_write_knobs: 
+      - mov64_fps
+      - mov64_codec
+      - mov_prores_codec_profile
+      - mov64_dnxhd_codec_profile
+      - mov64_dnxhr_codec_profile
+      - mov_h264_codec_profile
+      - mov64_quality
+    proxy_publish_template:
+    proxy_render_template:
+    render_template: seq_nuke_work_render_mov
+    publish_template: seq_nuke_pub_render_mov
+    settings:
+      colorspace: Output - Rec.709
+      channels: rgb
+    tank_type: Movie
+    tile_color: []
   - file_type: dpx
     name: DPXs
     promote_write_knobs: [datatype]
@@ -191,6 +230,25 @@ settings.tk-nuke-writenode.shot:
       metadata: all metadata
     tank_type: Rendered Image
     tile_color: []
+  - file_type: mov
+    name: QuickTime Movie
+    promote_write_knobs: 
+      - mov64_fps
+      - mov64_codec
+      - mov_prores_codec_profile
+      - mov64_dnxhd_codec_profile
+      - mov64_dnxhr_codec_profile
+      - mov_h264_codec_profile
+      - mov64_quality
+    proxy_publish_template:
+    proxy_render_template:
+    render_template: shot_nuke_work_render_mov
+    publish_template: shot_nuke_pub_render_mov
+    settings:
+      colorspace: Output - Rec.709
+      channels: rgb
+    tank_type: Movie
+    tile_color: []
   - file_type: dpx
     name: DPXs
     promote_write_knobs: [datatype]
@@ -204,7 +262,7 @@ settings.tk-nuke-writenode.shot:
       colorspace: "Camera Raw"
     tank_type: Rendered Image
     tile_color: []
-  - file_type: jpg
+  - file_type: jpeg
     name: JPGs
     promote_write_knobs: []
     proxy_publish_template:
