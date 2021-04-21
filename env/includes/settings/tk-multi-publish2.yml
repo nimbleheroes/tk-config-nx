@@ -163,36 +163,43 @@ settings.tk-multi-publish2.nuke.shot_step:
   collector_settings:
       Work Template: shot_nuke_work_file
   publish_plugins:
-  - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py"
-    settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
-    settings:
-     Source Correlate:  # given a matching rep, assert where it came from.
-        - templates:
-            rep: shot_nuke_work_render_mov # publish item must be from this template
-            source: shot_nuke_pub_render_seq # if so, we'll apply the fields to this template with below field changes
-          fields:
-            rep: # must match these fields when inspecting the path
-              frame_format: hd
-              extension: mov
-            source: # supply these fields when asserting the exact source path
-              frame_format: uhd21
-              extension: exr
-          update:
-            entity: Version
-            field: sg_path_to_frames
-  - name: Begin file versioning
-    hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
+  - name: Create Version
+    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/tk-nuke/nuke_create_version.py"
     settings: {}
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: shot_nuke_pub_file
-  - name: Submit for Review
-    hook: "{engine}/tk-multi-publish2/basic/submit_for_review.py"
-    settings: {}
+  # - name: Publish to Shotgun
+  #   hook: "{config}/tk-multi-publish2/publish_file.py"
+  #   settings: {}
+  # - name: Upload for review
+  #   hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
+  #   settings:
+  #    Source Correlate:  # given a matching rep, assert where it came from.
+  #       - templates:
+  #           rep: shot_nuke_work_render_mov # publish item must be from this template
+  #           source: shot_nuke_pub_render_seq # if so, we'll apply the fields to this template with below field changes
+  #         fields:
+  #           rep: # must match these fields when inspecting the path
+  #             frame_format: hd
+  #             extension: mov
+  #           source: # supply these fields when asserting the exact source path
+  #             frame_format: uhd21
+  #             extension: exr
+  #         update:
+  #           entity: Version
+  #           field: sg_path_to_frames
+  # - name: Begin file versioning
+  #   hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
+  #   settings: {}
+  # - name: Publish to Shotgun
+  #   hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+  #   settings:
+  #       Publish Template: shot_nuke_pub_file
+  # - name: Submit for Review
+  #   hook: "{engine}/tk-multi-publish2/basic/submit_for_review.py"
+  #   settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 

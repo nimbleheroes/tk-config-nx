@@ -144,6 +144,7 @@ class NukeSessionCollector(HookBaseClass):
             # the attached publish plugins will need to resolve the fields at
             # execution time.
             session_item.properties["work_template"] = work_template
+            session_item.properties["path"] = path
             self.logger.debug("Work template defined for Nuke collection.")
 
         self.logger.info("Collected current Nuke script")

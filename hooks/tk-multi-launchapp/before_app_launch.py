@@ -27,7 +27,7 @@ class BeforeAppLaunch(sgtk.Hook):
     Hook to set up the system prior to app launch.
     """
 
-    __env_vars_entity = "CustomNonProjectEntity02"
+    __env_vars_entity = "CustomNonProjectEntity05"
     __version_regex = re.compile(r"(\d+)\.?(\d+)?(?:\.|v)?(\d+)?")
 
     def execute(self, app_path, app_args, version, engine_name, **kwargs):
@@ -60,8 +60,8 @@ class BeforeAppLaunch(sgtk.Hook):
         self.logger.debug("app_args: {}".format(app_args))
         self.logger.debug("version: {}".format(version))
 
-        # load up the tk-framework-cbfx
-        nx_fw = self.load_framework("tk-framework-nx_v0.0.x")
+        # load up the tk-framework-nx
+        nx_fw = self.load_framework("tk-framework-nx_v0.x.x")
         nx_utils = nx_fw.import_module("utils")
 
         # get all the pipe templates and set env vars
