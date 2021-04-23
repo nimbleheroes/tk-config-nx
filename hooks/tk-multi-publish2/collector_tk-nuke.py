@@ -110,6 +110,8 @@ class NukeSessionCollector(HookBaseClass):
         """
 
         publisher = self.parent
+        first_frame = int(nuke.root()["first_frame"].value())
+        last_frame = int(nuke.root()["last_frame"].value())
 
         # get the current path
         path = _session_path()
@@ -125,6 +127,10 @@ class NukeSessionCollector(HookBaseClass):
         session_item = parent_item.create_item(
             "nuke.session", "Nuke Script", display_name
         )
+
+        # set the frame range for the session
+        session_item.properties["first_frame"] = first_frame
+        session_item.properties["last_frame"] = last_frame
 
         # get the icon path to display for this item
         icon_path = os.path.join(self.disk_location, "icons", "nuke.png")
@@ -281,6 +287,9 @@ class NukeSessionCollector(HookBaseClass):
                 item.properties["node"] = node
                 item.properties["first_frame"] = first_frame
                 item.properties["last_frame"] = last_frame
+                item.properties["width"] = node.width()
+                item.properties["height"] = node.height()
+                item.properties["pixel_aspect"] = node.pixelAspect()
 
                 if node.knob("use_limit"):
                     if node.knob("use_limit").getValue():
@@ -343,6 +352,10 @@ class NukeSessionCollector(HookBaseClass):
             item.properties["node"] = node
             item.properties["first_frame"] = first_frame
             item.properties["last_frame"] = last_frame
+            item.properties["width"] = node.width()
+            item.properties["height"] = node.height()
+            item.properties["pixel_aspect"] = node.pixelAspect()
+
 
             if node.knob("use_limit").getValue():
                 item.properties["first_frame"] = int(node.knob("first").getValue())

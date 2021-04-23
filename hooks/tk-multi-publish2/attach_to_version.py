@@ -18,12 +18,11 @@ from sgtk.util.filesystem import copy_file, ensure_folder_exists
 HookBaseClass = sgtk.get_hook_baseclass()
 
 
-class BasicVersionPlugin(HookBaseClass):
+class AttachToVersionPlugin(HookBaseClass):
     """
-    Plugin for creating generic versions in Shotgun.
+    Plugin for creating versions in Shotgun from a Nuke Session.
 
     """
-
     @property
     def icon(self):
         """
@@ -33,14 +32,12 @@ class BasicVersionPlugin(HookBaseClass):
         # look for icon one level up from this hook's folder in "icons" folder
         return os.path.join(self.disk_location, "icons", "version_up.png")
 
-
     @property
     def name(self):
         """
         One line display name describing the plugin
         """
-        return "Create Shotgun Version"
-
+        return "Attach to Version"
 
     @property
     def description(self):
@@ -50,12 +47,11 @@ class BasicVersionPlugin(HookBaseClass):
         """
 
         return """
-        Creates a <b>Version</b> in Shotgun.<br><br>A <b>Version</b> entry will be
-        created in Shotgun that represents this workfile. Review quicktimes,
-        frame sequences, or geometry can then be attached to this version
-        and used for review.
+        Attaches the item path to the Version entry.<br><br>Images or Image
+        Sequences will be added to the \"Path to Frames\" field.<br>Video files
+        will be added to the \"Path to Movie\" field and uploaded to the
+        \"Uploaded Movie\" field.
         """
-
 
     @property
     def settings(self):
@@ -88,11 +84,10 @@ class BasicVersionPlugin(HookBaseClass):
         accept() method. Strings can contain glob patters such as *, for example
         ["maya.*", "file.maya"]
         """
-        return ["*.*"]
+        return ["file.image", "file.image.sequence", "file.video"]
 
     ############################################################################
     # standard publish plugin methods
-
 
     def accept(self, settings, item):
         """
@@ -120,23 +115,8 @@ class BasicVersionPlugin(HookBaseClass):
         :returns: dictionary with boolean keys accepted, required and enabled
         """
 
-        path = item.properties.get("path")
-        accepted = False
-    
-        if path:
-            accept = True
-            # log the accepted file and display a button to reveal it in the fs
-            self.logger.info(
-                "Create version plugin accepted: %s" % (path,),
-                extra={"action_show_folder": {"path": path}},
-            )
-        else:
-            self.logger.debug(
-                "Create version plugin not accepted, 'path' was None"
-            )
         # return the accepted info
-        return {"accepted": accept}
-
+        return {"accepted": True}
 
     def validate(self, settings, item):
         """
@@ -152,17 +132,20 @@ class BasicVersionPlugin(HookBaseClass):
         :returns: True if item is valid, False otherwise.
         """
 
-        publisher = self.parent
-        path = item.properties.get("path")
+        ## Look for an item up the tree that has a version_name, meaning a version will be created.
+        version_name = None
+        version_item = item
 
-        item.properties.version_name = self._get_version_name(path)
-        # create a placeholder for finalize tasks
-        item.properties.version_finalize = {"update": {}, "upload": {}}
+        while not version_name and version_item:
+            version_name = version_item.properties.get("version_name")
+            if not version_name:
+                version_item = version_item.parent
 
-        self.logger.info("A Version entry will be created in Shotgun: %s" % (item.properties.version_name,))
-
-        return True
-
+        if version_name:
+            item.local_properties.version_item = version_item
+            return True
+        else:
+            return False
 
     def publish(self, settings, item):
         """
@@ -174,50 +157,50 @@ class BasicVersionPlugin(HookBaseClass):
         :param item: Item to process
         """
 
-        publisher = self.parent
-        path = item.properties["path"]
-        version_name = item.properties["version_name"]
+
+        version_item = item.local_properties.version_item
+
+        #check to see if we have any fun stuff to add
         first_frame = item.properties.get("first_frame")
         last_frame = item.properties.get("last_frame")
+        width = item.properties.get("width")
+        height = item.properties.get("height")
+        pixel_aspect = item.properties.get("pixel_aspect")
+        slate_frame = item.properties.get("slate_frame")
 
-        self.logger.debug("Version name: %s" % (version_name,))
+        if version_item:
 
-        self.logger.info("Creating Version...")
-        version_data = {
-            "project": item.context.project,
-            "code": version_name,
-            "description": item.description,
-            "entity": self._get_version_entity(item),
-            "sg_task": item.context.task,
-            "sg_published": True,
-        }
+            if item.type_spec in ["file.image", "file.image.sequence"]:
+                version_item.properties.version_finalize["update"].update({"sg_path_to_frames": item.properties.path})
+                if width and height and pixel_aspect:
+                    aspect_ratio = float((width*pixel_aspect)/height)
+                    version_item.properties.version_finalize["update"].update({"sg_frames_aspect_ratio": aspect_ratio})
+                if slate_frame:
+                    version_item.properties.version_finalize["update"].update({"sg_frames_have_slate": True})
 
-        if first_frame and last_frame:
+            if item.type_spec in ["file.video"]:
+                version_item.properties.version_finalize["update"].update({"sg_path_to_movie": item.properties.path})
+                version_item.properties.version_finalize["upload"].update({"sg_uploaded_movie": item.properties.path})
+                if width and height and pixel_aspect:
+                    aspect_ratio = float((width*pixel_aspect)/height)
+                    version_item.properties.version_finalize["update"].update({"sg_movie_aspect_ratio": aspect_ratio})
+                if slate_frame:
+                    version_item.properties.version_finalize["update"].update({"sg_movie_has_slate": True})
 
-            version_data["sg_first_frame"] = int(first_frame)
-            version_data["sg_last_frame"] = int(last_frame)
-            version_data["frame_range"] = "{}-{}".format(first_frame, last_frame)
-            version_data["frame_count"] = int(last_frame - first_frame + 1)
 
-        # log the version data for debugging
-        self.logger.debug(
-            "Populated Version data...",
-            extra={
-                "action_show_more_info": {
-                    "label": "Version Data",
-                    "tooltip": "Show the complete Version data dictionary",
-                    "text": "<pre>%s</pre>" % (pprint.pformat(version_data),),
-                }
-            },
-        )
-
-        # Create the version
-        version = publisher.shotgun.create("Version", version_data)
-        self.logger.info("Version created!")
-
-        # stash the version info in the item just in case
-        item.properties["sg_version_data"] = version
-
+            self.logger.debug(
+                "Version finalize tasks...",
+                extra={
+                    "action_show_more_info": {
+                        "label": "Version finalize tasks",
+                        "tooltip": "Show the complete version finalize list",
+                        "text": "<pre>%s</pre>"
+                        % (pprint.pformat(version_item.properties.version_finalize),),
+                    }
+                },
+            )
+        else:
+            self.logger.debug("No version found to attach item paths.")
 
     def finalize(self, settings, item):
         """
@@ -230,61 +213,23 @@ class BasicVersionPlugin(HookBaseClass):
             instances.
         :param item: Item to process
         """
-        publisher = self.parent
-        thumb = item.get_thumbnail_as_path()
-        upload_thumb = True
-        version = item.properties["sg_version_data"]
-        finalize_tasks = item.properties.get("version_finalize")
+        # publisher = self.parent
+        # version = None
+        # curr_item = item
 
-        if version and finalize_tasks:
+        # while not version and curr_item:
+        #     version = curr_item.properties.get("sg_version_data")
+        #     if not version:
+        #         curr_item = curr_item.parent
 
-            if finalize_tasks["update"]:
-                publisher.shotgun.update("Version", version["id"], finalize_tasks["update"])
+        # if not version:
+        #     self.logger.info("No version found to attach path to.")
+        # else:
+        #     if item.type_spec in ["file.image", "file.image.sequence"]:
+        #         version = publisher.shotgun.update("Version", version["id"], {"sg_path_to_frames": item.properties["path"]})
+        #         self.logger.info("path_to_frames added to Version")
+        #     elif item.type_spec in ["file.video"]:
+        #         version = publisher.shotgun.update("Version", version["id"], {"sg_path_to_movie": item.properties["path"]})
+        #         self.logger.info("path_to_movie added to Version")
 
-            if finalize_tasks["upload"]:
-                for field, path in finalize_tasks["upload"].iteritems():
-                    self.logger.info("Uploading content...")
-
-                    # on windows, ensure the path is utf-8 encoded to avoid issues with
-                    # the shotgun api
-                    if sgtk.util.is_windows():
-                        upload_path = six.ensure_text(path)
-                    else:
-                        upload_path = path
-
-                    publisher.shotgun.upload(
-                        "Version", version["id"], upload_path, field
-                    )
-                    upload_thumb = False
-
-        if upload_thumb:
-            # only upload thumb if we are not uploading the content. with
-            # uploaded content, the thumb is automatically extracted.
-            self.logger.info("Uploading thumbnail...")
-            publisher.shotgun.upload_thumbnail("Version", version["id"], thumb)
-
-
-    def _get_version_name(self, path):
-        """
-        Returns the version name from a file path.
-
-        :param path: The current path with a version number
-        """
-        # in Python3 this will become: 
-        # from pathlib import Path
-        # return Path(path).stem
-
-        return os.path.splitext(os.path.basename(path))[0]
-
-
-    def _get_version_entity(self, item):
-        """
-        Returns the best entity to link the version to.
-        """
-
-        if item.context.entity:
-            return item.context.entity
-        elif item.context.project:
-            return item.context.project
-        else:
-            return None
+        pass

@@ -436,6 +436,66 @@ class BasicFilePublishPlugin(HookBaseClass):
             },
         )
 
+
+        # ## Look for an item up the tree that has a version_name, meaning a version will be created.
+        # version_name = None
+        # version_item = item
+
+        # while not version_name and version_item:
+        #     version_name = version_item.properties.get("version_name")
+        #     if not version_name:
+        #         version_item = version_item.parent
+
+        # if version_name:
+        #     if version_item.properties.get('version_finalize'):
+        #         version_finalize = version_item.properties['version_finalize']
+        #     else:
+        #         version_finalize = version_item.properties['version_finalize'] = []
+        #     version_finalize.append({"published_files": item.properties.sg_publish_data})
+        #     self.logger.debug(
+        #         "Version finalize data...",
+        #         extra={
+        #             "action_show_more_info": {
+        #                 "label": "Version finalize data",
+        #                 "tooltip": "Show the complete version finalize list",
+        #                 "text": "<pre>%s</pre>"
+        #                 % (pprint.pformat(version_item.properties.version_finalize),),
+        #             }
+        #         },
+        #     )
+        # else:
+        #     self.logger.debug("No item with version_name found to attach published files to.")
+
+        ## Look for an item up the tree that has a version_name, meaning a version will be created.
+        version_name = None
+        version_item = item
+
+        while not version_name and version_item:
+            version_name = version_item.properties.get("version_name")
+            if not version_name:
+                version_item = version_item.parent
+
+        if version_name:
+
+            if version_item.properties.version_finalize["update"].get("published_files"):
+                version_item.properties.version_finalize["update"]["published_files"].append(item.properties.sg_publish_data)
+            else:
+                version_item.properties.version_finalize["update"]["published_files"] = [item.properties.sg_publish_data]
+
+            self.logger.debug(
+                "Version finalize tasks...",
+                extra={
+                    "action_show_more_info": {
+                        "label": "Version finalize tasks",
+                        "tooltip": "Show the complete version finalize list",
+                        "text": "<pre>%s</pre>"
+                        % (pprint.pformat(version_item.properties.version_finalize),),
+                    }
+                },
+            )
+        else:
+            self.logger.debug("No item with version_name found to attach published files to.")
+
     def finalize(self, settings, item):
         """
         Execute the finalization pass. This pass executes once
@@ -831,7 +891,8 @@ class BasicFilePublishPlugin(HookBaseClass):
             try:
                 publish_folder = os.path.dirname(publish_file)
                 ensure_folder_exists(publish_folder)
-                nxfs.move_file_leave_symlink(work_file, publish_file)
+                copy_file(work_file, publish_file)
+                # nxfs.move_file_leave_symlink(work_file, publish_file)
             except Exception:
                 raise Exception(
                     "Failed to copy work file from '%s' to '%s'.\n%s"

@@ -12,11 +12,8 @@ publish_help_url: &help_url "https://support.shotgunsoftware.com/hc/en-us/articl
 # ---- Stand alone publish
 
 settings.tk-multi-publish2.standalone:
-  collector: "{config}/tk-multi-publish2/standalone/collector.py"
+  collector: "{config}/tk-multi-publish2/collector.py"
   publish_plugins:
-  # - name: Ingest as Shot Plate
-  #   hook: "{config}/tk-multi-publish2/standalone/ingest_plate.py"
-  #   settings: {}
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
@@ -159,20 +156,24 @@ settings.tk-multi-publish2.nuke.seq_step:
 
 # shot step
 settings.tk-multi-publish2.nuke.shot_step:
-  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
+  path_info: "{config}/tk-multi-publish2/path_info.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/collector_{engine_name}.py"
   collector_settings:
       Work Template: shot_nuke_work_file
   publish_plugins:
-  - name: Create Version
-    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/tk-nuke/nuke_create_version.py"
-    settings: {}
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: shot_nuke_pub_file
-  # - name: Publish to Shotgun
-  #   hook: "{config}/tk-multi-publish2/publish_file.py"
-  #   settings: {}
+  - name: Publish to Shotgun
+    hook: "{config}/tk-multi-publish2/publish_file.py"
+    settings: {}
+  - name: Create Version
+    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
+    settings: {}
+  - name: Attach to Version
+    hook: "{config}/tk-multi-publish2/attach_to_version.py"
+    settings: {}
   # - name: Upload for review
   #   hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
   #   settings:
