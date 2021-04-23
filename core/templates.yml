@@ -363,7 +363,7 @@ paths:
     shot_nuke_snapshot:
         definition: '@shot_nuke_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.nk'
     shot_nuke_pub_file:
-        definition: '@shot_nuke_pubs_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
+        definition: '@shot_nuke_pubs_area/{Shot}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
     # frame sequence

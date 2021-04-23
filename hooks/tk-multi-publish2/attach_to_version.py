@@ -168,10 +168,18 @@ class AttachToVersionPlugin(HookBaseClass):
         pixel_aspect = item.properties.get("pixel_aspect")
         slate_frame = item.properties.get("slate_frame")
 
+        # in order for this to grab the published paths, this will need to run
+        # AFTER the publish_file.py process so make sure that this plugin is listed
+        # after any "Publish to Shotgun" plugins in the tk-multi-publish2.yml
+        if item.properties.get("sg_publish_data"):
+            path = self.get_publish_path(item.properties.sg_publish_data)
+        else:
+            path = item.properties.path
+
         if version_item:
 
             if item.type_spec in ["file.image", "file.image.sequence"]:
-                version_item.properties.version_finalize["update"].update({"sg_path_to_frames": item.properties.path})
+                version_item.properties.version_finalize["update"].update({"sg_path_to_frames": path})
                 if width and height and pixel_aspect:
                     aspect_ratio = float((width*pixel_aspect)/height)
                     version_item.properties.version_finalize["update"].update({"sg_frames_aspect_ratio": aspect_ratio})
@@ -179,8 +187,8 @@ class AttachToVersionPlugin(HookBaseClass):
                     version_item.properties.version_finalize["update"].update({"sg_frames_have_slate": True})
 
             if item.type_spec in ["file.video"]:
-                version_item.properties.version_finalize["update"].update({"sg_path_to_movie": item.properties.path})
-                version_item.properties.version_finalize["upload"].update({"sg_uploaded_movie": item.properties.path})
+                version_item.properties.version_finalize["update"].update({"sg_path_to_movie": path})
+                version_item.properties.version_finalize["upload"].update({"sg_uploaded_movie": path})
                 if width and height and pixel_aspect:
                     aspect_ratio = float((width*pixel_aspect)/height)
                     version_item.properties.version_finalize["update"].update({"sg_movie_aspect_ratio": aspect_ratio})

@@ -61,11 +61,17 @@ engines.tk-shotgun.location:
 # Nuke
 engines.tk-nuke.location:
   ### App Store
-  name: tk-nuke
-  type: app_store
-  version: v0.12.10
+  # name: tk-nuke
+  # type: app_store
+  # version: v0.12.10
+  ### Toolkit App Entity
+  # name: tk-nuke
+  # type: shotgun
+  # entity_type: CustomNonProjectEntity03
+  # field: sg_uploaded_app
+  # version: 110509 #v0.12.5-cbfx.3
   ### Github Release
-  # type: github_release
-  # organization: nimbleheroes
-  # repository: tk-nuke
-  # version: v0.12.10.3
+  type: github_release
+  organization: nimbleheroes
+  repository: tk-nuke
+  version: v0.12.10.3

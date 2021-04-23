@@ -126,7 +126,7 @@ apps.tk-nuke-quickreview.location:
 apps.tk-multi-workfiles2.location:
   name: tk-multi-workfiles2
   type: app_store
-  version: v0.12.3
+  version: v0.12.6
 
 # ---- SHOTGUN APP TAKEOVERS
 

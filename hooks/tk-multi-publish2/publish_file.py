@@ -891,8 +891,9 @@ class BasicFilePublishPlugin(HookBaseClass):
             try:
                 publish_folder = os.path.dirname(publish_file)
                 ensure_folder_exists(publish_folder)
-                copy_file(work_file, publish_file)
-                # nxfs.move_file_leave_symlink(work_file, publish_file)
+                # copy_file(work_file, publish_file)
+                if os.path.realpath(work_file) is not os.path.realpath(publish_file):
+                    nxfs.move_file_leave_symlink(work_file, publish_file)
             except Exception:
                 raise Exception(
                     "Failed to copy work file from '%s' to '%s'.\n%s"
