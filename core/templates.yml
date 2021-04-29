@@ -291,6 +291,7 @@ paths:
         definition: '@seq_nuke_pubs_area/nuke/{Sequence}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
+
     # frame sequence
     seq_nuke_render_seq: '{Sequence}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Sequence}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
     seq_nuke_work_render_seq:

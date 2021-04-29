@@ -31,7 +31,7 @@ class BasicVersionPlugin(HookBaseClass):
         """
 
         # look for icon one level up from this hook's folder in "icons" folder
-        return os.path.join(self.disk_location, "icons", "version_up.png")
+        return os.path.join(self.disk_location, "icons", "create_version.png")
 
 
     @property
@@ -50,7 +50,7 @@ class BasicVersionPlugin(HookBaseClass):
         """
 
         return """
-        Creates a <b>Version</b> in Shotgun.<br><br>A <b>Version</b> entry will be
+        Creates a <b>Version</b> in Shotgun. A Version entry will be
         created in Shotgun that represents this workfile. Review quicktimes,
         frame sequences, or geometry can then be attached to this version
         and used for review.
@@ -76,7 +76,17 @@ class BasicVersionPlugin(HookBaseClass):
         The type string should be one of the data types that toolkit accepts
         as part of its environment configuration.
         """
-        return {}
+        
+        return {
+            "create_version": {
+                "type": "bool",
+                "default": True,
+                "description": (
+                    "This gets passed to the item task and helps to "
+                    "identify which task is the create_version task."
+                ),
+            },
+        }
 
 
     @property
@@ -125,10 +135,14 @@ class BasicVersionPlugin(HookBaseClass):
     
         if path:
             accept = True
+
+            # lets store the verison name and make a flag for the attach_to_version plugin to catch.
+            item.properties.version_name = self._get_version_name(path)
+            item.properties.create_version = True
+
             # log the accepted file and display a button to reveal it in the fs
             self.logger.info(
-                "Create version plugin accepted: %s" % (path,),
-                extra={"action_show_folder": {"path": path}},
+                "Create version plugin accepted: %s" % (path,)
             )
         else:
             self.logger.debug(
@@ -152,12 +166,14 @@ class BasicVersionPlugin(HookBaseClass):
         :returns: True if item is valid, False otherwise.
         """
 
-        publisher = self.parent
-        path = item.properties.get("path")
-
-        item.properties.version_name = self._get_version_name(path)
         # create a placeholder for finalize tasks
         item.properties.version_finalize = {"update": {}, "upload": {}}
+
+        # start a count of attachments. This checked in the attach_to_version validation and
+        # prevents a user from trying to attach more than 1 of each type to a version entry.
+        item.properties.movies_attached = 0
+        item.properties.frames_attached = 0
+        item.properties.geo_attached = 0
 
         self.logger.info("A Version entry will be created in Shotgun: %s" % (item.properties.version_name,))
 

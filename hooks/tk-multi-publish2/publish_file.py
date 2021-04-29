@@ -139,35 +139,13 @@ class BasicFilePublishPlugin(HookBaseClass):
         contain simple html for formatting.
         """
 
-        loader_url = "https://support.shotgunsoftware.com/hc/en-us/articles/219033078"
-
         return """
         Publishes the file to Shotgun. A <b>Publish</b> entry will be
         created in Shotgun which will include a reference to the file's current
         path on disk. Other users will be able to access the published file via
-        the <b><a href='%s'>Loader</a></b> so long as they have access to
+        the <b>Loader</b> so long as they have access to
         the file's location on disk.
-
-        <h3>File versioning</h3>
-        The <code>version</code> field of the resulting <b>Publish</b> in
-        Shotgun will also reflect the version number identified in the filename.
-        The basic worklfow recognizes the following version formats by default:
-
-        <ul>
-        <li><code>filename.v###.ext</code></li>
-        <li><code>filename_v###.ext</code></li>
-        <li><code>filename-v###.ext</code></li>
-        </ul>
-
-        <br><br><i>NOTE: any amount of version number padding is supported.</i>
-
-        <h3>Overwriting an existing publish</h3>
-        A file can be published multiple times however only the most recent
-        publish will be available to other users. Warnings will be provided
-        during validation if there are previous publishes.
-        """ % (
-            loader_url,
-        )
+        """
 
     @property
     def settings(self):
