@@ -99,6 +99,7 @@ class NukeSessionCollector(HookBaseClass):
         if hasattr(engine, "hiero_enabled") and not engine.hiero_enabled:
             self.collect_sg_writenodes(project_item)
             self.collect_node_outputs(project_item)
+            self.collect_selected_read_nodes(project_item)
 
     def collect_current_nuke_session(self, settings, parent_item):
         """
@@ -300,6 +301,45 @@ class NukeSessionCollector(HookBaseClass):
                 # the nuke node to make it clear to the user how it was
                 # collected within the current session.
                 item.name = "%s (%s)" % (item.name, node.name())
+
+    def collect_selected_read_nodes(self, parent_item):
+        """
+        Scan selected read nodes in case the user wants to publish them.
+
+        :param parent_item: The parent item for any nodes collected
+        """
+
+        # get all the selected Reads
+        selected_reads = [n for n in nuke.selectedNodes() if n.Class() == "Read"]
+
+        # first_frame = int(nuke.root()["first_frame"].value())
+        # last_frame = int(nuke.root()["last_frame"].value())
+
+        # iterate over each instance
+        for node in selected_reads:
+
+            # evaluate the file knob which may include frame
+            # expressions/format
+            file_path = node["file"].evaluate()
+
+            if not file_path or not os.path.exists(file_path):
+                # no file or file does not exist, nothing to do
+                continue
+
+            self.logger.info("Processing selected Read node: %s" % (node.name()))
+
+            # file exists, let the basic collector handle it
+            item = super(NukeSessionCollector, self)._collect_file(
+                parent_item, file_path, frame_sequence=True
+            )
+
+            item.properties["node"] = node
+            item.properties["skip_version_attach"] = True
+
+            # the item has been created. update the display name to include
+            # the nuke node to make it clear to the user how it was
+            # collected within the current session.
+            item.name = "%s (%s)" % (item.name, node.name())
 
     def collect_sg_writenodes(self, parent_item):
         """

@@ -116,9 +116,10 @@ class AttachToVersionPlugin(HookBaseClass):
         """
 
         path = item.properties.get("path")
+        skip_attach =  item.properties.get("skip_version_attach")
         accepted = False
     
-        if path:
+        if path and not skip_attach:
             accept = True
 
         # return the accepted info
