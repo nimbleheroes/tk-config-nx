@@ -20,6 +20,7 @@ includes:
 # and these 'transit' areas can be project, shot, or sequence level.
 
 settings.tk-multi-workfiles2:
+  show_change_context: true
   entities:
   - caption: Assets
     entity_type: Asset

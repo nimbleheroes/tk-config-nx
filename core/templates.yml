@@ -291,6 +291,7 @@ paths:
         definition: '@seq_nuke_pubs_area/nuke/{Sequence}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
+
     # frame sequence
     seq_nuke_render_seq: '{Sequence}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Sequence}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
     seq_nuke_work_render_seq:
@@ -363,7 +364,7 @@ paths:
     shot_nuke_snapshot:
         definition: '@shot_nuke_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.nk'
     shot_nuke_pub_file:
-        definition: '@shot_nuke_pubs_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
+        definition: '@shot_nuke_pubs_area/{Shot}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
     # frame sequence

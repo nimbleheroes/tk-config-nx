@@ -122,138 +122,96 @@ apps.tk-nuke-quickreview.location:
   name: tk-nuke-quickreview
   version: v1.0.3
 
-# ---- SHOTGUN APP TAKEOVERS
-
 # workfiles2
 apps.tk-multi-workfiles2.location:
   name: tk-multi-workfiles2
-  ### App Store
-  # type: app_store
-  # version: v0.12.3
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 40627 #tk-multi-workfiles2-0.12.6.2
-  ## Dev
-  # type: dev
-  # path: ~/Documents/GitHub/tk-multi-workfiles2_nx
+  type: app_store
+  version: v0.12.6
+
+# ---- SHOTGUN APP TAKEOVERS
 
 # shotgun folders
 apps.tk-shotgun-folders.location:
-  name: tk-shotgun-folders
   ### App Store
+  # name: tk-shotgun-folders
   # type: app_store
   # version: v0.1.7
+  ### Github Release
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-shotgun-folders
+  # version: v0.2.0-nx.1
   ### Toolkit Component Entity
+  name: tk-shotgun-folders
   type: shotgun
-  entity_type: CustomNonProjectEntity13
+  entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 1498 #tk-shotgun-folders-0.1.7.1
-
-# delivery app
-apps.tk-delivery.location:
-  name: tk-delivery
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 44615 #tk-delivery-0.0.5
-  ## Dev
-  # type: dev
-  # path: ~/Documents/GitHub/tk-delivery_nx
+  version: 185588 #tk-shotgun-folders-0.2.0-nx.1
 
 # writenode
 apps.tk-nuke-writenode.location:
-  name: tk-nuke-writenode
   ### App Store
+  # name: tk-nuke-writenode
   # type: app_store
   # version: v1.4.2
+  ### Github Release
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-nuke-writenode
+  # version: v1.4.2.14
   ### Toolkit Component Entity
+  name: tk-nuke-writenode
   type: shotgun
-  entity_type: CustomNonProjectEntity13
+  entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 48502 #tk-nuke-writenode-1.4.2.14
-  ## Dev
-  # type: dev
-  # path: ~/Documents/tk-nuke-writenode
+  version: 185587 #tk-nuke-writenode-1.4.2.14
 
 # setframerange
 apps.tk-multi-setframerange.location:
-  name: tk-multi-setframerange
   ### App Store
+  # name: tk-multi-setframerange
   # type: app_store
   # version: v0.4.1
+  ### Github Release
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-multi-setframerange
+  # version: v0.4.2
   ### Toolkit Component Entity
+  name: tk-multi-setframerange
   type: shotgun
-  entity_type: CustomNonProjectEntity13
+  entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 10350 #tk-multi-setframerange-0.4.2
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-multi-setframerange_nx
+  version: 185586 #tk-multi-setframerange-0.4.2
 
 # ---- NEXODUS Custom apps
 
 # ocio
 apps.tk-multi-ocio.location:
-  name: tk-multi-ocio
   ### Toolkit Component Entity
+  name: tk-multi-ocio
   type: shotgun
-  entity_type: CustomNonProjectEntity13
+  entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 10349 #tk-multi-ocio-0.2.0
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-multi-ocio_nx
+  version: 183554 #tk-multi-ocio-0.2.0
 
 # nuke_tools
 apps.tk-nuke-tools.location:
+  ### Toolkit Component Entity
   name: tk-nuke-tools
-  ### Toolkit Component Entity
   type: shotgun
-  entity_type: CustomNonProjectEntity13
+  entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 40102 #tk-nuke_tools-0.1.4
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-nuke-tools_nx
+  version: 183555 #tk-nuke_tools-0.1.4
 
-# maya-playblast
-apps.tk-maya-playblast.location:
-  name: tk-maya-playblast
+# delivery app
+apps.tk-delivery.location:
   ### Toolkit Component Entity
+  name: tk-delivery
   type: shotgun
-  entity_type: CustomNonProjectEntity13
+  entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 6557 #tk-maya-playblast-2.1
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-maya-playblast
-
-# tk-multi-importcut
-apps.tk-multi-importcut.location:
-  name: tk-multi-importcut
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 9956 #tk-multi-importcut-0.0.2
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-multi-importcut
-
-# deadline_render
-# apps.tk-multi-deadline-render.location:
-#   name: tk-multi-deadline-render
-  ### Toolkit Component Entity
-  # type: shotgun
-  # entity_type: CustomNonProjectEntity13
-  # field: sg_uploaded_app
-  # version: 0000 #tk-multi-deadline-render-0.0.1
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-multi-deadline-render_nx
+  version: 183556 #tk-delivery-0.0.5
 
 ################################################################################
 # reference all of the common frameworks

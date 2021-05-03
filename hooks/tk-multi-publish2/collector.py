@@ -126,7 +126,7 @@ class BasicSceneCollector(HookBaseClass):
                     "item_type": "file.vred",
                 },
                 "Image": {
-                    "extensions": ["cin", "dpx", "exr", "png", "exr", "hdr",
+                    "extensions": ["cin", "dpx", "exr", "png", "hdr",
                                    "tif", "tiff", "tga", "pic", "sgi", "jpeg",
                                    "jpg"],
                     "icon": self._get_icon_path("image.png"),

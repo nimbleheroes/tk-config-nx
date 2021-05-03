@@ -263,6 +263,7 @@ settings.tk-nuke.shot_step:
     tk-multi-setframerange:
       location: '@apps.tk-multi-setframerange.location'
       lock_range: true
+      sg_frame_rate_field: 'sg_fps'
     tk-multi-loader2: '@settings.tk-multi-loader2.nuke'
     tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
     tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel.nuke'
