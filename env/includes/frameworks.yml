@@ -60,19 +60,6 @@ frameworks:
 
 # ---- NEXODUS frameworks
 
-  # # nx - NX studio utilities
-  # tk-framework-nx_v0.0.x:
-  #   location:
-  #     name: tk-framework-nx
-  #     ### Toolkit Component Entity
-  #     type: shotgun
-  #     entity_type: CustomNonProjectEntity13
-  #     field: sg_uploaded_app
-  #     version: 1612 #tk-framework-nx-0.0.3
-  #     ## Dev
-  #     # type: dev
-  #     # path: ~/Documents/Github/tk-framework-nx
-
   tk-framework-nx_v0.x.x:
     Custom Format Entity: CustomNonProjectEntity02
     Project Default Format Field: sg_default_format
@@ -89,7 +76,13 @@ frameworks:
     add_ami_entities: [Playlist]
     location:
       ### Github Release
-      type: github_release
-      organization: nimbleheroes
-      repository: tk-framework-desktopserver
-      version: v1.4.6.1
+      # type: github_release
+      # organization: nimbleheroes
+      # repository: tk-framework-desktopserver
+      # version: v1.4.6.1
+      ### Toolkit Component Entity
+      name: tk-framework-desktopserver
+      type: shotgun
+      entity_type: CustomNonProjectEntity03
+      field: sg_uploaded_app
+      version: 185630 #tk-framework-nx-0.1.7
