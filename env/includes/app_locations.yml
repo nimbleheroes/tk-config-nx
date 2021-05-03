@@ -137,10 +137,16 @@ apps.tk-shotgun-folders.location:
   # type: app_store
   # version: v0.1.7
   ### Github Release
-  type: github_release
-  organization: nimbleheroes
-  repository: tk-shotgun-folders
-  version: v0.1.7.1
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-shotgun-folders
+  # version: v0.2.0-nx.1
+  ### Toolkit Component Entity
+  name: tk-shotgun-folders
+  type: shotgun
+  entity_type: CustomNonProjectEntity03
+  field: sg_uploaded_app
+  version: 185588 #tk-shotgun-folders-0.2.0-nx.1
 
 # writenode
 apps.tk-nuke-writenode.location:
@@ -149,10 +155,16 @@ apps.tk-nuke-writenode.location:
   # type: app_store
   # version: v1.4.2
   ### Github Release
-  type: github_release
-  organization: nimbleheroes
-  repository: tk-nuke-writenode
-  version: v1.4.2.14
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-nuke-writenode
+  # version: v1.4.2.14
+  ### Toolkit Component Entity
+  name: tk-nuke-writenode
+  type: shotgun
+  entity_type: CustomNonProjectEntity03
+  field: sg_uploaded_app
+  version: 185587 #tk-nuke-writenode-1.4.2.14
 
 # setframerange
 apps.tk-multi-setframerange.location:
@@ -161,10 +173,16 @@ apps.tk-multi-setframerange.location:
   # type: app_store
   # version: v0.4.1
   ### Github Release
-  type: github_release
-  organization: nimbleheroes
-  repository: tk-multi-setframerange
-  version: v0.4.2
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-multi-setframerange
+  # version: v0.4.2
+  ### Toolkit Component Entity
+  name: tk-multi-setframerange
+  type: shotgun
+  entity_type: CustomNonProjectEntity03
+  field: sg_uploaded_app
+  version: 185586 #tk-multi-setframerange-0.4.2
 
 # ---- NEXODUS Custom apps
 
