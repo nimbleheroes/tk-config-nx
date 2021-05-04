@@ -114,6 +114,20 @@ apps.tk-hiero-openinshotgun.location:
   name: tk-hiero-openinshotgun
   version: v0.3.4
 
+# ---- Houdini apps
+
+# houdini alembicnode
+apps.tk-houdini-alembicnode.location:
+  type: app_store
+  name: tk-houdini-alembicnode
+  version: v0.4.1
+
+# houdini mantranode
+apps.tk-houdini-mantranode.location:
+  type: app_store
+  name: tk-houdini-mantranode
+  version: v0.4.1
+
 # ---- Nuke apps
 
 # quickreview

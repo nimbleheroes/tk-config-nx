@@ -102,6 +102,76 @@ settings.tk-multi-publish2.maya.shot_step:
 
 ################################################################################
 
+# ---- Houdini
+
+# asset step
+settings.tk-multi-publish2.houdini.asset_step:
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector_settings:
+      Work Template: asset_houdini_work_file
+  publish_plugins:
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py"
+    settings: {}
+  - name: Upload for review
+    hook: "{self}/upload_version.py"
+    settings: {}
+  - name: Begin file versioning
+    hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
+    settings: {}
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    settings:
+        Publish Template: asset_houdini_pub_file
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
+# seq step
+settings.tk-multi-publish2.houdini.seq_step:
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector_settings:
+      Work Template: seq_houdini_work_file
+  publish_plugins:
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py"
+    settings: {}
+  - name: Upload for review
+    hook: "{self}/upload_version.py"
+    settings: {}
+  - name: Begin file versioning
+    hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
+    settings: {}
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    settings:
+        Publish Template: seq_houdini_pub_file
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
+# shot step
+settings.tk-multi-publish2.houdini.shot_step:
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector_settings:
+      Work Template: houdini_shot_work
+  publish_plugins:
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py"
+    settings: {}
+  - name: Upload for review
+    hook: "{self}/upload_version.py"
+    settings: {}
+  - name: Begin file versioning
+    hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
+    settings: {}
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    settings:
+        Publish Template: houdini_shot_publish
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
+################################################################################
+
 # ---- Nuke
 
 # asset step

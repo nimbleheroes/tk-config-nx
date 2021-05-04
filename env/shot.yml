@@ -12,6 +12,7 @@ description: Apps and engines loaded when a Shot is loaded. Since std VFX config
 includes:
 - ./includes/frameworks.yml
 - ./includes/settings/tk-maya.yml
+- ./includes/settings/tk-houdini.yml
 - ./includes/settings/tk-nuke.yml
 - ./includes/settings/tk-photoshopcc.yml
 - ./includes/settings/tk-shell.yml
@@ -22,6 +23,7 @@ includes:
 
 engines:
   tk-maya: "@settings.tk-maya.shot"
+  tk-houdini: "@settings.tk-houdini.shot"
   tk-nuke: "@settings.tk-nuke.shot"
   tk-photoshopcc: "@settings.tk-photoshopcc.shot"
   tk-shell: "@settings.tk-shell.shot"
