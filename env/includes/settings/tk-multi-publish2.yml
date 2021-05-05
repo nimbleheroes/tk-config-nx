@@ -33,11 +33,6 @@ settings.tk-multi-publish2.maya.asset_step:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
-    settings:
-        Playblast Work Template: asset_maya_work_playblast
-        Playblast Publish Template: asset_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -46,7 +41,7 @@ settings.tk-multi-publish2.maya.asset_step:
     settings:
         Publish Template: asset_maya_pub_file
   - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/tk-maya/publish_session_geometry.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/publish_session_geometry_tk-maya.py"
     settings:
         Publish Template: asset_alembic_cache
   help_url: *help_url
@@ -61,11 +56,6 @@ settings.tk-multi-publish2.maya.seq_step:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
-    settings:
-        Playblast Work Template: seq_maya_work_playblast
-        Playblast Publish Template: seq_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -85,11 +75,6 @@ settings.tk-multi-publish2.maya.shot_step:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
-    settings:
-        Playblast Work Template: shot_maya_work_playblast
-        Playblast Publish Template: shot_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -166,7 +151,7 @@ settings.tk-multi-publish2.houdini.shot_step:
   - name: Publish to Shotgun
     hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
-        Publish Template: houdini_shot_publish
+        Publish Template: shot_houdini_pub_file
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
