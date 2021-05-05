@@ -87,8 +87,7 @@ settings.tk-houdini.shot_step:
       location: '@apps.tk-multi-breakdown.location'
     tk-multi-setframerange:
       location: '@apps.tk-multi-setframerange.location'
-      sg_in_frame_field: sg_head_in
-      sg_out_frame_field: sg_tail_out
+      hook_callbacks: '{config}/tk-multi-setframerange/callbacks_{engine}.py'
     tk-multi-loader2: '@settings.tk-multi-loader2.houdini'
     tk-multi-publish2: '@settings.tk-multi-publish2.houdini.shot_step'
     tk-multi-shotgunpanel: '@settings.tk-multi-shotgunpanel.houdini'

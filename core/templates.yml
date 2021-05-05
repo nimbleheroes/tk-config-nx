@@ -505,7 +505,7 @@ paths:
     #
 
     asset_alembic_cache:
-        definition: '@asset_pubs_area/data/cache/abc/{Asset}_{Step}[_{name}]_v{version}.abc'
+        definition: '@asset_pubs_area/data/cache/{Asset}_{Step}[_{name}]_v{version}/abc/{Asset}_{Step}[_{name}]_v{version}.abc'
 
     #
     # Photoshop - Asset
