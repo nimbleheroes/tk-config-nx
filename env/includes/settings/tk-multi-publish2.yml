@@ -137,7 +137,7 @@ settings.tk-multi-publish2.houdini.seq_step:
 settings.tk-multi-publish2.houdini.shot_step:
   collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
   collector_settings:
-      Work Template: houdini_shot_work
+      Work Template: shot_houdini_work_file
   publish_plugins:
   - name: Publish to Shotgun
     hook: "{self}/publish_file.py"
