@@ -1,7 +1,6 @@
-# this configuration file defines which version of the toolkit
-# core API that should be used at runtime.
-
+# Shotgun Pipeline Toolkit configuration file. This file was automatically
+# created during the latest core update.
 location:
-  type: app_store
   name: tk-core
-  version: v0.19.18
+  type: app_store
+  version: v0.19.19
