@@ -225,7 +225,11 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 183556 #tk-delivery-0.0.5
+  version: 186263 #tk-delivery-0.0.7
+  ### Dev
+  # name: tk-delivery
+  # type: dev
+  # path: ~/Documents/tk-delivery
 
 ################################################################################
 # reference all of the common frameworks
