@@ -29,11 +29,23 @@ settings.tk-desktop.project:
   show_recents: false
   groups:
   - matches:
-    - "*Maya*"
+    - "*Fla*"
     - "*Nuke*"
     - "*Photoshop*"
-    name: Creative Tools
+    - "*After*"
+    - "*Effects*"
+    - "*Mocha*"
+    name: 2D Apps
+  - matches:
+    - "*Houdini*"
+    - "*Mari*"
+    - "*Max*"
+    - "*Maya*"
+    - "*Motion*"
+    - "*Blender*"
+    - "*Substance*"
+    name: 3D Apps
   - matches:
     - "*Hiero*"
-    name: Editorial Tools
+    name: Editorial
   location: "@engines.tk-desktop.location"
