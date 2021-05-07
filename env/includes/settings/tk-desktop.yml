@@ -47,5 +47,6 @@ settings.tk-desktop.project:
     name: 3D Apps
   - matches:
     - "*Hiero*"
+    - "*Resolve*"
     name: Editorial
   location: "@engines.tk-desktop.location"
