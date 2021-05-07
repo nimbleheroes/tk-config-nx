@@ -30,7 +30,7 @@ displays:
     - !<View> {name: None, colorspace: raw}
 
 active_displays: [Monitor]
-active_views: [AutoLUT CC, AutoLUT, Rec2020, Rec709, sRGB, Camera Raw, None]
+active_views: [Rec2020, Rec709, sRGB, AutoLUT CC, AutoLUT, Camera Raw, None]
 
 looks:
   - !<Look>

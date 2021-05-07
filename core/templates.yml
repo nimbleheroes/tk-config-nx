@@ -196,6 +196,8 @@ paths:
         definition: 'pipe/ocio'
     pipe_ocio_config:
         definition: 'pipe/ocio/config.ocio'
+    pipe_ocio_config_3d:
+        definition: 'pipe/ocio/config_3d.ocio'
 
     pipe_nuke_path:
         definition: 'pipe/nuke/python'
@@ -215,6 +217,9 @@ paths:
         definition: 'pipe/maya/plugins'
     pipe_maya_library_path:
         definition: 'pipe/maya/library'
+
+    pipe_houdini_path:
+        definition: 'pipe/houdini'
 
     pipe_cache_area:
         definition: 'cache/'
