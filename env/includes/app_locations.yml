@@ -178,7 +178,7 @@ apps.tk-nuke-writenode.location:
   type: shotgun
   entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 185587 #tk-nuke-writenode-1.4.2.14
+  version: 187895 #tk-nuke-writenode-1.4.2.15
 
 # setframerange
 apps.tk-multi-setframerange.location:
