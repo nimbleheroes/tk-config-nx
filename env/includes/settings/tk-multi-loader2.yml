@@ -62,8 +62,9 @@ settings.tk-multi-loader2.houdini:
 
   # nuke
 settings.tk-multi-loader2.nuke:
+  actions_hook: '{config}/tk-multi-loader2/tk-nuke_actions.py'
   action_mappings:
-    Alembic Cache: [read_node]
+    Alembic Cache: [read_node, camera_node, readgeo_node]
     Flame Render: [read_node]
     Flame Quicktime: [read_node]
     Image: [read_node]
@@ -72,6 +73,8 @@ settings.tk-multi-loader2.nuke:
     Photoshop Image: [read_node]
     Rendered Image: [read_node]
     Texture: [read_node]
+    Hiero Plate: [read_node]
+    Motion Builder FBX: [camera_node, readgeo_node]
   entities: *loader_entities
   publish_filters: [["sg_status_list", "is_not", null]]
   location: "@apps.tk-multi-loader2.location"
