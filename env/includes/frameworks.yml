@@ -69,7 +69,7 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity03
       field: sg_uploaded_app
-      version: 177208 #tk-framework-nx-0.1.7
+      version: 190266 #tk-framework-nx-0.1.8
 
   # desktopserver - provides a server to run local commands.
   tk-framework-desktopserver_v1.x.x:
@@ -85,4 +85,4 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity03
       field: sg_uploaded_app
-      version: 185630 #tk-framework-nx-0.1.7
+      version: 185630
