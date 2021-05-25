@@ -60,29 +60,72 @@ frameworks:
 
 # ---- NEXODUS frameworks
 
-  tk-framework-nx_v0.x.x:
-    Custom Format Entity: CustomNonProjectEntity02
-    Project Default Format Field: sg_default_format
+  # nx - NX studio utilities
+  tk-framework-nx_v0.0.x:
     location:
-      ### Toolkit Component Entity
       name: tk-framework-nx
+      ### Toolkit Component Entity
       type: shotgun
-      entity_type: CustomNonProjectEntity03
+      entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 190266 #tk-framework-nx-0.1.8
+      version: 1612 #tk-framework-nx-0.0.3
+      ## Dev
+      # type: dev
+      # path: ~/Documents/Github/tk-framework-nx
+
+  tk-framework-nx_v0.x.x:
+    Custom Format Entity: CustomNonProjectEntity03
+    location:
+      name: tk-framework-nx
+      ### Toolkit Component Entity
+      type: shotgun
+      entity_type: CustomNonProjectEntity13
+      field: sg_uploaded_app
+      version: 44333 #tk-framework-nx-0.1.7
+      ## Dev
+      # type: dev
+      # path: ~/Documents/Github/tk-framework-nx
+
+  # tk-framework-deadline_v0.x.x:
+  #   web_service_machine: 10.0.2.49
+  #   web_service_port: 8082
+  #   location:
+  #     name: tk-framework-deadline
+  #     ### Toolkit Component Entity
+  #     # type: shotgun
+  #     # entity_type: CustomNonProjectEntity13
+  #     # field: sg_uploaded_app
+  #     # version: 00000 #tk-framework-deadline-0.0.0
+  #     ## Dev
+  #     type: dev
+  #     path: ~/Documents/Github/tk-framework-deadline_nx
+
+  # nx - NX studio utilities
+  tk-framework-editorial_v0.0.x:
+    location:
+      name: tk-framework-editorial
+      ### Toolkit Component Entity
+      type: shotgun
+      entity_type: CustomNonProjectEntity13
+      field: sg_uploaded_app
+      version: 7737 #tk-framework-editorial-0.0.1
+      ## Dev
+      # type: dev
+      # path: ~/Documents/Github/tk-framework-editorial
 
   # desktopserver - provides a server to run local commands.
   tk-framework-desktopserver_v1.x.x:
     add_ami_entities: [Playlist]
     location:
-      ### Github Release
-      # type: github_release
-      # organization: nimbleheroes
-      # repository: tk-framework-desktopserver
-      # version: v1.4.6.1
-      ### Toolkit Component Entity
       name: tk-framework-desktopserver
+      ### App Store
+      # version: v1.4.4
+      # type: app_store
+      ### Toolkit Component Entity
       type: shotgun
-      entity_type: CustomNonProjectEntity03
+      entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 185630
+      version: 43474 #tk-framework-desktopserver-1.4.6.1
+      ### Dev
+      # type: dev
+      # path: ~/Documents/Github/tk-framework-desktopserver_nx

@@ -6,6 +6,7 @@ includes:
 - ./tk-multi-launchapp.yml
 - ./tk-multi-publish2.yml
 - ./tk-multi-demo.yml
+- ./tk-multi-importcut.yml
 - ./tk-multi-screeningroom.yml
 
 ################################################################################
@@ -25,28 +26,17 @@ settings.tk-desktop.project:
       location: "@apps.tk-multi-devutils.location"
     tk-multi-launchapp: "@settings.tk-multi-launchapp"
     tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
+    # tk-multi-demo: "@settings.tk-multi-demo"
+    tk-multi-importcut: "@settings.tk-multi-importcut"
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
   show_recents: false
   groups:
   - matches:
-    - "*Fla*"
+    - "*Maya*"
     - "*Nuke*"
     - "*Photoshop*"
-    - "*After*"
-    - "*Effects*"
-    - "*Mocha*"
-    name: 2D Apps
-  - matches:
-    - "*Houdini*"
-    - "*Mari*"
-    - "*Max*"
-    - "*Maya*"
-    - "*Motion*"
-    - "*Blender*"
-    - "*Substance*"
-    name: 3D Apps
+    name: Creative Tools
   - matches:
     - "*Hiero*"
-    - "*Resolve*"
-    name: Editorial
+    name: Editorial Tools
   location: "@engines.tk-desktop.location"
