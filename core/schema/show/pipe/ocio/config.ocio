@@ -23,13 +23,14 @@ displays:
   Monitor:
     - !<View> {name: AutoLUT CC, colorspace: Show LUT, looks: "-neutral, +dailies"}
     - !<View> {name: AutoLUT, colorspace: Show LUT}
+    - !<View> {name: Rec2020, colorspace: Output - Rec.2020}
     - !<View> {name: Rec709, colorspace: Output - Rec.709}
     - !<View> {name: sRGB, colorspace: Output - sRGB}
     - !<View> {name: Camera Raw, colorspace: Camera Raw}
     - !<View> {name: None, colorspace: raw}
 
 active_displays: [Monitor]
-active_views: [AutoLUT CC, AutoLUT, Rec709, sRGB, Camera Raw, None]
+active_views: [AutoLUT CC, AutoLUT, Rec2020, Rec709, sRGB, Camera Raw, None]
 
 looks:
   - !<Look>

@@ -36,13 +36,13 @@ apps.tk-multi-launchapp.location:
 apps.tk-multi-loader2.location:
   type: app_store
   name: tk-multi-loader2
-  version: v1.20.2
+  version: v1.20.3
 
 # publish2
 apps.tk-multi-publish2.location:
   type: app_store
   name: tk-multi-publish2
-  version: v2.5.5
+  version: v2.5.6
 
 # pythonconsole
 apps.tk-multi-pythonconsole.location:
@@ -112,7 +112,21 @@ apps.tk-hiero-export.location:
 apps.tk-hiero-openinshotgun.location:
   type: app_store
   name: tk-hiero-openinshotgun
-  version: v0.3.4
+  version: v0.3.5
+
+# ---- Houdini apps
+
+# houdini alembicnode
+apps.tk-houdini-alembicnode.location:
+  type: app_store
+  name: tk-houdini-alembicnode
+  version: v0.4.1
+
+# houdini mantranode
+apps.tk-houdini-mantranode.location:
+  type: app_store
+  name: tk-houdini-mantranode
+  version: v0.4.1
 
 # ---- Nuke apps
 
@@ -126,30 +140,30 @@ apps.tk-nuke-quickreview.location:
 
 # workfiles2
 apps.tk-multi-workfiles2.location:
-  name: tk-multi-workfiles2
   ### App Store
+  # name: tk-multi-workfiles2
   # type: app_store
-  # version: v0.12.3
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 40627 #tk-multi-workfiles2-0.12.6.2
+  # version: v0.12.6
+  ### Github Release
+  type: github_release
+  organization: nimbleheroes
+  repository: tk-multi-workfiles2
+  version: v0.12.6.1
   ## Dev
   # type: dev
-  # path: ~/Documents/GitHub/tk-multi-workfiles2_nx
+  # path: ~/Documents/GitHub/tk-multi-workfiles2
 
 # shotgun folders
 apps.tk-shotgun-folders.location:
-  name: tk-shotgun-folders
   ### App Store
+  # name: tk-shotgun-folders
   # type: app_store
   # version: v0.1.7
-  ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 1498 #tk-shotgun-folders-0.1.7.1
+  ### Github Release
+  type: github_release
+  organization: nimbleheroes
+  repository: tk-shotgun-folders
+  version: v0.2.0-nx.1
 
 # delivery app
 apps.tk-delivery.location:
@@ -158,37 +172,47 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 44615 #tk-delivery-0.0.5
+  version: 49650 #tk-delivery-0.0.7
   ## Dev
   # type: dev
   # path: ~/Documents/GitHub/tk-delivery_nx
 
 # writenode
 apps.tk-nuke-writenode.location:
-  name: tk-nuke-writenode
   ### App Store
+  # name: tk-nuke-writenode
   # type: app_store
   # version: v1.4.2
   ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 48502 #tk-nuke-writenode-1.4.2.14
+  # type: shotgun
+  # entity_type: CustomNonProjectEntity13
+  # field: sg_uploaded_app
+  # version: 48502 #tk-nuke-writenode-1.4.2.14
+  ### Github Release
+  type: github_release
+  organization: nimbleheroes
+  repository: tk-nuke-writenode
+  version: v1.4.2.15
   ## Dev
   # type: dev
   # path: ~/Documents/tk-nuke-writenode
 
 # setframerange
 apps.tk-multi-setframerange.location:
-  name: tk-multi-setframerange
   ### App Store
+  # name: tk-multi-setframerange
   # type: app_store
   # version: v0.4.1
   ### Toolkit Component Entity
-  type: shotgun
-  entity_type: CustomNonProjectEntity13
-  field: sg_uploaded_app
-  version: 10350 #tk-multi-setframerange-0.4.2
+  # type: shotgun
+  # entity_type: CustomNonProjectEntity13
+  # field: sg_uploaded_app
+  # version: 10350 #tk-multi-setframerange-0.4.2
+  ### Github Release
+  type: github_release
+  organization: nimbleheroes
+  repository: tk-multi-setframerange
+  version: v0.4.2
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-multi-setframerange_nx
@@ -197,8 +221,8 @@ apps.tk-multi-setframerange.location:
 
 # ocio
 apps.tk-multi-ocio.location:
-  name: tk-multi-ocio
   ### Toolkit Component Entity
+  name: tk-multi-ocio
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
@@ -209,8 +233,8 @@ apps.tk-multi-ocio.location:
 
 # nuke_tools
 apps.tk-nuke-tools.location:
-  name: tk-nuke-tools
   ### Toolkit Component Entity
+  name: tk-nuke-tools
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
@@ -221,8 +245,8 @@ apps.tk-nuke-tools.location:
 
 # maya-playblast
 apps.tk-maya-playblast.location:
-  name: tk-maya-playblast
   ### Toolkit Component Entity
+  name: tk-maya-playblast
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app

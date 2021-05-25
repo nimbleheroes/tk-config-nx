@@ -5,6 +5,47 @@ includes:
 
 ################################################################################
 
+# common
+workfiles_entities: &workfiles_entities
+  - caption: Show
+    entity_type: Project
+    filters:
+    hierarchy: [code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Seqs
+    entity_type: Sequence
+    filters:
+    hierarchy: [code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Shots
+    entity_type: Shot
+    filters:
+    hierarchy: [sg_sequence, code]
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+  - caption: Assets
+    entity_type: Asset
+    hierarchy: [sg_asset_type, code]
+    filters:
+    sub_hierarchy:
+      entity_type: Task
+      filters:
+      link_field: entity
+      hierarchy: [step]
+
+################################################################################
+
 # This configuration is used whenever a general file manager
 # is needed. This configuration doesn't look for files,
 # but only lets you switch to a valid work area. When a user
@@ -20,25 +61,8 @@ includes:
 # and these 'transit' areas can be project, shot, or sequence level.
 
 settings.tk-multi-workfiles2:
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  show_change_context: true
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 # launches at startup.
@@ -48,25 +72,7 @@ settings.tk-multi-workfiles2.launch_at_startup:
   my_tasks_filters:
     - ['task_assignees', 'is', '{context.user}']
     - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 ################################################################################
@@ -83,18 +89,7 @@ settings.tk-multi-workfiles2.hiero.project_step:
   template_publish_area: show_hiero_pubs_area
   template_work: show_hiero_work_file
   template_work_area: show_hiero_work_area
-  entities:
-  - caption: Projects
-    entity_type: Project
-    filters: []
-    hierarchy: [name]
-  # show_my_tasks: false
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-        - [step, is_not, null]
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 ################################################################################
@@ -113,25 +108,7 @@ settings.tk-multi-workfiles2.maya.asset_step:
   template_publish_area: asset_maya_pubs_area
   template_work: asset_maya_work_file
   template_work_area: asset_maya_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 # seq_step
@@ -146,34 +123,7 @@ settings.tk-multi-workfiles2.maya.seq_step:
   template_publish_area: seq_maya_pubs_area
   template_work: seq_maya_work_file
   template_work_area: seq_maya_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Sequences
-    entity_type: Sequence
-    filters:
-    hierarchy: [code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: '@apps.tk-multi-workfiles2.location'
 
 # shot_step
@@ -188,25 +138,38 @@ settings.tk-multi-workfiles2.maya.shot_step:
   template_publish_area: shot_maya_pubs_area
   template_work: shot_maya_work_file
   template_work_area: shot_maya_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
+  location: '@apps.tk-multi-workfiles2.location'
+
+################################################################################
+
+# ---- Houdini
+
+# asset_step
+settings.tk-multi-workfiles2.houdini.asset_step:
+  template_publish: asset_houdini_pub_file
+  template_publish_area: asset_houdini_pubs_area
+  template_work: asset_houdini_work_file
+  template_work_area: asset_houdini_work_area
+  entities: *workfiles_entities
+  location: "@apps.tk-multi-workfiles2.location"
+
+# seq_step
+settings.tk-multi-workfiles2.houdini.seq_step:
+  template_publish: seq_houdini_pub_file
+  template_publish_area: seq_houdini_pubs_area
+  template_work: seq_houdini_work_file
+  template_work_area: seq_houdini_work_area
+  entities: *workfiles_entities
+  location: '@apps.tk-multi-workfiles2.location'
+
+# shot_step
+settings.tk-multi-workfiles2.houdini.shot_step:
+  template_publish: shot_houdini_pub_file
+  template_publish_area: shot_houdini_pubs_area
+  template_work: shot_houdini_work_file
+  template_work_area: shot_houdini_work_area
+  entities: *workfiles_entities
   location: '@apps.tk-multi-workfiles2.location'
 
 ################################################################################
@@ -225,25 +188,7 @@ settings.tk-multi-workfiles2.nuke.asset_step:
   template_publish_area: asset_nuke_pubs_area
   template_work: asset_nuke_work_file
   template_work_area: asset_nuke_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 # seq_step
@@ -258,34 +203,7 @@ settings.tk-multi-workfiles2.nuke.seq_step:
   template_publish_area: seq_nuke_pubs_area
   template_work: seq_nuke_work_file
   template_work_area: seq_nuke_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Sequences
-    entity_type: Sequence
-    filters:
-    hierarchy: [code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 # shot_step
@@ -300,25 +218,7 @@ settings.tk-multi-workfiles2.nuke.shot_step:
   template_publish_area: shot_nuke_pubs_area
   template_work: shot_nuke_work_file
   template_work_area: shot_nuke_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 ################################################################################
@@ -337,25 +237,7 @@ settings.tk-multi-workfiles2.photoshop.asset_step:
   template_publish_area: asset_photoshop_pubs_area
   template_work: asset_photoshop_work_file
   template_work_area: asset_photoshop_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 # seq_step
@@ -370,34 +252,7 @@ settings.tk-multi-workfiles2.photoshop.seq_step:
   template_publish_area: seq_photoshop_pubs_area
   template_work: seq_photoshop_work_file
   template_work_area: seq_photoshop_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Sequences
-    entity_type: Sequence
-    filters:
-    hierarchy: [code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
 # shot_step
@@ -412,23 +267,5 @@ settings.tk-multi-workfiles2.photoshop.shot_step:
   template_publish_area: shot_photoshop_pubs_area
   template_work: shot_photoshop_work_file
   template_work_area: shot_photoshop_work_area
-  entities:
-  - caption: Assets
-    entity_type: Asset
-    hierarchy: [sg_asset_type, code]
-    filters:
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
-  - caption: Shots
-    entity_type: Shot
-    filters:
-    hierarchy: [sg_sequence, code]
-    sub_hierarchy:
-      entity_type: Task
-      filters:
-      link_field: entity
-      hierarchy: [step]
+  entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"

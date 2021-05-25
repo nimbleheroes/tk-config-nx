@@ -12,11 +12,8 @@ publish_help_url: &help_url "https://support.shotgunsoftware.com/hc/en-us/articl
 # ---- Stand alone publish
 
 settings.tk-multi-publish2.standalone:
-  collector: "{config}/tk-multi-publish2/standalone/collector.py"
+  collector: "{config}/tk-multi-publish2/collector.py"
   publish_plugins:
-  # - name: Ingest as Shot Plate
-  #   hook: "{config}/tk-multi-publish2/standalone/ingest_plate.py"
-  #   settings: {}
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
@@ -29,18 +26,13 @@ settings.tk-multi-publish2.standalone:
 
 # asset step
 settings.tk-multi-publish2.maya.asset_step:
-  collector: "{self}/collector.py:{config}/tk-multi-publish2/tk-maya/collector.py"
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
   collector_settings:
       Work Template: asset_maya_work_file
   publish_plugins:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
-    settings:
-        Playblast Work Template: asset_maya_work_playblast
-        Playblast Publish Template: asset_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -48,27 +40,18 @@ settings.tk-multi-publish2.maya.asset_step:
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: asset_maya_pub_file
-  - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/tk-maya/publish_session_geometry.py"
-    settings:
-        Publish Template: asset_alembic_cache
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
 # sequence step
 settings.tk-multi-publish2.maya.seq_step:
-  collector: "{self}/collector.py:{config}/tk-multi-publish2/tk-maya/collector.py"
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
   collector_settings:
       Work Template: seq_maya_work_file
   publish_plugins:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
-    settings:
-        Playblast Work Template: seq_maya_work_playblast
-        Playblast Publish Template: seq_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -81,18 +64,13 @@ settings.tk-multi-publish2.maya.seq_step:
 
 # shot step
 settings.tk-multi-publish2.maya.shot_step:
-  collector: "{self}/collector.py:{config}/tk-multi-publish2/tk-maya/collector.py"
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
   collector_settings:
       Work Template: shot_maya_work_file
   publish_plugins:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-maya/upload_version.py"
-    settings:
-        Playblast Work Template: shot_maya_work_playblast
-        Playblast Publish Template: shot_review_movies
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
@@ -105,93 +83,143 @@ settings.tk-multi-publish2.maya.shot_step:
 
 ################################################################################
 
-# ---- Nuke
+# ---- Houdini
 
 # asset step
-settings.tk-multi-publish2.nuke.asset_step:
-  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
+settings.tk-multi-publish2.houdini.asset_step:
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
   collector_settings:
-      Work Template: asset_nuke_work_file
+      Work Template: asset_houdini_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py"
+    hook: "{self}/publish_file.py"
     settings: {}
   - name: Upload for review
     hook: "{self}/upload_version.py"
     settings: {}
   - name: Begin file versioning
-    hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
+    hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    settings:
+        Publish Template: asset_houdini_pub_file
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
+# seq step
+settings.tk-multi-publish2.houdini.seq_step:
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector_settings:
+      Work Template: seq_houdini_work_file
+  publish_plugins:
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py"
+    settings: {}
+  - name: Upload for review
+    hook: "{self}/upload_version.py"
+    settings: {}
+  - name: Begin file versioning
+    hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
+    settings: {}
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    settings:
+        Publish Template: seq_houdini_pub_file
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
+# shot step
+settings.tk-multi-publish2.houdini.shot_step:
+  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector_settings:
+      Work Template: shot_houdini_work_file
+  publish_plugins:
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py"
+    settings: {}
+  - name: Upload for review
+    hook: "{self}/upload_version.py"
+    settings: {}
+  - name: Begin file versioning
+    hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
+    settings: {}
+  - name: Publish to Shotgun
+    hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+    settings:
+        Publish Template: shot_houdini_pub_file
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
+################################################################################
+
+# ---- Nuke
+
+# asset step
+settings.tk-multi-publish2.nuke.asset_step:
+  path_info: "{config}/tk-multi-publish2/path_info.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
+  collector_settings:
+      Work Template: asset_nuke_work_file
+  publish_plugins:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: asset_nuke_pub_file
-  - name: Submit for Review
-    hook: "{engine}/tk-multi-publish2/basic/submit_for_review.py"
+  - name: Publish to Shotgun
+    hook: "{config}/tk-multi-publish2/publish_file.py"
+    settings: {}
+  - name: Create Version
+    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
+    settings: {}
+  - name: Attach to Version
+    hook: "{config}/tk-multi-publish2/attach_to_version.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
 # seq step
 settings.tk-multi-publish2.nuke.seq_step:
+  path_info: "{config}/tk-multi-publish2/path_info.py"
   collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
   collector_settings:
       Work Template: seq_nuke_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py"
-    settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
-    settings: {}
-  - name: Begin file versioning
-    hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
-    settings: {}
-  - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: seq_nuke_pub_file
-  - name: Submit for Review
-    hook: "{engine}/tk-multi-publish2/basic/submit_for_review.py"
+  - name: Publish to Shotgun
+    hook: "{config}/tk-multi-publish2/publish_file.py"
+    settings: {}
+  - name: Create Version
+    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
+    settings: {}
+  - name: Attach to Version
+    hook: "{config}/tk-multi-publish2/attach_to_version.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
 # shot step
 settings.tk-multi-publish2.nuke.shot_step:
-  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
+  path_info: "{config}/tk-multi-publish2/path_info.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/collector_{engine_name}.py"
   collector_settings:
       Work Template: shot_nuke_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py"
-    settings: {}
-  - name: Upload for review
-    hook: "{config}/tk-multi-publish2/tk-nuke/upload_version.py"
-    settings:
-     Source Correlate:  # given a matching rep, assert where it came from.
-        - templates:
-            rep: shot_nuke_work_render_mov # publish item must be from this template
-            source: shot_nuke_pub_render_seq # if so, we'll apply the fields to this template with below field changes
-          fields:
-            rep: # must match these fields when inspecting the path
-              frame_format: hd
-              extension: mov
-            source: # supply these fields when asserting the exact source path
-              frame_format: uhd21
-              extension: exr
-          update:
-            entity: Version
-            field: sg_path_to_frames
-  - name: Begin file versioning
-    hook: "{engine}/tk-multi-publish2/basic/nuke_start_version_control.py"
-    settings: {}
-  - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: shot_nuke_pub_file
-  - name: Submit for Review
-    hook: "{engine}/tk-multi-publish2/basic/submit_for_review.py"
+  - name: Publish to Shotgun
+    hook: "{config}/tk-multi-publish2/publish_file.py"
+    settings: {}
+  - name: Create Version
+    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
+    settings: {}
+  - name: Attach to Version
+    hook: "{config}/tk-multi-publish2/attach_to_version.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
@@ -201,6 +229,7 @@ settings.tk-multi-publish2.nuke.shot_step:
 # ---- Hiero
 
 settings.tk-multi-publish2.hiero:
+  path_info: "{config}/tk-multi-publish2/path_info.py"
   collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
   collector_settings:
       Work Template: show_hiero_work_file
