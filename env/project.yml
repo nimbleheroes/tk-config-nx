@@ -6,26 +6,25 @@ includes:
 - ./includes/frameworks.yml
 - ./includes/settings/tk-desktop.yml
 - ./includes/settings/tk-maya.yml
+- ./includes/settings/tk-houdini.yml
 - ./includes/settings/tk-nuke.yml
 - ./includes/settings/tk-photoshopcc.yml
 - ./includes/settings/tk-shell.yml
 - ./includes/settings/tk-shotgun.yml
-# - ./includes/settings/tk-generic.yml
 
 ################################################################################
 # configuration for all engines to load in a project context
 
 engines:
   tk-desktop: "@settings.tk-desktop.project"
-  # tk-hiero: "@settings.tk-nuke.hiero.project"
   tk-maya: "@settings.tk-maya.project"
+  tk-houdini: "@settings.tk-houdini.project"
   tk-nuke: "@settings.tk-nuke.project"
   tk-nuke-render: "@settings.tk-nuke.render.project"
   tk-hiero: "@settings.tk-nuke.hiero.project"
   tk-photoshopcc: "@settings.tk-photoshopcc.project"
   tk-shell: "@settings.tk-shell.project"
   tk-shotgun: "@settings.tk-shotgun.project"
-  # tk-generic: "@settings.tk-generic"
 
 ################################################################################
 # reference all of the common frameworks

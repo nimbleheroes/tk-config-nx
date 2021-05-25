@@ -24,7 +24,7 @@ engines.tk-flame.location:
 engines.tk-houdini.location:
   type: app_store
   name: tk-houdini
-  version: v1.6.1
+  version: v1.7.2
 
 # Mari
 engines.tk-mari.location:
@@ -36,7 +36,7 @@ engines.tk-mari.location:
 engines.tk-maya.location:
   type: app_store
   name: tk-maya
-  version: v0.10.3
+  version: v0.10.4
 
 # Photoshop
 engines.tk-photoshopcc.location:
@@ -60,27 +60,18 @@ engines.tk-shotgun.location:
 
 # Nuke
 engines.tk-nuke.location:
-  name: tk-nuke
   ### App Store
+  # name: tk-nuke
   # type: app_store
-  # version: v0.12.7
-  ### Toolkit Component Entity
+  # version: v0.12.10
+  ### Github Release
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-nuke
+  # version: v0.12.10.3
+  ### Toolkit App Entity
+  name: tk-nuke
   type: shotgun
-  entity_type: CustomNonProjectEntity13
+  entity_type: CustomNonProjectEntity03
   field: sg_uploaded_app
-  version: 41282 #tk-nuke-0.12.10.3
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-nuke_nx
-
-# Generic
-# engines.tk-generic.location:
-#   name: tk-generic
-  ### Toolkit Component Entity
-  # type: shotgun
-  # entity_type: CustomNonProjectEntity13
-  # field: sg_uploaded_app
-  # version: #### #tk-generic-0.0.#
-  ## Dev
-  # type: dev
-  # path: ~/Documents/Github/tk-generic_nx
+  version: 185591 #tk-nuke-0.12.10.3

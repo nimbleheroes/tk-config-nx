@@ -1,0 +1,50 @@
+# Copyright (c) 2017 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+
+################################################################################
+
+includes:
+- ../app_locations.yml
+
+################################################################################
+
+# shot step
+settings.tk-houdini-alembicnode.shot_step:
+  work_file_template: shot_houdini_work_file
+  default_node_name: sg_alembic_out
+  output_profiles:
+  - name: Shot Work Cache
+    settings: {}
+    color: []
+    output_cache_template: shot_houdini_work_alembic_cache
+  location: "@apps.tk-houdini-alembicnode.location"
+
+# seq step
+settings.tk-houdini-alembicnode.seq_step:
+  work_file_template: seq_houdini_work_file
+  default_node_name: sg_alembic_out
+  output_profiles:
+  - name: Sequence Work Cache
+    settings: {}
+    color: []
+    output_cache_template: seq_houdini_work_alembic_cache
+  location: "@apps.tk-houdini-alembicnode.location"
+
+# asset step
+settings.tk-houdini-alembicnode.asset_step:
+  work_file_template: asset_houdini_work_file
+  default_node_name: sg_alembic_out
+  output_profiles:
+  - name: Asset Work Cache
+    settings: {}
+    color: []
+    output_cache_template: asset_houdini_work_alembic_cache
+  location: "@apps.tk-houdini-alembicnode.location"
+

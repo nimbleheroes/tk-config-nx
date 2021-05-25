@@ -10,15 +10,19 @@
 
 import os
 import pprint
+import traceback
+
 import sgtk
+from sgtk.util.filesystem import copy_file, ensure_folder_exists
 from tank_vendor import six
 
 HookBaseClass = sgtk.get_hook_baseclass()
 
 
-class IngestPlate(HookBaseClass):
+class BasicVersionPlugin(HookBaseClass):
     """
-    Plugin for ingesting plates.
+    Plugin for creating generic versions in Shotgun.
+
     """
 
     @property
@@ -28,14 +32,16 @@ class IngestPlate(HookBaseClass):
         """
 
         # look for icon one level up from this hook's folder in "icons" folder
-        return os.path.join(self.disk_location, "..", "icons", "publish.png")
+        return os.path.join(self.disk_location, "icons", "create_version.png")
+
 
     @property
     def name(self):
         """
         One line display name describing the plugin
         """
-        return "Ingest as Shot Plate"
+        return "Create Shotgun Version"
+
 
     @property
     def description(self):
@@ -45,13 +51,12 @@ class IngestPlate(HookBaseClass):
         """
 
         return """
-        Ingest Movie or Image Sequence as Plate.<br><br>
+        Creates a <b>Version</b> in Shotgun. A Version entry will be
+        created in Shotgun that represents this workfile. Review quicktimes,
+        frame sequences, or geometry can then be attached to this version
+        and used for review.
+        """
 
-        A <b>Version</b> entry will be created in Shotgun and a transcoded
-        copy of the file will be attached to it.
-        """.format()
-
-        # TODO: when settings editable, describe upload vs. link
 
     @property
     def settings(self):
@@ -69,33 +74,21 @@ class IngestPlate(HookBaseClass):
                     "description": "One line description of the setting"
             }
 
-        The type string should be one of the data types that toolkit accepts as
-        part of its environment configuration.
+        The type string should be one of the data types that toolkit accepts
+        as part of its environment configuration.
         """
+        
         return {
-            "File Extensions": {
-                "type": "str",
-                "default": "jpeg, jpg, png, mov, mp4, exr, dpx",
-                "description": "File Extensions of files to include",
+            "create_version": {
+                "type": "bool",
+                "default": True,
+                "description": (
+                    "This gets passed to the item task and helps to "
+                    "identify which task is the create_version task."
+                ),
             },
-            "Shot Plate Template": {
-                "type": "template",
-                "default": "shot_plate",
-                "description": "Template path for shot plates. Should"
-                "correspond to a template defined in "
-                "templates.yml.",
-            },
-            # "Upload": {
-            #     "type": "bool",
-            #     "default": True,
-            #     "description": "Upload content to Shotgun?",
-            # },
-            # "Link Local File": {
-            #     "type": "bool",
-            #     "default": True,
-            #     "description": "Should the local file be referenced by Shotgun",
-            # },
         }
+
 
     @property
     def item_filters(self):
@@ -106,9 +99,11 @@ class IngestPlate(HookBaseClass):
         accept() method. Strings can contain glob patters such as *, for example
         ["maya.*", "file.maya"]
         """
+        return ["*.*"]
 
-        # we use "video" since that's the mimetype category.
-        return ["file.image", "file.image.sequence", "file.video"]
+    ############################################################################
+    # standard publish plugin methods
+
 
     def accept(self, settings, item):
         """
@@ -136,37 +131,27 @@ class IngestPlate(HookBaseClass):
         :returns: dictionary with boolean keys accepted, required and enabled
         """
 
-        publisher = self.parent
-        file_path = item.properties["path"]
+        path = item.properties.get("path")
+        accepted = False
+    
+        if path:
+            accept = True
 
-        file_info = publisher.util.get_file_path_components(file_path)
-        extension = file_info["extension"].lower()
+            # lets store the verison name and make a flag for the attach_to_version plugin to catch.
+            item.properties.version_name = self._get_version_name(path)
+            item.properties.create_version = True
 
-        valid_extensions = []
-
-        for ext in settings["File Extensions"].value.split(","):
-            ext = ext.strip().lstrip(".")
-            valid_extensions.append(ext)
-
-        self.logger.debug("Valid extensions: %s" % valid_extensions)
-        for k, v in item.properties.iteritems():
-            self.logger.debug("item.properties %s: %s" % (k, v))
-
-        if extension in valid_extensions:
             # log the accepted file and display a button to reveal it in the fs
             self.logger.info(
-                "Version upload plugin accepted: %s" % (file_path,),
-                extra={"action_show_folder": {"path": file_path}},
+                "Create version plugin accepted: %s" % (path,)
             )
-
-            # return the accepted info
-            return {"accepted": True}
         else:
             self.logger.debug(
-                "%s is not in the valid extensions list for plate ingest creation"
-                % (extension,)
+                "Create version plugin not accepted, 'path' was None"
             )
-            return {"accepted": False}
+        # return the accepted info
+        return {"accepted": accept}
+
 
     def validate(self, settings, item):
         """
@@ -181,7 +166,20 @@ class IngestPlate(HookBaseClass):
 
         :returns: True if item is valid, False otherwise.
         """
+
+        # create a placeholder for finalize tasks
+        item.properties.version_finalize = {"update": {}, "upload": {}}
+
+        # start a count of attachments. This checked in the attach_to_version validation and
+        # prevents a user from trying to attach more than 1 of each type to a version entry.
+        item.properties.movies_attached = 0
+        item.properties.frames_attached = 0
+        item.properties.geo_attached = 0
+
+        self.logger.info("A Version entry will be created in Shotgun: %s" % (item.properties.version_name,))
+
         return True
+
 
     def publish(self, settings, item):
         """
@@ -195,37 +193,28 @@ class IngestPlate(HookBaseClass):
 
         publisher = self.parent
         path = item.properties["path"]
+        version_name = item.properties["version_name"]
+        first_frame = item.properties.get("first_frame")
+        last_frame = item.properties.get("last_frame")
 
-        # allow the publish name to be supplied via the item properties. this is
-        # useful for collectors that have access to templates and can determine
-        # publish information about the item that doesn't require further, fuzzy
-        # logic to be used here (the zero config way)
-        publish_name = item.properties.get("publish_name")
-        if not publish_name:
-
-            self.logger.debug("Using path info hook to determine publish name.")
-
-            # use the path's filename as the publish name
-            path_components = publisher.util.get_file_path_components(path)
-            publish_name = path_components["filename"]
-
-        self.logger.debug("Publish name: %s" % (publish_name,))
+        self.logger.debug("Version name: %s" % (version_name,))
 
         self.logger.info("Creating Version...")
         version_data = {
             "project": item.context.project,
-            "code": publish_name,
+            "code": version_name,
             "description": item.description,
             "entity": self._get_version_entity(item),
             "sg_task": item.context.task,
+            "sg_published": True,
         }
 
-        if "sg_publish_data" in item.properties:
-            publish_data = item.properties["sg_publish_data"]
-            version_data["published_files"] = [publish_data]
+        if first_frame and last_frame:
 
-        if settings["Link Local File"].value:
-            version_data["sg_path_to_movie"] = path
+            version_data["sg_first_frame"] = int(first_frame)
+            version_data["sg_last_frame"] = int(last_frame)
+            version_data["frame_range"] = "{}-{}".format(first_frame, last_frame)
+            version_data["frame_count"] = int(last_frame - first_frame + 1)
 
         # log the version data for debugging
         self.logger.debug(
@@ -246,53 +235,64 @@ class IngestPlate(HookBaseClass):
         # stash the version info in the item just in case
         item.properties["sg_version_data"] = version
 
-        thumb = item.get_thumbnail_as_path()
-
-        if settings["Upload"].value:
-            self.logger.info("Uploading content...")
-
-            # on windows, ensure the path is utf-8 encoded to avoid issues with
-            # the shotgun api
-            if sgtk.util.is_windows():
-                upload_path = six.ensure_text(path)
-            else:
-                upload_path = path
-
-            self.parent.shotgun.upload(
-                "Version", version["id"], upload_path, "sg_uploaded_movie"
-            )
-        elif thumb:
-            # only upload thumb if we are not uploading the content. with
-            # uploaded content, the thumb is automatically extracted.
-            self.logger.info("Uploading thumbnail...")
-            self.parent.shotgun.upload_thumbnail("Version", version["id"], thumb)
-
-        self.logger.info("Upload complete!")
 
     def finalize(self, settings, item):
         """
-        Execute the finalization pass. This pass executes once all the publish
-        tasks have completed, and can for example be used to version up files.
+        Execute the finalization pass. This pass executes once
+        all the publish tasks have completed, and can for example
+        be used to version up files.
 
         :param settings: Dictionary of Settings. The keys are strings, matching
             the keys returned in the settings property. The values are `Setting`
             instances.
         :param item: Item to process
         """
-
-        path = item.properties["path"]
+        publisher = self.parent
+        thumb = item.get_thumbnail_as_path()
+        upload_thumb = True
         version = item.properties["sg_version_data"]
+        finalize_tasks = item.properties.get("version_finalize")
 
-        self.logger.info(
-            "Version uploaded for file: %s" % (path,),
-            extra={
-                "action_show_in_shotgun": {
-                    "label": "Show Version",
-                    "tooltip": "Reveal the version in Shotgun.",
-                    "entity": version,
-                }
-            },
-        )
+        if version and finalize_tasks:
+
+            if finalize_tasks["update"]:
+                publisher.shotgun.update("Version", version["id"], finalize_tasks["update"])
+
+            if finalize_tasks["upload"]:
+                for field, path in finalize_tasks["upload"].iteritems():
+                    self.logger.info("Uploading content...")
+
+                    # on windows, ensure the path is utf-8 encoded to avoid issues with
+                    # the shotgun api
+                    if sgtk.util.is_windows():
+                        upload_path = six.ensure_text(path)
+                    else:
+                        upload_path = path
+
+                    publisher.shotgun.upload(
+                        "Version", version["id"], upload_path, field
+                    )
+                    upload_thumb = False
+
+        if upload_thumb:
+            # only upload thumb if we are not uploading the content. with
+            # uploaded content, the thumb is automatically extracted.
+            self.logger.info("Uploading thumbnail...")
+            publisher.shotgun.upload_thumbnail("Version", version["id"], thumb)
+
+
+    def _get_version_name(self, path):
+        """
+        Returns the version name from a file path.
+
+        :param path: The current path with a version number
+        """
+        # in Python3 this will become: 
+        # from pathlib import Path
+        # return Path(path).stem
+
+        return os.path.splitext(os.path.basename(path))[0]
+
 
     def _get_version_entity(self, item):
         """

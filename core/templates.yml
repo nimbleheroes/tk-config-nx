@@ -56,6 +56,8 @@ keys:
         type: str
     playlist_name:
         type: str
+    delivery_type:
+        type: str
 
     # Represents the optional output name for frames written by the Shotgun Write Node
     nuke.output:
@@ -118,6 +120,14 @@ keys:
         default: ma
         alias: extension
 
+    # Houdini
+    houdini.node:
+        alias: node
+        type: str
+    aov_name:
+        type: str
+
+
 #
 # The paths section contains all the the key locations where files are to be stored
 # by Sgtk Apps. Each path is made up of several keys (like {version} or {shot}) and
@@ -167,6 +177,8 @@ paths:
     delivery_inbox: xfer/inbox
     delivery_outbox: xfer/outbox
 
+    delivery_manifest:
+        definition: '@delivery_outbox/{playlist_name}_{delivery_type}.manifest'
     delivery_movie:
         definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}.{ext}'
     delivery_frame_seq:
@@ -184,6 +196,8 @@ paths:
         definition: 'pipe/ocio'
     pipe_ocio_config:
         definition: 'pipe/ocio/config.ocio'
+    pipe_ocio_config_3d:
+        definition: 'pipe/ocio/config_3d.ocio'
 
     pipe_nuke_path:
         definition: 'pipe/nuke/python'
@@ -204,6 +218,9 @@ paths:
     pipe_maya_library_path:
         definition: 'pipe/maya/library'
 
+    pipe_houdini_path:
+        definition: 'pipe/houdini'
+
     pipe_cache_area:
         definition: 'cache/'
 
@@ -216,7 +233,7 @@ paths:
       definition: '@show_mov_area/{Show}_{Step}[_{name}]_v{version}.mov'
 
     #
-    # Hiero
+    # Hiero - Show
     #
 
     show_hiero_work_area:
@@ -241,7 +258,7 @@ paths:
       definition: '@seq_mov_area/{Sequence}_{Step}[_{name}]_v{version}.mov'
 
     #
-    # Photoshop
+    # Photoshop - Seq
     #
 
     seq_photoshop_work_area:
@@ -257,7 +274,7 @@ paths:
         definition: '@seq_photoshop_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.psd'
 
     #
-    # Maya
+    # Maya - Seq
     #
 
     seq_maya_work_area:
@@ -275,7 +292,54 @@ paths:
         definition: '@seq_maya_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.{maya_extension}'
 
     #
-    # Nuke
+    # Houdini - Sequence
+    #
+
+    seq_houdini_work_area:
+        definition: '@seq_work_area/workfiles/houdini'
+    seq_houdini_pubs_area:
+        definition: '@seq_pubs_area/workfiles/houdini'
+
+    seq_houdini_work_file:
+        definition: '@seq_houdini_work_area/{Sequence}_{Step}[_{name}]_v{version}.hip'
+    seq_houdini_snapshot:
+        definition: '@seq_houdini_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.hip'
+    seq_houdini_pub_file:
+        definition: '@seq_houdini_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.hip'
+
+    seq_houdini_work_alembic_cache:
+        definition: '@seq_work_area/data/scene/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
+    seq_houdini_pub_alembic_cache:
+        definition: '@seq_pubs_area/data/scene/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
+    seq_houdini_work_bgeo_cache:
+        definition: '@seq_work_area/data/cache/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
+    seq_houdini_pub_bgeo_cache:
+        definition: '@seq_pubs_area/data/cache/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
+
+    seq_houdini_work_ifd_seq:
+        definition: '@seq_work_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
+    seq_houdini_pub_ifd_seq:
+        definition: '@seq_pubs_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
+    seq_houdini_work_rs_seq:
+        definition: '@seq_work_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
+    seq_houdini_pub_rs_seq:
+        definition: '@seq_pubs_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
+
+    seq_houdini_work_render_seq:
+        definition: '@seq_work_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
+    seq_houdini_pub_render_seq:
+        definition: '@seq_pubs_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
+    seq_houdini_work_dcm_seq:
+        definition: '@seq_work_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
+    seq_houdini_pub_dcm_seq:
+        definition: '@seq_pubs_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
+    seq_houdini_work_aov_seq:
+        definition: '@seq_work_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
+    seq_houdini_pub_aov_seq:
+        definition: '@seq_pubs_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
+
+    #
+    # Nuke - Seq
     #
 
     seq_nuke_work_area:
@@ -291,6 +355,7 @@ paths:
         definition: '@seq_nuke_pubs_area/nuke/{Sequence}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
+
     # frame sequence
     seq_nuke_render_seq: '{Sequence}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Sequence}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
     seq_nuke_work_render_seq:
@@ -315,7 +380,7 @@ paths:
       definition: '@shot_mov_area/{Shot}_{Step}[_{name}]_v{version}.mov'
 
     #
-    # Photoshop
+    # Photoshop - Shot
     #
 
     shot_photoshop_work_area:
@@ -331,7 +396,7 @@ paths:
         definition: '@shot_photoshop_pubs_area/{Shot}_{Step}[_{name}]_v{version}.psd'
 
     #
-    # Maya
+    # Maya - Shot
     #
 
     shot_maya_work_area:
@@ -348,9 +413,55 @@ paths:
     shot_maya_pub_file:
         definition: '@shot_maya_pubs_area/{Shot}_{Step}[_{name}]_v{version}.{maya_extension}'
 
+    #
+    # Houdini - Shot
+    #
+
+    shot_houdini_work_area:
+        definition: '@shot_work_area/workfiles/houdini'
+    shot_houdini_pubs_area:
+        definition: '@shot_pubs_area/workfiles/houdini'
+
+    shot_houdini_work_file:
+        definition: '@shot_houdini_work_area/{Shot}_{Step}[_{name}]_v{version}.hip'
+    shot_houdini_snapshot:
+        definition: '@shot_houdini_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.hip'
+    shot_houdini_pub_file:
+        definition: '@shot_houdini_pubs_area/{Shot}_{Step}[_{name}]_v{version}.hip'
+
+    shot_houdini_work_alembic_cache:
+        definition: '@shot_work_area/data/scene/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
+    shot_houdini_pub_alembic_cache:
+        definition: '@shot_pubs_area/data/scene/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
+    shot_houdini_work_bgeo_cache:
+        definition: '@shot_work_area/data/cache/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
+    shot_houdini_pub_bgeo_cache:
+        definition: '@shot_pubs_area/data/cache/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
+
+    shot_houdini_work_ifd_seq:
+        definition: '@shot_work_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
+    shot_houdini_pub_ifd_seq:
+        definition: '@shot_pubs_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
+    shot_houdini_work_rs_seq:
+        definition: '@shot_work_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
+    shot_houdini_pub_rs_seq:
+        definition: '@shot_pubs_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
+
+    shot_houdini_work_render_seq:
+        definition: '@shot_work_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
+    shot_houdini_pub_render_seq:
+        definition: '@shot_pubs_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
+    shot_houdini_work_dcm_seq:
+        definition: '@shot_work_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
+    shot_houdini_pub_dcm_seq:
+        definition: '@shot_pubs_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
+    shot_houdini_work_aov_seq:
+        definition: '@shot_work_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
+    shot_houdini_pub_aov_seq:
+        definition: '@shot_pubs_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
 
     #
-    # Nuke
+    # Nuke - Shot
     #
 
     shot_nuke_work_area:
@@ -363,7 +474,7 @@ paths:
     shot_nuke_snapshot:
         definition: '@shot_nuke_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.nk'
     shot_nuke_pub_file:
-        definition: '@shot_nuke_pubs_area/nuke/{Shot}_{Step}[_{name}]_v{version}.nk'
+        definition: '@shot_nuke_pubs_area/{Shot}_{Step}[_{name}]_v{version}.nk'
 
     # Write node locations
     # frame sequence
@@ -403,10 +514,10 @@ paths:
     #
 
     asset_alembic_cache:
-        definition: '@asset_pubs_area/data/{Asset}_{Step}[_{name}]_v{version}.abc'
+        definition: '@asset_pubs_area/data/cache/{Asset}_{Step}[_{name}]_v{version}/abc/{Asset}_{Step}[_{name}]_v{version}.abc'
 
     #
-    # Photoshop
+    # Photoshop - Asset
     #
 
     asset_photoshop_work_area:
@@ -422,7 +533,7 @@ paths:
         definition: '@asset_photoshop_pubs_area/{Asset}_{Step}[_{name}]_v{version}.psd'
 
     #
-    # Maya
+    # Maya - Asset
     #
 
     asset_maya_work_area:
@@ -440,7 +551,54 @@ paths:
         definition: '@asset_maya_pubs_area/{Asset}_{Step}[_{name}]_v{version}.{maya_extension}'
 
     #
-    # Nuke
+    # Houdini - Asset
+    #
+
+    asset_houdini_work_area:
+        definition: '@asset_work_area/workfiles/houdini'
+    asset_houdini_pubs_area:
+        definition: '@asset_pubs_area/workfiles/houdini'
+
+    asset_houdini_work_file:
+        definition: '@asset_houdini_work_area/{Asset}_{Step}[_{name}]_v{version}.hip'
+    asset_houdini_snapshot:
+        definition: '@asset_houdini_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.hip'
+    asset_houdini_pub_file:
+        definition: '@asset_houdini_pubs_area/{Asset}_{Step}[_{name}]_v{version}.hip'
+
+    asset_houdini_work_alembic_cache:
+        definition: '@asset_work_area/data/scene/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
+    asset_houdini_pub_alembic_cache:
+        definition: '@asset_pubs_area/data/scene/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
+    asset_houdini_work_bgeo_cache:
+        definition: '@asset_work_area/data/cache/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
+    asset_houdini_pub_bgeo_cache:
+        definition: '@asset_pubs_area/data/cache/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
+
+    asset_houdini_work_ifd_seq:
+        definition: '@asset_work_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
+    asset_houdini_pub_ifd_seq:
+        definition: '@asset_pubs_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
+    asset_houdini_work_rs_seq:
+        definition: '@asset_work_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
+    asset_houdini_pub_rs_seq:
+        definition: '@asset_pubs_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
+
+    asset_houdini_work_render_seq:
+        definition: '@asset_work_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
+    asset_houdini_pub_render_seq:
+        definition: '@asset_pubs_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
+    asset_houdini_work_dcm_seq:
+        definition: '@asset_work_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
+    asset_houdini_pub_dcm_seq:
+        definition: '@asset_pubs_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
+    asset_houdini_work_aov_seq:
+        definition: '@asset_work_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
+    asset_houdini_pub_aov_seq:
+        definition: '@asset_pubs_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
+
+    #
+    # Nuke - Asset
     #
 
     asset_nuke_work_area:

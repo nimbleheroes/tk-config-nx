@@ -12,6 +12,7 @@ description: Apps and engines loaded when a Sequence is loaded. Since std VFX
 includes:
 - ./includes/frameworks.yml
 - ./includes/settings/tk-maya.yml
+- ./includes/settings/tk-houdini.yml
 - ./includes/settings/tk-nuke.yml
 - ./includes/settings/tk-shell.yml
 - ./includes/settings/tk-shotgun.yml
@@ -21,6 +22,7 @@ includes:
 
 engines:
   tk-maya: "@settings.tk-maya.sequence"
+  tk-houdini: "@settings.tk-houdini.sequence"
   tk-nuke: "@settings.tk-nuke.sequence"
   tk-shell: "@settings.tk-shell.sequence"
   tk-shotgun: "@settings.tk-shotgun.sequence"
