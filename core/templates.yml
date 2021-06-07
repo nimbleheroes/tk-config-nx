@@ -248,6 +248,38 @@ paths:
     show_hiero_pub_file:
         definition: '@show_hiero_pubs_area/{Show}_{Step}[_{name}]_v{version}.hrox'
 
+    #
+    # Nuke - Show
+    #
+
+    show_nuke_work_area:
+        definition: '@show_work_area/workfiles/nuke'
+    show_nuke_pubs_area:
+        definition: '@show_pubs_area/workfiles/nuke'
+
+    show_nuke_work_file:
+        definition: '@show_nuke_work_area/{Show}_{Step}[_{name}]_v{version}.nk'
+    show_nuke_snapshot:
+        definition: '@show_nuke_work_area/snapshots/{Show}_{Step}[_{name}]_v{version}.{timestamp}.nk'
+    show_nuke_pub_file:
+        definition: '@show_nuke_pubs_area/nuke/{Show}_{Step}[_{name}]_v{version}.nk'
+
+    # Write node locations
+
+    # frame sequence
+    show_nuke_render_seq: '{Show}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Show}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
+    show_nuke_work_render_seq:
+        definition: '@show_work_area/images/{image_category}/@show_nuke_render_seq'
+    show_nuke_pub_render_seq:
+        definition: '@show_pubs_area/images/{image_category}/@show_nuke_render_seq'
+
+    # movie output
+    show_nuke_render_mov: '{Show}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Show}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{ext}'
+    show_nuke_work_render_mov:
+        definition: '@show_work_area/images/{image_category}/@show_nuke_render_mov'
+    show_nuke_pub_render_mov:
+        definition: '@show_pubs_area/images/{image_category}/@show_nuke_render_mov'
+
 
     ##########################################################################################
     #

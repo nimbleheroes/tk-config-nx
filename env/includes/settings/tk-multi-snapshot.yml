@@ -61,6 +61,12 @@ settings.tk-multi-snapshot.houdini.shot_step:
 
 # ---- Nuke
 
+# project step
+settings.tk-multi-snapshot.nuke.project_step:
+  template_snapshot: show_nuke_snapshot
+  template_work: show_nuke_work_file
+  location: "@apps.tk-multi-snapshot.location"
+
 # asset step
 settings.tk-multi-snapshot.nuke.asset_step:
   template_snapshot: asset_nuke_snapshot
