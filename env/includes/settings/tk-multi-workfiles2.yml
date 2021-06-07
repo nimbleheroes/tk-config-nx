@@ -191,6 +191,21 @@ settings.tk-multi-workfiles2.nuke.asset_step:
   entities: *workfiles_entities
   location: "@apps.tk-multi-workfiles2.location"
 
+# project_step
+settings.tk-multi-workfiles2.nuke.project_step:
+  launch_at_startup: true
+  show_change_context: true
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
+  saveas_default_name: comp
+  template_publish: show_nuke_pub_file
+  template_publish_area: show_nuke_pubs_area
+  template_work: show_nuke_work_file
+  template_work_area: show_nuke_work_area
+  entities: *workfiles_entities
+  location: "@apps.tk-multi-workfiles2.location"
+
 # seq_step
 settings.tk-multi-workfiles2.nuke.seq_step:
   launch_at_startup: true

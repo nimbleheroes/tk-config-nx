@@ -5,4 +5,4 @@ type: "shotgun_step"
 name: "short_name"
 
 # only create this folder structure when a user launches a dcc
-create_with_parent: false
+# create_with_parent: false

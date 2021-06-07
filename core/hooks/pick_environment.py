@@ -30,9 +30,15 @@ class PickEnvironment(Hook):
             self.logger.debug("environment returned: {}".format(env))
             return env
 
-        if context.entity is None:
-            # We have a project but not an entity.
+        if context.entity is None and context.step is None:
+            # We have a project but not an entity or step.
             env = "project"
+            self.logger.debug("environment returned: {}".format(env))
+            return env
+
+        if context.entity is None and context.step:
+            # We have a project and a step.
+            env = "project_step"
             self.logger.debug("environment returned: {}".format(env))
             return env
 

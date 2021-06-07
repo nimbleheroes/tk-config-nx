@@ -158,7 +158,7 @@ settings.tk-multi-publish2.houdini.shot_step:
 # asset step
 settings.tk-multi-publish2.nuke.asset_step:
   path_info: "{config}/tk-multi-publish2/path_info.py"
-  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/collector_{engine_name}.py"
   collector_settings:
       Work Template: asset_nuke_work_file
   publish_plugins:
@@ -178,10 +178,33 @@ settings.tk-multi-publish2.nuke.asset_step:
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
+# project step
+settings.tk-multi-publish2.nuke.project_step:
+  path_info: "{config}/tk-multi-publish2/path_info.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/collector_{engine_name}.py"
+  collector_settings:
+      Work Template: show_nuke_work_file
+  publish_plugins:
+  - name: Publish to Shotgun
+    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+    settings:
+        Publish Template: show_nuke_pub_file
+  - name: Publish to Shotgun
+    hook: "{config}/tk-multi-publish2/publish_file.py"
+    settings: {}
+  - name: Create Version
+    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
+    settings: {}
+  - name: Attach to Version
+    hook: "{config}/tk-multi-publish2/attach_to_version.py"
+    settings: {}
+  help_url: *help_url
+  location: "@apps.tk-multi-publish2.location"
+
 # seq step
 settings.tk-multi-publish2.nuke.seq_step:
   path_info: "{config}/tk-multi-publish2/path_info.py"
-  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/tk-nuke/collector.py"
+  collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/collector_{engine_name}.py"
   collector_settings:
       Work Template: seq_nuke_work_file
   publish_plugins:
