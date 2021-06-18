@@ -69,7 +69,7 @@ class BasicPathInfo(HookBaseClass):
             publish_name = publish_code = match.group("prefix")
             if match.group("version"):
                 publish_code += match.group("ver_sep")
-                publish_code += match.group("version")
+                publish_code += "v" + match.group("version")
             if match.group("rep"):
                 publish_name += match.group("rep_sep")
                 publish_name += match.group("rep")
