@@ -29,7 +29,7 @@ class BasicPathInfo(HookBaseClass):
     Methods for basic file path parsing.
     """
 
-    def get_publish_name(self, path, sequence=False):
+    def get_publish_name(self, path, sequence=False, return_code=False):
         """
         Given a file path, return the display name to use for publishing.
 
@@ -66,22 +66,33 @@ class BasicPathInfo(HookBaseClass):
         # frame_pattern_match = re.search(FRAME_REGEX, filename)
 
         if match:
-            publish_name = match.group("prefix")
-            # publish_name += match.group("ver_sep")
-            # publish_name += match.group("version")
+            publish_name = publish_code = match.group("prefix")
+            if match.group("version"):
+                publish_code += match.group("ver_sep")
+                publish_code += match.group("version")
             if match.group("rep"):
                 publish_name += match.group("rep_sep")
                 publish_name += match.group("rep")
+                publish_code += match.group("rep_sep")
+                publish_code += match.group("rep")
             if match.group("frame"):
                 display_str = "#" * len(match.group("frame"))
                 publish_name += match.group("frame_sep")
                 publish_name += display_str
+                publish_code += match.group("frame_sep")
+                publish_code += display_str
             publish_name += "." + match.group("ext")
+            publish_code += "." + match.group("ext")
         else:
             publish_name = filename
+            publish_code = filename
 
-        logger.debug("Returning publish name: %s" % (publish_name,))
-        return publish_name
+        if return_code:
+            logger.debug("Returning publish code: %s" % (publish_name,))
+            return publish_code
+        else:
+            logger.debug("Returning publish name: %s" % (publish_name,))
+            return publish_name
 
     def get_version_number(self, path):
         """

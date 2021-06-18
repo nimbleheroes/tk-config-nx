@@ -237,10 +237,11 @@ class BasicSceneCollector(HookBaseClass):
                 is_sequence = True
                 item_info["icon_path"] = self._get_icon_path("image_sequence.png")
 
-        display_name = publisher.util.get_publish_name(path, sequence=is_sequence)
+        publish_name = publisher.util.get_publish_name(path, sequence=is_sequence)
+        publish_code = publisher.util.get_publish_name(path, sequence=is_sequence, return_code=True)
 
         # create and populate the item
-        file_item = parent_item.create_item(item_type, type_display, display_name)
+        file_item = parent_item.create_item(item_type, type_display, publish_code)
         file_item.set_icon_from_path(item_info["icon_path"])
 
         # if the supplied path is an image, use the path as the thumbnail.
@@ -253,7 +254,7 @@ class BasicSceneCollector(HookBaseClass):
         # all we know about the file is its path. set the path in its
         # properties for the plugins to use for processing.
         file_item.properties["path"] = evaluated_path
-        file_item.properties["publish_name"] = display_name
+        file_item.properties["publish_name"] = publish_name
 
         if is_sequence:
             # include an indicator that this is an image sequence and the known
@@ -310,12 +311,15 @@ class BasicSceneCollector(HookBaseClass):
             # thumbnail and to generate the display name
             img_seq_files.sort()
             first_frame_file = img_seq_files[0]
-            display_name = publisher.util.get_publish_name(
+            publish_name = publisher.util.get_publish_name(
                 first_frame_file, sequence=True
+            )
+            publish_code = publisher.util.get_publish_name(
+                first_frame_file, sequence=True, return_code=True
             )
 
             # create and populate the item
-            file_item = parent_item.create_item(item_type, type_display, display_name)
+            file_item = parent_item.create_item(item_type, type_display, publish_code)
             icon_path = self._get_icon_path(icon_name)
             file_item.set_icon_from_path(icon_path)
 
@@ -328,6 +332,7 @@ class BasicSceneCollector(HookBaseClass):
             # all we know about the file is its path. set the path in its
             # properties for the plugins to use for processing.
             file_item.properties["path"] = image_seq_path
+            file_item.properties["publish_name"] = publish_name
             file_item.properties["sequence_paths"] = img_seq_files
 
             self.logger.info("Collected file: %s" % (image_seq_path,))

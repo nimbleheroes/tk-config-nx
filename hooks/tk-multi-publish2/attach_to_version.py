@@ -74,7 +74,6 @@ class AttachToVersionPlugin(HookBaseClass):
         """
         return {}
 
-
     @property
     def item_filters(self):
         """
@@ -116,14 +115,19 @@ class AttachToVersionPlugin(HookBaseClass):
         """
 
         path = item.properties.get("path")
-        skip_attach =  item.properties.get("skip_version_attach")
+        skip_attach = item.properties.get("skip_version_attach")
+        start_unchecked = item.properties.get("start_unchecked")
         accepted = False
-    
+        check = True
+
         if path and not skip_attach:
             accept = True
 
+        if start_unchecked:
+            check = False
+
         # return the accepted info
-        return {"accepted": accept}
+        return {"accepted": accept, "checked": check}
 
     def validate(self, settings, item):
         """
@@ -141,7 +145,6 @@ class AttachToVersionPlugin(HookBaseClass):
 
         create_version = False
         version_item = item
-
 
         # Look for an item up the tree that has a create_version flag, meaning a version will be created.
         while not create_version and version_item:
@@ -215,7 +218,7 @@ class AttachToVersionPlugin(HookBaseClass):
         # get the item that created the version entry
         version_item = item.local_properties.version_item
 
-        #check to see if we have any fun stuff to add
+        # check to see if we have any fun stuff to add
         first_frame = item.properties.get("first_frame")
         last_frame = item.properties.get("last_frame")
         width = item.properties.get("width")
@@ -235,8 +238,8 @@ class AttachToVersionPlugin(HookBaseClass):
 
             if item.type_spec in ["file.image", "file.image.sequence"]:
                 version_item.properties.version_finalize["update"].update({"sg_path_to_frames": path})
-                ## the RV screening room seems to apply the aspect_ratio as the pixel_aspect ratio and screws this whole thing up
-                ## so until this is fixed im turning off adding sg_frames_aspect_ratio to the version entity.
+                # the RV screening room seems to apply the aspect_ratio as the pixel_aspect ratio and screws this whole thing up
+                # so until this is fixed im turning off adding sg_frames_aspect_ratio to the version entity.
                 # if width and height and pixel_aspect:
                 #     aspect_ratio = float((width*pixel_aspect)/height)
                 #     version_item.properties.version_finalize["update"].update({"sg_frames_aspect_ratio": aspect_ratio})
@@ -246,14 +249,13 @@ class AttachToVersionPlugin(HookBaseClass):
             if item.type_spec in ["file.video"]:
                 version_item.properties.version_finalize["update"].update({"sg_path_to_movie": path})
                 version_item.properties.version_finalize["upload"].update({"sg_uploaded_movie": path})
-                ## the RV screening room seems to apply the aspect_ratio as the pixel_aspect ratio and screws this whole thing up
-                ## so until this is fixed im turning off adding sg_movie_aspect_ratio to the version entity.
+                # the RV screening room seems to apply the aspect_ratio as the pixel_aspect ratio and screws this whole thing up
+                # so until this is fixed im turning off adding sg_movie_aspect_ratio to the version entity.
                 # if width and height and pixel_aspect:
                 #     aspect_ratio = float((width*pixel_aspect)/height)
                 #     version_item.properties.version_finalize["update"].update({"sg_movie_aspect_ratio": aspect_ratio})
                 if slate_frame:
                     version_item.properties.version_finalize["update"].update({"sg_movie_has_slate": True})
-
 
             self.logger.debug(
                 "Version finalize tasks...",
