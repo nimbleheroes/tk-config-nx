@@ -87,7 +87,7 @@ class BasicPathInfo(HookBaseClass):
             publish_name = filename
             publish_code = filename
 
-        logger.debug("Returning publish name, publish code: %s, " % (publish_name, publish_code))
+        logger.debug("Returning publish name, publish code: {},{}".format(publish_name, publish_code))
         return publish_name, publish_code
 
     def get_version_number(self, path):
