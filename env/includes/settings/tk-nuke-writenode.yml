@@ -7,6 +7,7 @@ includes:
 
 # common
 image_categories: &image_categories
+  - out
   - comp
   - precomp
   - mattes
@@ -14,6 +15,7 @@ image_categories: &image_categories
   - rotoreview
   - paint
   - demo
+  - dataset
   - animcomp
   - autocomp
   - cfxcomp
@@ -50,7 +52,7 @@ settings.tk-nuke-writenode.asset:
     tile_color: []
   - file_type: mov
     name: QuickTime Movie
-    promote_write_knobs: 
+    promote_write_knobs:
       - mov64_fps
       - mov64_codec
       - mov_prores_codec_profile
@@ -141,7 +143,7 @@ settings.tk-nuke-writenode.seq:
     tile_color: []
   - file_type: mov
     name: QuickTime Movie
-    promote_write_knobs: 
+    promote_write_knobs:
       - mov64_fps
       - mov64_codec
       - mov_prores_codec_profile
@@ -232,7 +234,7 @@ settings.tk-nuke-writenode.shot:
     tile_color: []
   - file_type: mov
     name: QuickTime Movie
-    promote_write_knobs: 
+    promote_write_knobs:
       - mov64_fps
       - mov64_codec
       - mov_prores_codec_profile

@@ -285,6 +285,11 @@ class NukeSessionCollector(HookBaseClass):
                     parent_item, file_path, frame_sequence=True
                 )
 
+                # check if the theres a slate frame
+                slate_frame = node.input(0).metadata().get('nx/slate_frame')
+                if slate_frame:
+                    item.properties["slate_frame"] = int(slate_frame)
+
                 item.properties["node"] = node
                 item.properties["first_frame"] = first_frame
                 item.properties["last_frame"] = last_frame
@@ -335,6 +340,12 @@ class NukeSessionCollector(HookBaseClass):
 
             item.properties["node"] = node
             item.properties["skip_version_attach"] = True
+            item.properties["start_unchecked"] = True
+            item.properties["first_frame"] = first_frame
+            item.properties["last_frame"] = last_frame
+            item.properties["width"] = node.width()
+            item.properties["height"] = node.height()
+            item.properties["pixel_aspect"] = node.pixelAspect()
 
             # the item has been created. update the display name to include
             # the nuke node to make it clear to the user how it was
@@ -395,7 +406,6 @@ class NukeSessionCollector(HookBaseClass):
             item.properties["width"] = node.width()
             item.properties["height"] = node.height()
             item.properties["pixel_aspect"] = node.pixelAspect()
-
 
             if node.knob("use_limit").getValue():
                 item.properties["first_frame"] = int(node.knob("first").getValue())

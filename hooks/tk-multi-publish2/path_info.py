@@ -66,22 +66,29 @@ class BasicPathInfo(HookBaseClass):
         # frame_pattern_match = re.search(FRAME_REGEX, filename)
 
         if match:
-            publish_name = match.group("prefix")
-            # publish_name += match.group("ver_sep")
-            # publish_name += match.group("version")
+            publish_name = publish_code = match.group("prefix")
+            if match.group("version"):
+                publish_code += match.group("ver_sep")
+                publish_code += "v" + match.group("version")
             if match.group("rep"):
                 publish_name += match.group("rep_sep")
                 publish_name += match.group("rep")
+                publish_code += match.group("rep_sep")
+                publish_code += match.group("rep")
             if match.group("frame"):
                 display_str = "#" * len(match.group("frame"))
                 publish_name += match.group("frame_sep")
                 publish_name += display_str
+                publish_code += match.group("frame_sep")
+                publish_code += display_str
             publish_name += "." + match.group("ext")
+            publish_code += "." + match.group("ext")
         else:
             publish_name = filename
+            publish_code = filename
 
-        logger.debug("Returning publish name: %s" % (publish_name,))
-        return publish_name
+        logger.debug("Returning publish name, publish code: {},{}".format(publish_name, publish_code))
+        return publish_name, publish_code
 
     def get_version_number(self, path):
         """
