@@ -29,7 +29,7 @@ class BasicPathInfo(HookBaseClass):
     Methods for basic file path parsing.
     """
 
-    def get_publish_name(self, path, sequence=False, return_code=False):
+    def get_publish_name(self, path, sequence=False):
         """
         Given a file path, return the display name to use for publishing.
 
@@ -87,12 +87,8 @@ class BasicPathInfo(HookBaseClass):
             publish_name = filename
             publish_code = filename
 
-        if return_code:
-            logger.debug("Returning publish code: %s" % (publish_name,))
-            return publish_code
-        else:
-            logger.debug("Returning publish name: %s" % (publish_name,))
-            return publish_name
+        logger.debug("Returning publish name, publish code: %s, " % (publish_name, publish_code))
+        return publish_name, publish_code
 
     def get_version_number(self, path):
         """

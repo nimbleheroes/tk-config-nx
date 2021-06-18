@@ -270,7 +270,7 @@ class BasicFilePublishPlugin(HookBaseClass):
         # here such as custom type or template settings.
 
         publish_path = self.get_publish_path(settings, item)
-        publish_name = self.get_publish_name(settings, item)
+        publish_name, publish_code = self.get_publish_name(settings, item)
 
         # ---- check for conflicting publishes of this path with a status
 
@@ -346,7 +346,7 @@ class BasicFilePublishPlugin(HookBaseClass):
         # here such as custom type or template settings.
 
         publish_type = self.get_publish_type(settings, item)
-        publish_name = self.get_publish_name(settings, item)
+        publish_name, publish_code = self.get_publish_name(settings, item)
         publish_version = self.get_publish_version(settings, item)
         publish_path = self.get_publish_path(settings, item)
         publish_dependencies_paths = self.get_publish_dependencies(settings, item)
@@ -372,6 +372,7 @@ class BasicFilePublishPlugin(HookBaseClass):
             "tk": publisher.sgtk,
             "context": item.context,
             "comment": item.description,
+            "code": publish_code,
             "path": publish_path,
             "name": publish_name,
             "created_by": publish_user,
@@ -414,8 +415,7 @@ class BasicFilePublishPlugin(HookBaseClass):
             },
         )
 
-
-        ## Look for an item up the tree that has a version_name, meaning a version will be created.
+        # Look for an item up the tree that has a version_name, meaning a version will be created.
         version_name = None
         version_item = item
 
@@ -659,7 +659,7 @@ class BasicFilePublishPlugin(HookBaseClass):
         # publish name explicitly set or defined on the item
         publish_name = item.get_property("publish_name")
         if publish_name:
-            return publish_name
+            return publish_name, publish_name
 
         # fall back to the path_info logic
         publisher = self.parent

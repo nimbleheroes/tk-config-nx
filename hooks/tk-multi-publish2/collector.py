@@ -237,8 +237,7 @@ class BasicSceneCollector(HookBaseClass):
                 is_sequence = True
                 item_info["icon_path"] = self._get_icon_path("image_sequence.png")
 
-        publish_name = publisher.util.get_publish_name(path, sequence=is_sequence)
-        publish_code = publisher.util.get_publish_name(path, sequence=is_sequence, return_code=True)
+        publish_name, publish_code = publisher.util.get_publish_name(path, sequence=is_sequence)
 
         # create and populate the item
         file_item = parent_item.create_item(item_type, type_display, publish_code)
@@ -311,11 +310,8 @@ class BasicSceneCollector(HookBaseClass):
             # thumbnail and to generate the display name
             img_seq_files.sort()
             first_frame_file = img_seq_files[0]
-            publish_name = publisher.util.get_publish_name(
+            publish_name, publish_code = publisher.util.get_publish_name(
                 first_frame_file, sequence=True
-            )
-            publish_code = publisher.util.get_publish_name(
-                first_frame_file, sequence=True, return_code=True
             )
 
             # create and populate the item
