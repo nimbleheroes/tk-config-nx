@@ -6,13 +6,13 @@
 engines.tk-desktop.location:
   type: app_store
   name: tk-desktop
-  version: v2.5.13
+  version: v2.6.0
 
 # Desktop2
 engines.tk-desktop2.location:
   type: app_store
   name: tk-desktop2
-  version: v1.4.3
+  version: v1.5.0
 
 # Flame
 engines.tk-flame.location:
@@ -24,7 +24,7 @@ engines.tk-flame.location:
 engines.tk-houdini.location:
   type: app_store
   name: tk-houdini
-  version: v1.7.2
+  version: v1.8.1
 
 # Mari
 engines.tk-mari.location:
@@ -36,25 +36,25 @@ engines.tk-mari.location:
 engines.tk-maya.location:
   type: app_store
   name: tk-maya
-  version: v0.10.4
+  version: v0.11.1
 
 # Photoshop
 engines.tk-photoshopcc.location:
   type: app_store
   name: tk-photoshopcc
-  version: v1.8.2
+  version: v1.9.0
 
 # Shell
 engines.tk-shell.location:
   type: app_store
   name: tk-shell
-  version: v0.8.1
+  version: v0.9.0
 
 # Shotgun
 engines.tk-shotgun.location:
   type: app_store
   name: tk-shotgun
-  version: v0.9.0
+  version: v0.10.0
 
 # ---- SHOTGUN ENGINE TAKEOVERS
 
