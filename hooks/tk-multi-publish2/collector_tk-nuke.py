@@ -389,15 +389,20 @@ class NukeSessionCollector(HookBaseClass):
 
             self.logger.info("Processing sgWrite node: %s" % (node.name()))
 
+            if len(rendered_files) > 1:
+                is_frame_sequence = True
+            else:
+                is_frame_sequence = False
+
             # file exists, let the basic collector handle it
             item = super(NukeSessionCollector, self)._collect_file(
-                parent_item, file_path, frame_sequence=True
+                parent_item, file_path, frame_sequence=is_frame_sequence
             )
 
             # check if the theres a slate frame
-            slate_frame = node.input(0).metadata().get('nx/slate_frame')
-            if slate_frame:
-                item.properties["slate_frame"] = int(slate_frame)
+            # slate_frame = node.input(0).metadata().get('nx/slate_frame')
+            # if slate_frame:
+            #     item.properties["slate_frame"] = int(slate_frame)
 
             item.properties["sequence_paths"] = rendered_files
             item.properties["node"] = node
