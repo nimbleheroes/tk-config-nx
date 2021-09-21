@@ -60,6 +60,10 @@ keys:
         type: str
 
     # Represents the optional output name for frames written by the Shotgun Write Node
+    output:
+        type: str
+        filter_by: alphanumeric
+
     nuke.output:
         alias: output
         type: str
@@ -180,9 +184,9 @@ paths:
     delivery_manifest:
         definition: '@delivery_outbox/{playlist_name}_{delivery_type}.manifest'
     delivery_movie:
-        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}.{ext}'
+        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}[-{output}].{ext}'
     delivery_frame_seq:
-        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}/{client_code}_v{version}.{SEQ}.{ext}'
+        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}/{client_code}_v{version}[-{output}].{SEQ}.{ext}'
 
     ##########################################################################################
     #

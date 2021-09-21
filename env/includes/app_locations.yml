@@ -172,10 +172,10 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 49650 #tk-delivery-0.0.7
+  version: 66000 #tk-delivery-0.1.0
   ## Dev
   # type: dev
-  # path: ~/Documents/GitHub/tk-delivery_nx
+  # path: /pipe/dev/akramer/tk-delivery
 
 # writenode
 apps.tk-nuke-writenode.location:
