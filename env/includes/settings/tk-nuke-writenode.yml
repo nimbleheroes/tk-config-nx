@@ -60,6 +60,7 @@ settings.tk-nuke-writenode.asset:
       - mov64_dnxhr_codec_profile
       - mov_h264_codec_profile
       - mov64_quality
+      - mov64_write_timecode
     proxy_publish_template:
     proxy_render_template:
     render_template: asset_nuke_work_render_mov
@@ -67,6 +68,8 @@ settings.tk-nuke-writenode.asset:
     settings:
       colorspace: Output - Rec.709
       channels: rgb
+      mov64_write_timecode: True
+      mov64_fast_start: True
     tank_type: Movie
     tile_color: []
   - file_type: dpx
@@ -151,6 +154,7 @@ settings.tk-nuke-writenode.seq:
       - mov64_dnxhr_codec_profile
       - mov_h264_codec_profile
       - mov64_quality
+      - mov64_write_timecode
     proxy_publish_template:
     proxy_render_template:
     render_template: seq_nuke_work_render_mov
@@ -158,6 +162,8 @@ settings.tk-nuke-writenode.seq:
     settings:
       colorspace: Output - Rec.709
       channels: rgb
+      mov64_write_timecode: True
+      mov64_fast_start: True
     tank_type: Movie
     tile_color: []
   - file_type: dpx
@@ -242,6 +248,7 @@ settings.tk-nuke-writenode.shot:
       - mov64_dnxhr_codec_profile
       - mov_h264_codec_profile
       - mov64_quality
+      - mov64_write_timecode
     proxy_publish_template:
     proxy_render_template:
     render_template: shot_nuke_work_render_mov
@@ -249,6 +256,8 @@ settings.tk-nuke-writenode.shot:
     settings:
       colorspace: Output - Rec.709
       channels: rgb
+      mov64_write_timecode: True
+      mov64_fast_start: True
     tank_type: Movie
     tile_color: []
   - file_type: dpx

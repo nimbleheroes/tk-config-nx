@@ -190,6 +190,36 @@ colorspaces:
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>
+    name: Legacy - Gamma2.4
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Emulates an idealized Gamma 2.4 display device.
+    isdata: false
+    allocation: uniform
+    allocationvars: [0, 1]
+    to_reference: !<GroupTransform>
+      children:
+        - !<ExponentTransform> {value: [2.4, 2.4, 2.4, 1]}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - Gamma2.6
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Emulates an idealized Gamma 2.4 display device.
+    isdata: false
+    allocation: uniform
+    allocationvars: [0, 1]
+    to_reference: !<GroupTransform>
+      children:
+        - !<ExponentTransform> {value: [2.6, 2.6, 2.6, 1]}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
     name: Legacy - Panalog
     family: Legacy
     equalitygroup: ""
@@ -277,6 +307,156 @@ colorspaces:
     to_reference: !<GroupTransform>
       children:
         - !<FileTransform> {src: slog.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - SLog1
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Sony SLog1
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: slog1.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - SLog2
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Sony SLog2
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: slog2.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - SLog3
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Sony SLog3
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: slog3.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - CLog
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Canon CLog
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.0684932, 1.08676]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: clog.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - Log3G10
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Log3G10
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: log3g10.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - Log3G12
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Log3G12
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: log3g12.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - HybridLogGamma
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      HybdridLogGamma
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: hybdridloggamma.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - Protune
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      GoPro Protune
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: protune.spi1d, interpolation: linear}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - BT1886
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      Emulates an idealized Gamma 2.4 display device.
+    isdata: false
+    allocation: uniform
+    allocationvars: [0, 1]
+    to_reference: !<GroupTransform>
+      children:
+        - !<ExponentTransform> {value: [2.4, 2.4, 2.4, 1]}
+        - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
+
+  - !<ColorSpace>
+    name: Legacy - st2084
+    family: Legacy
+    equalitygroup: ""
+    bitdepth: 32f
+    description: |
+      st2084
+    isdata: false
+    allocation: uniform
+    allocationvars: [-0.125, 1.125]
+    to_reference: !<GroupTransform>
+      children:
+        - !<FileTransform> {src: st2084.spi1d, interpolation: linear}
         - !<MatrixTransform> {matrix: [0.695452, 0.140679, 0.163869, 0, 0.0447946, 0.859671, 0.0955343, 0, -0.00552588, 0.00402521, 1.0015, 0, 0, 0, 0, 1]}
 
   - !<ColorSpace>

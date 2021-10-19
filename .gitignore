@@ -39,3 +39,6 @@ pip-log.txt
 
 #MacOS
 .DS_Store
+
+#Centos
+core.*
