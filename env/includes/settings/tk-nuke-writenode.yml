@@ -60,7 +60,6 @@ settings.tk-nuke-writenode.asset:
       - mov64_dnxhr_codec_profile
       - mov_h264_codec_profile
       - mov64_quality
-      - mov64_write_timecode
     proxy_publish_template:
     proxy_render_template:
     render_template: asset_nuke_work_render_mov
@@ -154,7 +153,6 @@ settings.tk-nuke-writenode.seq:
       - mov64_dnxhr_codec_profile
       - mov_h264_codec_profile
       - mov64_quality
-      - mov64_write_timecode
     proxy_publish_template:
     proxy_render_template:
     render_template: seq_nuke_work_render_mov
@@ -248,7 +246,6 @@ settings.tk-nuke-writenode.shot:
       - mov64_dnxhr_codec_profile
       - mov_h264_codec_profile
       - mov64_quality
-      - mov64_write_timecode
     proxy_publish_template:
     proxy_render_template:
     render_template: shot_nuke_work_render_mov
