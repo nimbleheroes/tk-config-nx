@@ -18,6 +18,9 @@ settings.tk-multi-publish2.standalone:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
+  - name: Create Version
+    hook: "{config}/tk-multi-publish2/publish_file.py"
+    settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 

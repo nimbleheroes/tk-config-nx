@@ -51,7 +51,7 @@ class BasicPathInfo(HookBaseClass):
         :param sequence: If True, treat the path as a sequence name and replace
             the frame number with placeholder
 
-        :return: A publish display name for the provided path.
+        :return: A publish name (unversioned) and a publish code (versioned) for the provided path.
         """
 
         publisher = self.parent

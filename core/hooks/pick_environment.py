@@ -23,6 +23,10 @@ class PickEnvironment(Hook):
                 env = "published_file"
                 self.logger.debug("environment returned: {}".format(env))
                 return env
+            elif context.source_entity["type"] == "Playlist":
+                env = "playlist"
+                self.logger.debug("environment returned: {}".format(env))
+                return env
 
         if context.project is None:
             # Our context is completely empty. We're going into the site context.

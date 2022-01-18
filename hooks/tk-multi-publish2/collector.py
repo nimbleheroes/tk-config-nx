@@ -126,9 +126,20 @@ class BasicSceneCollector(HookBaseClass):
                     "item_type": "file.vred",
                 },
                 "Image": {
-                    "extensions": ["cin", "dpx", "exr", "png", "hdr",
-                                   "tif", "tiff", "tga", "pic", "sgi", "jpeg",
-                                   "jpg"],
+                    "extensions": [
+                        "cin",
+                        "dpx",
+                        "exr",
+                        "png",
+                        "hdr",
+                        "tif",
+                        "tiff",
+                        "tga",
+                        "pic",
+                        "sgi",
+                        "jpeg",
+                        "jpg",
+                    ],
                     "icon": self._get_icon_path("image.png"),
                     "item_type": "file.image",
                 },
@@ -237,7 +248,10 @@ class BasicSceneCollector(HookBaseClass):
                 is_sequence = True
                 item_info["icon_path"] = self._get_icon_path("image_sequence.png")
 
-        publish_name, publish_code = publisher.util.get_publish_name(path, sequence=is_sequence)
+        # get a publish name (unversioned) and publish code (versioned)
+        publish_name, publish_code = publisher.util.get_publish_name(
+            path, sequence=is_sequence
+        )
 
         # create and populate the item
         file_item = parent_item.create_item(item_type, type_display, publish_code)
@@ -264,10 +278,25 @@ class BasicSceneCollector(HookBaseClass):
         templates = self._find_templates(evaluated_path)
         if templates.get("work_template"):
             file_item.properties["work_template"] = templates.get("work_template")
-            self.logger.info("Found work template: %s" % (file_item.properties["work_template"],))
+            self.logger.info(
+                "Found work template: {}".format(file_item.properties["work_template"],)
+            )
+        else:
+            file_item.properties["work_template"] = None
+            self.logger.info(
+                "No matching work template found for item."
+            )
         if templates.get("publish_template"):
             file_item.properties["publish_template"] = templates.get("publish_template")
-            self.logger.info("Found matching publish template: %s" % (file_item.properties["publish_template"],))
+            self.logger.info(
+                "Found matching publish template: %s"
+                % (file_item.properties["publish_template"],)
+            )
+        else:
+            file_item.properties["publish_template"] = None
+            self.logger.info(
+                "No matching publish template found for item."
+            )
 
         self.logger.info("Collected file: %s" % (evaluated_path,))
 
@@ -422,7 +451,9 @@ class BasicSceneCollector(HookBaseClass):
 
         # everything should be populated. return the dictionary
         return dict(
-            item_type=item_type, type_display=type_display, icon_path=icon_path,
+            item_type=item_type,
+            type_display=type_display,
+            icon_path=icon_path,
         )
 
     def _get_icon_path(self, icon_name, icons_folders=None):
