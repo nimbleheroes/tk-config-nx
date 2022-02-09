@@ -189,13 +189,13 @@ apps.tk-nuke-writenode.location:
   # field: sg_uploaded_app
   # version: 48502 #tk-nuke-writenode-1.4.2.14
   ### Github Release
-  type: github_release
-  organization: nimbleheroes
-  repository: tk-nuke-writenode
-  version: v1.4.2.15
+  # type: github_release
+  # organization: nimbleheroes
+  # repository: tk-nuke-writenode
+  # version: v1.4.2.15
   ## Dev
-  # type: dev
-  # path: ~/Documents/tk-nuke-writenode
+  type: dev
+  path: /pipe/dev/akramer/tk-nuke-writenode
 
 # setframerange
 apps.tk-multi-setframerange.location:
