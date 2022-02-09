@@ -192,7 +192,7 @@ apps.tk-nuke-writenode.location:
   type: github_release
   organization: nimbleheroes
   repository: tk-nuke-writenode
-  version: v1.6.0
+  version: v1.6.1
   ## Dev
   # type: dev
   # path: /pipe/dev/akramer/tk-nuke-writenode
