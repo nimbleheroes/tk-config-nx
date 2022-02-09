@@ -21,7 +21,7 @@
 keys:
 
 
-    # Entity keys
+    # entity tokens
     Show:
         type: str
         shotgun_entity_type: Task
@@ -40,7 +40,7 @@ keys:
         type: str
 
 
-    # workfile keys
+    # workfile tokens
     name:
         type: str
         filter_by: alphanumeric
@@ -109,15 +109,11 @@ keys:
         alias: extension
         type: str
 
-    # nuke gets its own view field so that it doesn't fail the global
-    # alphanumeric validation if we use '%V' for nuke views
-    nuke.view:
-        alias: view
-        type: str
-        filter_by: '^[a-zA-Z0-9]*(\%V)?[a-zA-Z0-9]*$'
-        default: "main"
-
     SEQ:
+        type: sequence
+        format_spec: "04"
+
+    UDIM:
         type: sequence
         format_spec: "04"
 
@@ -129,6 +125,21 @@ keys:
         type: str
         filter_by: alphanumeric
 
+    # Nuke gets its own 'view' token so that it doesn't fail the global
+    # alphanumeric validation if we use '%V' for nuke views
+    nuke.view:
+        alias: view
+        type: str
+        filter_by: '^[a-zA-Z0-9]*(\%V)?[a-zA-Z0-9]*$'
+        default: "main"
+
+    # Houdini gets its own 'layer' token since the current
+    # tk-houdini-alembicnode and tk-houdini-mantranode apps
+    # look for a token called 'node'.
+    houdini.node:
+        alias: layer
+        type: str
+        filter_by: alphanumeric
 
     # these are used by the Hiero exporter and pipeline
     YYYY:
@@ -154,7 +165,7 @@ keys:
         type: str
 
     # Maya supports two extension types.
-    maya_extension:
+    maya_ext:
         type: str
         choices:
             ma: Maya Ascii (.ma)
@@ -162,14 +173,14 @@ keys:
         default: ma
         alias: extension
 
-    # Houdini
-    houdini.node:
-        alias: layer
+    # Photoshop supports two extension types.
+    photoshop_ext:
         type: str
-        filter_by: alphanumeric
-
-    aov_name:
-        type: str
+        choices:
+            psd: Photoshop Document (.psd)
+            psb: Photoshop Large Document (.psb)
+        default: psd
+        alias: extension
 
 
 ##########################################################################################
@@ -225,8 +236,8 @@ paths:
     # DELIVERY PATHS
     #
 
-    delivery_inbox: xfer/inbox
-    delivery_outbox: xfer/outbox
+    delivery_inbox:  'xfer/inbox'
+    delivery_outbox: 'xfer/outbox'
 
     delivery_manifest:  '@delivery_outbox/{playlist_name}_{delivery_type}.manifest'
     delivery_movie:     '@delivery_outbox/{playlist_name}/{client_code}_v{version}[-{output}].{ext}'
@@ -270,6 +281,58 @@ paths:
 
     ##########################################################################################
     #
+    # GENERIC REPRESENTATIONS
+    #
+    # Wherever possible, these path templates should be used as the defaults
+    # for image and data representations. Only where its necessary for customization or
+    # the current SG app implementation doesn't yet support the default tokens, should
+    # a custom path template be made for representations.
+    #
+
+    # image representations
+    show_generic_work_img_rep_seq: '@show_work_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    show_generic_pub_img_rep_seq:  '@show_pubs_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    show_generic_work_img_rep:     '@show_work_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{ext}'
+    show_generic_pub_img_rep:      '@show_pubs_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{ext}'
+
+    seq_generic_work_img_rep_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    seq_generic_pub_img_rep_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    seq_generic_work_img_rep:     '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{ext}'
+    seq_generic_pub_img_rep:      '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{ext}'
+
+    shot_generic_work_img_rep_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    shot_generic_pub_img_rep_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    shot_generic_work_img_rep:     '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{ext}'
+    shot_generic_pub_img_rep:      '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{ext}'
+
+    asset_generic_work_img_rep_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    asset_generic_pub_img_rep_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    asset_generic_work_img_rep:     '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{ext}'
+    asset_generic_pub_img_rep:      '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{ext}'
+
+    # data representations
+    show_generic_work_data_rep_seq: '@show_work_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    show_generic_pub_data_rep_seq:  '@show_pubs_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    show_generic_work_data_rep:     '@show_work_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
+    show_generic_pub_data_rep:      '@show_pubs_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
+
+    seq_generic_work_data_rep_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    seq_generic_pub_data_rep_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    seq_generic_work_data_rep:     '@seq_work_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
+    seq_generic_pub_data_rep:      '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
+
+    shot_generic_work_data_rep_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    shot_generic_pub_data_rep_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    shot_generic_work_data_rep:     '@shot_work_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
+    shot_generic_pub_data_rep:      '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
+
+    asset_generic_work_data_rep_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    asset_generic_pub_data_rep_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    asset_generic_work_data_rep:     '@asset_work_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
+    asset_generic_pub_data_rep:      '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
+
+    ##########################################################################################
+    #
     # HIERO PATHS
     #
 
@@ -288,21 +351,21 @@ paths:
     # workfiles
     seq_photoshop_work_area: '@seq_work_area/workfiles/photoshop'
     seq_photoshop_pubs_area: '@seq_pubs_area/workfiles/photoshop'
-    seq_photoshop_work_file: '@seq_photoshop_work_area/@seq_workfile_basename.psd'
-    seq_photoshop_snapshot:  '@seq_photoshop_work_area/snapshots/@seq_workfile_basename.{timestamp}.psd'
-    seq_photoshop_pub_file:  '@seq_photoshop_pubs_area/@seq_workfile_basename.psd'
+    seq_photoshop_work_file: '@seq_photoshop_work_area/@seq_workfile_basename.{photoshop_ext}'
+    seq_photoshop_snapshot:  '@seq_photoshop_work_area/snapshots/@seq_workfile_basename.{timestamp}.{photoshop_ext}'
+    seq_photoshop_pub_file:  '@seq_photoshop_pubs_area/@seq_workfile_basename.{photoshop_ext}'
 
     shot_photoshop_work_area: '@shot_work_area/workfiles/photoshop'
     shot_photoshop_pubs_area: '@shot_pubs_area/workfiles/photoshop'
-    shot_photoshop_work_file: '@shot_photoshop_work_area/@shot_workfile_basename.psd'
-    shot_photoshop_snapshot:  '@shot_photoshop_work_area/snapshots/@shot_workfile_basename.{timestamp}.psd'
-    shot_photoshop_pub_file:  '@shot_photoshop_pubs_area/@shot_workfile_basename.psd'
+    shot_photoshop_work_file: '@shot_photoshop_work_area/@shot_workfile_basename.{photoshop_ext}'
+    shot_photoshop_snapshot:  '@shot_photoshop_work_area/snapshots/@shot_workfile_basename.{timestamp}.{photoshop_ext}'
+    shot_photoshop_pub_file:  '@shot_photoshop_pubs_area/@shot_workfile_basename.{photoshop_ext}'
 
     asset_photoshop_work_area: '@asset_work_area/workfiles/photoshop'
     asset_photoshop_pubs_area: '@asset_pubs_area/workfiles/photoshop'
-    asset_photoshop_work_file: '@asset_photoshop_work_area/@asset_workfile_basename.psd'
-    asset_photoshop_snapshot:  '@asset_photoshop_work_area/snapshots/@asset_workfile_basename.{timestamp}.psd'
-    asset_photoshop_pub_file:  '@asset_photoshop_pubs_area/@asset_workfile_basename.psd'
+    asset_photoshop_work_file: '@asset_photoshop_work_area/@asset_workfile_basename.{photoshop_ext}'
+    asset_photoshop_snapshot:  '@asset_photoshop_work_area/snapshots/@asset_workfile_basename.{timestamp}.{photoshop_ext}'
+    asset_photoshop_pub_file:  '@asset_photoshop_pubs_area/@asset_workfile_basename.{photoshop_ext}'
 
     ##########################################################################################
     #
@@ -312,26 +375,26 @@ paths:
     # workfiles
     seq_maya_work_area: '@seq_work_area/workfiles/maya'
     seq_maya_pubs_area: '@seq_pubs_area/workfiles/maya'
-    seq_maya_work_file: '@seq_maya_work_area/@seq_workfile_basename.{maya_extension}'
-    seq_maya_snapshot:  '@seq_maya_work_area/snapshots/@seq_workfile_basename.{timestamp}.{maya_extension}'
-    seq_maya_pub_file:  '@seq_maya_pubs_area/@seq_workfile_basename.{maya_extension}'
+    seq_maya_work_file: '@seq_maya_work_area/@seq_workfile_basename.{maya_ext}'
+    seq_maya_snapshot:  '@seq_maya_work_area/snapshots/@seq_workfile_basename.{timestamp}.{maya_ext}'
+    seq_maya_pub_file:  '@seq_maya_pubs_area/@seq_workfile_basename.{maya_ext}'
 
     shot_maya_work_area: '@shot_work_area/workfiles/maya'
     shot_maya_pubs_area: '@shot_pubs_area/workfiles/maya'
-    shot_maya_work_file: '@shot_maya_work_area/@shot_workfile_basename.{maya_extension}'
-    shot_maya_snapshot:  '@shot_maya_work_area/snapshots/@shot_workfile_basename.{timestamp}.{maya_extension}'
-    shot_maya_pub_file:  '@shot_maya_pubs_area/@shot_workfile_basename.{maya_extension}'
+    shot_maya_work_file: '@shot_maya_work_area/@shot_workfile_basename.{maya_ext}'
+    shot_maya_snapshot:  '@shot_maya_work_area/snapshots/@shot_workfile_basename.{timestamp}.{maya_ext}'
+    shot_maya_pub_file:  '@shot_maya_pubs_area/@shot_workfile_basename.{maya_ext}'
 
     asset_maya_work_area: '@asset_work_area/workfiles/maya'
     asset_maya_pubs_area: '@asset_pubs_area/workfiles/maya'
-    asset_maya_work_file: '@asset_maya_work_area/@asset_workfile_basename.{maya_extension}'
-    asset_maya_snapshot:  '@asset_maya_work_area/snapshots/@asset_workfile_basename.{timestamp}.{maya_extension}'
-    asset_maya_pub_file:  '@asset_maya_pubs_area/@asset_workfile_basename.{maya_extension}'
+    asset_maya_work_file: '@asset_maya_work_area/@asset_workfile_basename.{maya_ext}'
+    asset_maya_snapshot:  '@asset_maya_work_area/snapshots/@asset_workfile_basename.{timestamp}.{maya_ext}'
+    asset_maya_pub_file:  '@asset_maya_pubs_area/@asset_workfile_basename.{maya_ext}'
 
-    # playblasts
-    seq_maya_work_playblast:   '@seq_maya_work_area/data/@seq_workfile_basename.mov'
-    shot_maya_work_playblast:  '@shot_maya_work_area/data/@shot_workfile_basename.mov'
-    asset_maya_work_playblast: '@asset_maya_work_area/data/@asset_workfile_basename.mov'
+    # playblasts (these are not really to our spec and will need to be updated. Ideally they would use the 'generic_img_rep_seq' paths)
+    seq_maya_work_playblast:   '@seq_work_area/image/playblasts/@seq_workfile_basename.mov'
+    shot_maya_work_playblast:  '@shot_work_area/image/playblasts/@shot_workfile_basename.mov'
+    asset_maya_work_playblast: '@asset_work_area/image/playblasts/@asset_workfile_basename.mov'
 
     ##########################################################################################
     #
@@ -373,7 +436,10 @@ paths:
     asset_houdini_work_bgeo_cache:    '@asset_work_area/data/cache/@asset_workfile_basename/@data_rep_full_houdini/@asset_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
     asset_houdini_pub_bgeo_cache:     '@asset_pubs_area/data/cache/@asset_workfile_basename/@data_rep_full_houdini/@asset_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
 
-    # scene descriptions
+    # scene descriptions:
+    # These are a special case since they are data files, but they represent
+    # instructions for a rendered image. This is why its in the 'data'
+    # folder but has an img_rep filename
     seq_houdini_work_ifd_seq: '@seq_work_area/data/scene_descripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
     seq_houdini_pub_ifd_seq:  '@seq_pubs_area/data/scene_descripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
     seq_houdini_work_rs_seq:  '@seq_work_area/data/scene_descripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
@@ -472,6 +538,7 @@ strings:
     img_rep_filetail_houdini: '{view}[_{houdini.node}]_{frame_format}[-{aov}]'
 
     # data representations
+    # (currently no need for a 'data_rep_folder' string since we can use 'data_rep_full' for that)
     data_rep_full:     '{var}[_{layer}]_{ext}'
     data_rep_filetail: '{var}[_{layer}]'
 

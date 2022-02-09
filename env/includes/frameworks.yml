@@ -81,10 +81,10 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 44333 #tk-framework-nx-0.1.7
+      version: 94289 #tk-framework-nx-0.1.9
       ## Dev
       # type: dev
-      # path: ~/Documents/Github/tk-framework-nx
+      # path: /pipe/dev/akramer/tk-framework-nx
 
   # tk-framework-deadline_v0.x.x:
   #   web_service_machine: 10.0.2.49
