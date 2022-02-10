@@ -491,21 +491,21 @@ class BasicSceneCollector(HookBaseClass):
     def _find_templates(self, file_path):
 
         # start a dict of templates to return
-        templates = {}
+        found_templates = {}
 
         # first lets see if our path matches any templates at all
-        template = self.sgtk.template_from_path(file_path)
+        templates = self.sgtk.templates_from_path(file_path)
 
         # if it does exist and its got "work" in it, lets assume its a work template
-        if template and template.name.find("_work_"):
-            templates["work_template"] = template
+        if templates and templates[0].name.find("_work_"):
+            found_templates["work_template"] = templates[0]
 
             # lets see now if theres a pub template that matches
-            pb_template_name = template.name.replace("_work_", "_pub_")
+            pb_template_name = templates[0].name.replace("_work_", "_pub_")
             publish_template = self.sgtk.templates.get(pb_template_name)
 
             # if so, lets add that to the dict as well.
             if publish_template:
-                templates["publish_template"] = publish_template
+                found_templates["publish_template"] = publish_template
 
-        return templates
+        return found_templates

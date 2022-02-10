@@ -30,6 +30,11 @@ keys:
     Asset:
         type: str
 
+    asset_type:
+        type: str
+        shotgun_entity_type: Asset
+        shotgun_field_name: sg_asset_type
+
     Sequence:
         type: str
 
@@ -211,7 +216,7 @@ paths:
     project_root: './'
 
     show_root:  'show/'
-    asset_root: 'assets/{Asset}'
+    asset_root: 'assets/{asset_type}.{Asset}'
     seq_root:   'seqs/{Sequence}'
     shot_root:  'shots/{Shot}'
 
@@ -219,9 +224,9 @@ paths:
     show_pubs_area: 'show/pubs'
     show_vers_area: 'show/vers'
 
-    asset_work_area: 'assets/{Asset}/tasks/{Step}'
-    asset_pubs_area: 'assets/{Asset}/pubs'
-    asset_vers_area: 'assets/{Asset}/vers'
+    asset_work_area: 'assets/{asset_type}.{Asset}/tasks/{Step}'
+    asset_pubs_area: 'assets/{asset_type}.{Asset}/pubs'
+    asset_vers_area: 'assets/{asset_type}.{Asset}/vers'
 
     seq_work_area: 'seqs/{Sequence}/tasks/{Step}'
     seq_pubs_area: 'seqs/{Sequence}/pubs'
