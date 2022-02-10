@@ -33,7 +33,7 @@ class NukeSessionVersionPlugin(HookBaseClass):
         accept() method. Strings can contain glob patters such as *, for example
         ["maya.*", "file.maya"]
         """
-        return ["nuke.session"]
+        return ["file.image", "file.image.sequence", "file.video"]
 
     ############################################################################
     # standard publish plugin methods
@@ -63,8 +63,9 @@ class NukeSessionVersionPlugin(HookBaseClass):
 
         :returns: dictionary with boolean keys accepted, required and enabled
         """
-
-        # return the base class accept method
+        # if item.properties.get('item_type') in ['file.nuke']:
+        #     return {'accepted': False}
+        # else:
         return super(NukeSessionVersionPlugin, self).accept(settings, item)
 
     def validate(self, settings, item):

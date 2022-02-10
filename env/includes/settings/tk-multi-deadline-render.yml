@@ -8,5 +8,5 @@ includes:
 # settings
 settings.tk-multi-deadline-render:
   location: "@apps.tk-multi-deadline-render.location"
-  web_server_host: localhost
+  web_server_host: 10.0.2.49
   web_server_port: 8082

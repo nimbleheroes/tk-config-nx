@@ -146,6 +146,9 @@ keys:
         type: str
         filter_by: alphanumeric
 
+    view:
+        type: str
+
     # these are used by the Hiero exporter and pipeline
     YYYY:
         type: int
@@ -186,7 +189,6 @@ keys:
             psb: Photoshop Large Document (.psb)
         default: psd
         alias: extension
-
 
 ##########################################################################################
 #
@@ -272,7 +274,14 @@ paths:
 
     pipe_houdini_path: 'pipe/configs/houdini'
 
+    # 
+    # Transcodify configs
+    # 
+    transcodify_path: 'pipe/templates/transcodify'    
+    transcodify_template: '@transcodify_path/{name}_{ext}[_{output}].yml'
+
     pipe_cache_area: 'cache/'
+
 
     ##########################################################################################
     #
@@ -511,6 +520,7 @@ paths:
     asset_nuke_pub_render_mov:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
 
+
 ##########################################################################################
 #
 # STRINGS
@@ -546,6 +556,19 @@ strings:
     # (currently no need for a 'data_rep_folder' string since we can use 'data_rep_full' for that)
     data_rep_full:     '{var}[_{layer}]_{ext}'
     data_rep_filetail: '{var}[_{layer}]'
+
+    shot_image_pub_name: "{Shot}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}[_{ext}]"
+    asset_image_pub_name: "{Asset}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}[_{ext}]"
+    #sequence_image_pub_name: "{Sequence}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}_{extension}"
+    #show_image_pub_name: "{Show}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}_{extension}"
+
+    shot_data_pub_name: "{Shot}_{Step}[_{name}]_v{version}-[{output}_][{view}_][{ext}]"
+    asset_data_pub_name: "{Asset}_{Step}[_{name}]_v{version}-[{output}_][{view}_][{ext}]"
+    #sequence_data_pub_name: "{Sequence}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{extension}"
+    #show_data_pub_name: "{Show}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{extension}"
+
+    # defines how the {tk_version} token in Hiero gets formatted back to tk.
+    hiero_version: "{version}"
 
     data_rep_full_houdini:     '{var}[_{houdini.node}]_{ext}'
     data_rep_filetail_houdini: '{var}[_{houdini.node}]'
