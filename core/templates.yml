@@ -440,20 +440,20 @@ paths:
     # These are a special case since they are data files, but they represent
     # instructions for a rendered image. This is why its in the 'data'
     # folder but has an img_rep filename
-    seq_houdini_work_ifd_seq: '@seq_work_area/data/scene_descripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
-    seq_houdini_pub_ifd_seq:  '@seq_pubs_area/data/scene_descripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
-    seq_houdini_work_rs_seq:  '@seq_work_area/data/scene_descripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
-    seq_houdini_pub_rs_seq:   '@seq_pubs_area/data/scene_descripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    seq_houdini_work_ifd_seq: '@seq_work_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    seq_houdini_pub_ifd_seq:  '@seq_pubs_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    seq_houdini_work_rs_seq:  '@seq_work_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    seq_houdini_pub_rs_seq:   '@seq_pubs_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
 
-    shot_houdini_work_ifd_seq: '@shot_work_area/data/scene_descripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
-    shot_houdini_pub_ifd_seq:  '@shot_pubs_area/data/scene_descripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
-    shot_houdini_work_rs_seq:  '@shot_work_area/data/scene_descripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
-    shot_houdini_pub_rs_seq:   '@shot_pubs_area/data/scene_descripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    shot_houdini_work_ifd_seq: '@shot_work_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    shot_houdini_pub_ifd_seq:  '@shot_pubs_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    shot_houdini_work_rs_seq:  '@shot_work_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    shot_houdini_pub_rs_seq:   '@shot_pubs_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
 
-    asset_houdini_work_ifd_seq: '@asset_work_area/data/scene_descripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
-    asset_houdini_pub_ifd_seq:  '@asset_pubs_area/data/scene_descripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
-    asset_houdini_work_rs_seq:  '@asset_work_area/data/scene_descripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
-    asset_houdini_pub_rs_seq:   '@asset_pubs_area/data/scene_descripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    asset_houdini_work_ifd_seq: '@asset_work_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    asset_houdini_pub_ifd_seq:  '@asset_pubs_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    asset_houdini_work_rs_seq:  '@asset_work_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    asset_houdini_pub_rs_seq:   '@asset_pubs_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
 
     # renders
     seq_houdini_work_render_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
