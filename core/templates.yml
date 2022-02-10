@@ -97,6 +97,9 @@ keys:
     frame_format:
         type: str
 
+    view:
+        type: str
+
     # these are used by the Hiero exporter and pipeline
     YYYY:
         type: int
@@ -130,6 +133,7 @@ keys:
         type: str
     aov_name:
         type: str
+
 
 
 #
@@ -195,7 +199,6 @@ paths:
     # Any path template starting with "pipe_" will get an environment variable automatically
     # set before application launch by the before_app_launch.py hook.
     #
-
     pipe_ocio_area:
         definition: 'pipe/ocio'
     pipe_ocio_config:
@@ -222,6 +225,15 @@ paths:
 
     pipe_houdini_path:
         definition: 'pipe/houdini'
+
+
+    # 
+    # Transcodify configs
+    # 
+    transcodify_path:
+        definition: 'pipe/templates/transcodify'    
+    transcodify_template:
+        definition: '@transcodify_path/{name}_{ext}[_{output}].yml'
 
     pipe_cache_area:
         definition: 'cache/'
@@ -631,6 +643,10 @@ paths:
         definition: '@asset_pubs_area/images/{image_category}/@asset_nuke_render_mov'
 
 
+
+
+
+
 #
 # The strings section is similar to the paths section - but rather than defining paths
 # on disk, it contains a list of strings. Strings are typically used when you want to be
@@ -647,6 +663,16 @@ strings:
 
     nuke_asset_version_name: "{Asset}_{name}_{nuke.output}_v{version}.{iteration}"
     nuke_quick_asset_version_name: "{Asset}_{name}_quick_{iteration}"
+
+    shot_image_pub_name: "{Shot}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}[_{ext}]"
+    asset_image_pub_name: "{Asset}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}[_{ext}]"
+    #sequence_image_pub_name: "{Sequence}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}_{extension}"
+    #show_image_pub_name: "{Show}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}_{extension}"
+
+    shot_data_pub_name: "{Shot}_{Step}[_{name}]_v{version}-[{output}_][{view}_][{ext}]"
+    asset_data_pub_name: "{Asset}_{Step}[_{name}]_v{version}-[{output}_][{view}_][{ext}]"
+    #sequence_data_pub_name: "{Sequence}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{extension}"
+    #show_data_pub_name: "{Show}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{extension}"
 
     # defines how the {tk_version} token in Hiero gets formatted back to tk.
     hiero_version: "{version}"

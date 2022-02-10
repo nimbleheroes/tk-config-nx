@@ -8,6 +8,7 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
+from email.mime import image
 import os
 import pprint
 import traceback
@@ -366,15 +367,17 @@ class BasicFilePublishPlugin(HookBaseClass):
         # handle copying of work to publish if templates are in play
         self._copy_work_to_publish(settings, item)
 
+
+
         # arguments for publish registration
         self.logger.info("Registering publish...")
         publish_data = {
             "tk": publisher.sgtk,
             "context": item.context,
             "comment": item.description,
-            "code": publish_code,
+            "code": item.parent.properties['publish_name'],
             "path": publish_path,
-            "name": publish_name,
+            "name": item.parent.properties['publish_name'],
             "created_by": publish_user,
             "version_number": publish_version,
             "thumbnail_path": item.get_thumbnail_as_path(),
@@ -503,6 +506,7 @@ class BasicFilePublishPlugin(HookBaseClass):
 
         :return: A publish type or None if one could not be found.
         """
+        
 
         # publish type explicitly set or defined on the item
         publish_type = item.get_property("publish_type")
@@ -579,6 +583,12 @@ class BasicFilePublishPlugin(HookBaseClass):
 
             missing_keys = publish_template.missing_keys(work_fields)
 
+            work_fields['ext'] = work_fields.get('extension')
+            if "frame_format" in work_fields:
+                pub_name_template = self.sgtk.templates["shot_image_pub_name"]
+            else:
+                pub_name_template = self.sgtk.templates["shot_data_pub_name"]
+
             if missing_keys:
                 self.logger.warning(
                     "Not enough keys to apply work fields (%s) to "
@@ -590,6 +600,9 @@ class BasicFilePublishPlugin(HookBaseClass):
                     "Used publish template to determine the publish path: %s"
                     % (publish_path,)
                 )
+
+                publish_name =  pub_name_template.apply_fields(work_fields)
+                item.parent.properties['publish_name'] = publish_name
         else:
             self.logger.debug("publish_template: %s" % publish_template)
             self.logger.debug("work_template: %s" % work_template)
@@ -814,6 +827,8 @@ class BasicFilePublishPlugin(HookBaseClass):
         nxfw = self.load_framework("tk-framework-nx_v0.x.x")
         nxfs = nxfw.import_module("utils.filesystem")
 
+        src_dest_pairs = []
+
         for work_file in work_files:
 
             if not work_template.validate(work_file):
@@ -843,6 +858,7 @@ class BasicFilePublishPlugin(HookBaseClass):
                 # copy_file(work_file, publish_file)
                 if os.path.realpath(work_file) is not os.path.realpath(publish_file):
                     nxfs.move_file_leave_symlink(work_file, publish_file)
+                    src_dest_pairs.append({'src': work_file, "dst": publish_file})
             except Exception:
                 raise Exception(
                     "Failed to copy work file from '%s' to '%s'.\n%s"
@@ -853,6 +869,34 @@ class BasicFilePublishPlugin(HookBaseClass):
                 "Copied work file '%s' to publish file '%s'."
                 % (work_file, publish_file)
             )
+        fw = self.load_framework("tk-framework-deadline_v0.x.x")
+
+
+        nxfw = self.load_framework("tk-framework-nx_v0.x.x")
+        scalar = nxfw.import_module('scalar')
+
+        dispatcher =  scalar.Dispatcher.using_queue('sgtk_deadline', tk_framework_deadline=fw)
+        dispatcher.name = str(item.context.entity['name'])
+
+
+        t1 = dispatcher.task("move_files", 
+                            name="Moving files ({}): [{}] --> [{}]".format(len(src_dest_pairs), os.path.basename(work_file), os.path.dirname(publish_file)), 
+                            src_dest_pairs=src_dest_pairs)
+        if item.properties.get("first_frame") and item.properties.get("last_frame"):
+            # using first_/last_name properties signals the task pre-submission to set the deadline job as such
+            t1.first_frame = item.properties.get("first_frame")
+            t1.last_frame = item.properties.get("last_frame")
+
+        # register this as scalar's most recent task,  so that each next  step  can refer to the it's dependencies.
+        # when we use this later, we'll process the whole tree by accessing the tasks's dispatcher
+        item.parent.properties['upstream_scalar'] = t1
+        
+
+        #process_output = dispatcher.process()
+        # self.logger.info(str(process_output))
+
+
+
 
     def _get_next_version_info(self, path, item):
         """
