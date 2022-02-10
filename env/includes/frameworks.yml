@@ -86,7 +86,6 @@ frameworks:
       ## Dev
       type: dev
       path: /pipe/dev/dstrubler/tk-framework-nx
-
   tk-framework-deadline_v0.x.x:
     web_service_machine: 10.0.2.49
     web_service_port: 8082

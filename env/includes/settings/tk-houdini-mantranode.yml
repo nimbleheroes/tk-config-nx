@@ -25,8 +25,8 @@ settings.tk-houdini-mantranode.shot_step:
     color: []
     output_render_template: shot_houdini_work_render_seq
     output_ifd_template: shot_houdini_work_ifd_seq
-    output_dcm_template: shot_houdini_work_dcm_seq
-    output_extra_plane_template: shot_houdini_work_aov_seq
+    output_dcm_template: shot_houdini_work_render_seq
+    output_extra_plane_template: shot_houdini_work_render_seq
   location: "@apps.tk-houdini-mantranode.location"
 
 # seq step
@@ -39,8 +39,8 @@ settings.tk-houdini-mantranode.seq_step:
     color: []
     output_render_template: seq_houdini_work_render_seq
     output_ifd_template: seq_houdini_work_ifd_seq
-    output_dcm_template: seq_houdini_work_dcm_seq
-    output_extra_plane_template: seq_houdini_work_aov_seq
+    output_dcm_template: seq_houdini_work_render_seq
+    output_extra_plane_template: seq_houdini_work_render_seq
   location: "@apps.tk-houdini-mantranode.location"
 
 # asset step
@@ -53,7 +53,7 @@ settings.tk-houdini-mantranode.asset_step:
     color: []
     output_render_template: asset_houdini_work_render_seq
     output_ifd_template: asset_houdini_work_ifd_seq
-    output_dcm_template: asset_houdini_work_dcm_seq
-    output_extra_plane_template: asset_houdini_work_aov_seq
+    output_dcm_template: asset_houdini_work_render_seq
+    output_extra_plane_template: asset_houdini_work_render_seq
   location: "@apps.tk-houdini-mantranode.location"
 

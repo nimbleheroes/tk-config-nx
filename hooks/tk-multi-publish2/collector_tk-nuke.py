@@ -376,50 +376,52 @@ class NukeSessionCollector(HookBaseClass):
         for node in sg_writenode_app.get_write_nodes():
 
             # see if any frames have been rendered for this write node
-            rendered_files = sg_writenode_app.get_node_render_files(node)
-            if not rendered_files:
-                continue
+            framesets = sg_writenode_app.get_node_render_files(node)
 
-            # some files rendered, use first frame to get some publish item info
-            file_path = rendered_files[0]
+            for rendered_files in framesets:
+                if not rendered_files:
+                    continue
 
-            if not file_path or not os.path.exists(file_path):
-                # no file or file does not exist, nothing to do
-                continue
+                # some files rendered, use first frame to get some publish item info
+                file_path = rendered_files[0]
 
-            self.logger.info("Processing sgWrite node: %s" % (node.name()))
+                if not file_path or not os.path.exists(file_path):
+                    # no file or file does not exist, nothing to do
+                    continue
 
-            if len(rendered_files) > 1:
-                is_frame_sequence = True
-            else:
-                is_frame_sequence = False
+                self.logger.info("Processing sgWrite node: %s" % (node.name()))
 
-            # file exists, let the basic collector handle it
-            item = super(NukeSessionCollector, self)._collect_file(
-                parent_item, file_path, frame_sequence=is_frame_sequence
-            )
+                if len(rendered_files) > 1:
+                    is_frame_sequence = True
+                else:
+                    is_frame_sequence = False
 
-            # check if the theres a slate frame
-            # slate_frame = node.input(0).metadata().get('nx/slate_frame')
-            # if slate_frame:
-            #     item.properties["slate_frame"] = int(slate_frame)
+                # file exists, let the basic collector handle it
+                item = super(NukeSessionCollector, self)._collect_file(
+                    parent_item, file_path, frame_sequence=is_frame_sequence
+                )
 
-            item.properties["sequence_paths"] = rendered_files
-            item.properties["node"] = node
-            item.properties["first_frame"] = first_frame
-            item.properties["last_frame"] = last_frame
-            item.properties["width"] = node.width()
-            item.properties["height"] = node.height()
-            item.properties["pixel_aspect"] = node.pixelAspect()
+                # check if the theres a slate frame
+                # slate_frame = node.input(0).metadata().get('nx/slate_frame')
+                # if slate_frame:
+                #     item.properties["slate_frame"] = int(slate_frame)
 
-            if node.knob("use_limit").getValue():
-                item.properties["first_frame"] = int(node.knob("first").getValue())
-                item.properties["last_frame"] = int(node.knob("last").getValue())
+                item.properties["sequence_paths"] = rendered_files
+                item.properties["node"] = node
+                item.properties["first_frame"] = first_frame
+                item.properties["last_frame"] = last_frame
+                item.properties["width"] = node.width()
+                item.properties["height"] = node.height()
+                item.properties["pixel_aspect"] = node.pixelAspect()
 
-            # the item has been created. update the display name to include
-            # the nuke node to make it clear to the user how it was
-            # collected within the current session.
-            item.name = "%s (%s)" % (item.name, node.name())
+                if node.knob("use_limit").getValue():
+                    item.properties["first_frame"] = int(node.knob("first").getValue())
+                    item.properties["last_frame"] = int(node.knob("last").getValue())
+
+                # the item has been created. update the display name to include
+                # the nuke node to make it clear to the user how it was
+                # collected within the current session.
+                item.name = "%s (%s)" % (item.name, node.name())
 
     def _get_node_colorspace(self, node):
         """

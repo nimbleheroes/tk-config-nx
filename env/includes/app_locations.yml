@@ -192,10 +192,10 @@ apps.tk-nuke-writenode.location:
   type: github_release
   organization: nimbleheroes
   repository: tk-nuke-writenode
-  version: v1.4.2.15
+  version: v1.6.1
   ## Dev
   # type: dev
-  # path: ~/Documents/tk-nuke-writenode
+  # path: /pipe/dev/akramer/tk-nuke-writenode
 
 # setframerange
 apps.tk-multi-setframerange.location:
