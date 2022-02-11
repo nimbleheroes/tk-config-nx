@@ -316,25 +316,25 @@ paths:
     asset_generic_pub_img_rep:      '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{ext}'
 
     # data representations
-    show_generic_work_data_rep_seq: '@show_work_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    show_generic_pub_data_rep_seq:  '@show_pubs_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    show_generic_work_data_rep:     '@show_work_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
-    show_generic_pub_data_rep:      '@show_pubs_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
+    show_generic_work_data_rep_seq: '@show_work_area/data/{data_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    show_generic_pub_data_rep_seq:  '@show_pubs_area/data/{data_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    show_generic_work_data_rep:     '@show_work_area/data/{data_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
+    show_generic_pub_data_rep:      '@show_pubs_area/data/{data_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
 
-    seq_generic_work_data_rep_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    seq_generic_pub_data_rep_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    seq_generic_work_data_rep:     '@seq_work_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
-    seq_generic_pub_data_rep:      '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
+    seq_generic_work_data_rep_seq: '@seq_work_area/data/{data_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    seq_generic_pub_data_rep_seq:  '@seq_pubs_area/data/{data_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    seq_generic_work_data_rep:     '@seq_work_area/data/{data_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
+    seq_generic_pub_data_rep:      '@seq_pubs_area/data/{data_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
 
-    shot_generic_work_data_rep_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    shot_generic_pub_data_rep_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    shot_generic_work_data_rep:     '@shot_work_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
-    shot_generic_pub_data_rep:      '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
+    shot_generic_work_data_rep_seq: '@shot_work_area/data/{data_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    shot_generic_pub_data_rep_seq:  '@shot_pubs_area/data/{data_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    shot_generic_work_data_rep:     '@shot_work_area/data/{data_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
+    shot_generic_pub_data_rep:      '@shot_pubs_area/data/{data_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
 
-    asset_generic_work_data_rep_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    asset_generic_pub_data_rep_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
-    asset_generic_work_data_rep:     '@asset_work_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
-    asset_generic_pub_data_rep:      '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
+    asset_generic_work_data_rep_seq: '@asset_work_area/data/{data_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    asset_generic_pub_data_rep_seq:  '@asset_pubs_area/data/{data_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    asset_generic_work_data_rep:     '@asset_work_area/data/{data_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
+    asset_generic_pub_data_rep:      '@asset_pubs_area/data/{data_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
 
     ##########################################################################################
     #

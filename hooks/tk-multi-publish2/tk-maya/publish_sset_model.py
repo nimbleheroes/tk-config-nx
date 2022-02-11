@@ -93,7 +93,7 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         accept() method. Strings can contain glob patters such as *, for example
         ["maya.*", "file.maya"]
         """
-        return ["maya.session.geometry"]
+        return ["maya.sset.model"]
 
     def accept(self, settings, item):
         """
@@ -160,7 +160,7 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         # natively.
         item.context_change_allowed = False
 
-        return {"accepted": accepted, "checked": False}
+        return {"accepted": accepted, "checked": True}
 
     def validate(self, settings, item):
         """
@@ -175,6 +175,7 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         """
 
         path = _session_path()
+        sset = item.properties['sset']
 
         # ---- ensure the session has been saved
 
@@ -188,15 +189,22 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         # get the normalized path
         path = sgtk.util.ShotgunPath.normalize(path)
 
-        # check that there is still geometry in the scene:
-        if not cmds.ls(geometry=True, noIntermediate=True):
+        # check that there is geometry in the sset
+        cmds.select(sset)
+        sset_members = cmds.ls(selection=True)
+        sset_geo = cmds.ls(geometry=True, selection=True, dagObjects=True)
+        if not sset_geo:
             error_msg = (
-                "Validation failed because there is no geometry in the scene "
-                "to be exported. You can uncheck this plugin or create "
-                "geometry to export to avoid this error."
+                "Validation failed because there is no geometry in the selection "
+                "set '%s' to be exported. You can uncheck this plugin or add "
+                "geometry to the selection set to avoid this error." % sset
             )
             self.logger.error(error_msg)
             raise Exception(error_msg)
+
+        # if there is geo, lets store those sset members for later
+        item.properties['sset_members'] = sset_members
+        item.properties['sset_geo'] = sset_geo
 
         # get the configured work file template
         work_template = item.parent.properties.get("work_template")
@@ -206,8 +214,12 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         # template:
         work_fields = work_template.get_fields(path)
 
+        work_fields["data_category"] = 'model'
+        work_fields["var"] = item.properties['var']
+        work_fields["extension"] = 'abc'
+
         # ensure the fields work for the publish template
-        missing_keys = publish_template.missing_keys(work_fields)
+        missing_keys = publish_template.missing_keys(work_fields, skip_defaults=True)
         if missing_keys:
             error_msg = (
                 "Work file '%s' missing keys required for the "
@@ -253,18 +265,31 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         # all visible geometry from the current scene together with UV's and
         # face sets for use in Mari.
         alembic_args = [
-            # only renderable objects (visible and not templated)
-            "-renderableOnly",
+            # remove namespces from geo
+            "-stripNamespaces",
+            # ensure that alembics are written in ogawa
+            "-dataFormat ogawa",
+            # write all UVSets
+            "-writeUVSets",
+            # write using euler filtering
+            "-eulerFilter",
+            # write into worldSpace
+            "-worldSpace",
             # write shading group set assignments (Maya 2015+)
             "-writeFaceSets",
             # write uv's (only the current uv set gets written)
             "-uvWrite",
         ]
 
-        # find the animated frame range to use:
-        start_frame, end_frame = _find_scene_animation_range()
-        if start_frame and end_frame:
-            alembic_args.append("-fr %d %d" % (start_frame, end_frame))
+        # # find the animated frame range to use:
+        # start_frame, end_frame = _find_scene_animation_range()
+        # if start_frame and end_frame:
+        #     alembic_args.append("-fr %d %d" % (start_frame, end_frame))
+
+        #add the selection set members
+        for member in item.properties["sset_members"]:
+            tmp = "-root %s" % member
+            alembic_args.append(tmp)
 
         # Set the output path:
         # Note: The AbcExport command expects forward slashes!
@@ -286,25 +311,25 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         super(MayaSessionGeometryPublishPlugin, self).publish(settings, item)
 
 
-def _find_scene_animation_range():
-    """
-    Find the animation range from the current scene.
-    """
-    # look for any animation in the scene:
-    animation_curves = cmds.ls(typ="animCurve")
+# def _find_scene_animation_range():
+#     """
+#     Find the animation range from the current scene.
+#     """
+#     # look for any animation in the scene:
+#     animation_curves = cmds.ls(typ="animCurve")
 
-    # if there aren't any animation curves then just return
-    # a single frame:
-    if not animation_curves:
-        return 1, 1
+#     # if there aren't any animation curves then just return
+#     # a single frame:
+#     if not animation_curves:
+#         return 1, 1
 
-    # something in the scene is animated so return the
-    # current timeline.  This could be extended if needed
-    # to calculate the frame range of the animated curves.
-    start = int(cmds.playbackOptions(q=True, min=True))
-    end = int(cmds.playbackOptions(q=True, max=True))
+#     # something in the scene is animated so return the
+#     # current timeline.  This could be extended if needed
+#     # to calculate the frame range of the animated curves.
+#     start = int(cmds.playbackOptions(q=True, min=True))
+#     end = int(cmds.playbackOptions(q=True, max=True))
 
-    return start, end
+#     return start, end
 
 
 def _session_path():

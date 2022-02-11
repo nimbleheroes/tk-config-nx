@@ -5,7 +5,7 @@ includes:
 
 ################################################################################
 
-publish_help_url: &help_url "https://support.shotgunsoftware.com/hc/en-us/articles/115000068574-Integrations-User-Guide#The%20Publisher"
+publish_help_url: &help_url "https://support.ShotGridsoftware.com/hc/en-us/articles/115000068574-Integrations-User-Guide#The%20Publisher"
 
 ################################################################################
 
@@ -15,7 +15,7 @@ settings.tk-multi-publish2.standalone:
   path_info: "{config}/tk-multi-publish2/path_info.py"
   collector: "{config}/tk-multi-publish2/collector.py"
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   help_url: *help_url
@@ -28,20 +28,24 @@ settings.tk-multi-publish2.standalone:
 # asset step
 settings.tk-multi-publish2.maya.asset_step:
   path_info: "{config}/tk-multi-publish2/path_info.py"
-  collector: "{self}/collector.py:{engine}/tk-multi-publish2/basic/collector.py"
+  collector: "{self}/collector.py:{config}/tk-multi-publish2/{engine_name}/collector.py"
   collector_settings:
       Work Template: asset_maya_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: asset_maya_pub_file
+  - name: Export and Publish to ShotGrid
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/{engine_name}/publish_sset_model.py"
+    settings:
+        Publish Template: asset_generic_pub_data_rep
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
@@ -52,13 +56,13 @@ settings.tk-multi-publish2.maya.seq_step:
   collector_settings:
       Work Template: seq_maya_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: seq_maya_pub_file
@@ -72,13 +76,13 @@ settings.tk-multi-publish2.maya.shot_step:
   collector_settings:
       Work Template: shot_maya_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: shot_maya_pub_file
@@ -96,7 +100,7 @@ settings.tk-multi-publish2.houdini.asset_step:
   collector_settings:
       Work Template: asset_houdini_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
@@ -105,7 +109,7 @@ settings.tk-multi-publish2.houdini.asset_step:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: asset_houdini_pub_file
@@ -119,7 +123,7 @@ settings.tk-multi-publish2.houdini.seq_step:
   collector_settings:
       Work Template: seq_houdini_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
@@ -128,7 +132,7 @@ settings.tk-multi-publish2.houdini.seq_step:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: seq_houdini_pub_file
@@ -142,7 +146,7 @@ settings.tk-multi-publish2.houdini.shot_step:
   collector_settings:
       Work Template: shot_houdini_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
@@ -151,7 +155,7 @@ settings.tk-multi-publish2.houdini.shot_step:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: shot_houdini_pub_file
@@ -169,11 +173,11 @@ settings.tk-multi-publish2.nuke.asset_step:
   collector_settings:
       Work Template: asset_nuke_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: asset_nuke_pub_file
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Create Version
@@ -192,11 +196,11 @@ settings.tk-multi-publish2.nuke.seq_step:
   collector_settings:
       Work Template: seq_nuke_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: seq_nuke_pub_file
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Create Version
@@ -215,11 +219,11 @@ settings.tk-multi-publish2.nuke.shot_step:
   collector_settings:
       Work Template: shot_nuke_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: shot_nuke_pub_file
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Create Version
@@ -241,7 +245,7 @@ settings.tk-multi-publish2.hiero:
   collector_settings:
       Work Template: show_hiero_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
@@ -250,7 +254,7 @@ settings.tk-multi-publish2.hiero:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/nukestudio_start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nukestudio_publish_project.py"
     settings:
         Publish Template: show_hiero_pub_file
@@ -268,7 +272,7 @@ settings.tk-multi-publish2.photoshop.asset_step:
   collector_settings:
       Work Template: asset_photoshop_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
@@ -277,7 +281,7 @@ settings.tk-multi-publish2.photoshop.asset_step:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
     settings:
         Publish Template: asset_photoshop_pub_file
@@ -294,7 +298,7 @@ settings.tk-multi-publish2.photoshop.seq_step:
   collector_settings:
       Work Template: seq_photoshop_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
@@ -303,7 +307,7 @@ settings.tk-multi-publish2.photoshop.seq_step:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
     settings:
         Publish Template: seq_photoshop_pub_file
@@ -320,7 +324,7 @@ settings.tk-multi-publish2.photoshop.shot_step:
   collector_settings:
       Work Template: shot_photoshop_work_file
   publish_plugins:
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
   - name: Upload for review
@@ -329,7 +333,7 @@ settings.tk-multi-publish2.photoshop.shot_step:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to Shotgun
+  - name: Publish to ShotGrid
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_document.py"
     settings:
         Publish Template: shot_photoshop_pub_file
