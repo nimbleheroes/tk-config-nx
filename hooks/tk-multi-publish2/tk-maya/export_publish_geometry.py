@@ -18,15 +18,15 @@ from tank_vendor import six
 HookBaseClass = sgtk.get_hook_baseclass()
 
 
-class MayaSessionGeometryPublishPlugin(HookBaseClass):
+class MayaSelectionSetModelPublishPlugin(HookBaseClass):
     """
-    Plugin for publishing an open maya session.
+    Plugin for publishing model geometry from a selection set in an open maya session.
 
     This hook relies on functionality found in the base file publisher hook in
-    the publish2 app and should inherit from it in the configuration. The hook
+    the config and should inherit from it in the configuration. The hook
     setting for this plugin should look something like this::
 
-        hook: "{self}/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
+        hook: "{config}/publish_file.py:{config}/tk-multi-publish2/{engine_name}/publish_sset_model.py"
 
     """
 
@@ -40,8 +40,8 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         """
 
         return """
-        <p>This plugin publishes session geometry for the current session. Any
-        session geometry will be exported to the path defined by this plugin's
+        <p>This plugin publishes geometry from a selection set in the current session.
+        Geometry will be exported to the path defined by this plugin's
         configured "Publish Template" setting. The plugin will fail to validate
         if the "AbcExport" plugin is not enabled or cannot be found.</p>
         """
@@ -66,16 +66,15 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         part of its environment configuration.
         """
         # inherit the settings from the base publish plugin
-        base_settings = super(MayaSessionGeometryPublishPlugin, self).settings or {}
+        base_settings = super(MayaSelectionSetModelPublishPlugin, self).settings or {}
 
         # settings specific to this class
         maya_publish_settings = {
-            "Publish Template": {
+            "publish_template": {
                 "type": "template",
                 "default": None,
-                "description": "Template path for published work files. Should"
-                "correspond to a template defined in "
-                "templates.yml.",
+                "description": "Template path for exported abc model. Should"
+                "correspond to a template defined in templates.yml.",
             }
         }
 
@@ -123,7 +122,7 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
 
         accepted = True
         publisher = self.parent
-        template_name = settings["Publish Template"].value
+        template_name = settings["publish_template"].value
 
         # ensure a work file template is available on the parent item
         work_template = item.parent.properties.get("work_template")
@@ -233,13 +232,13 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
         # publish plugin. Also set the publish_path to be explicit.
         item.properties["path"] = publish_template.apply_fields(work_fields)
         item.properties["publish_path"] = item.properties["path"]
-
+    
         # use the work file's version number when publishing
         if "version" in work_fields:
             item.properties["publish_version"] = work_fields["version"]
 
         # run the base class validation
-        return super(MayaSessionGeometryPublishPlugin, self).validate(settings, item)
+        return super(MayaSelectionSetModelPublishPlugin, self).validate(settings, item)
 
     def publish(self, settings, item):
         """
@@ -307,8 +306,12 @@ class MayaSessionGeometryPublishPlugin(HookBaseClass):
             self.logger.error("Failed to export Geometry: %s" % e)
             return
 
+        # add our custom 'publish type' label to this or else it will get the default one
+        # for all Alembic files
+        item.properties["publish_type"] = "Alembic Model"
+
         # Now that the path has been generated, hand it off to the
-        super(MayaSessionGeometryPublishPlugin, self).publish(settings, item)
+        super(MayaSelectionSetModelPublishPlugin, self).publish(settings, item)
 
 
 # def _find_scene_animation_range():

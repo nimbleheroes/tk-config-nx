@@ -36,6 +36,7 @@ loader_entities: &loader_entities
 
 # maya
 settings.tk-multi-loader2.maya:
+  actions_hook: '{config}/tk-multi-loader2/tk-maya_actions.py'
   action_mappings:
     Alembic Cache: [reference, import]
     Image: [texture_node, image_plane]
@@ -81,7 +82,7 @@ settings.tk-multi-loader2.nuke:
 
 # nuke studio (actions hook)
 settings.tk-multi-loader2.hiero.project:
-  actions_hook: '{self}/tk-nuke_actions.py'
+  actions_hook: '{config}/tk-multi-loader2/tk-nuke_actions.py'
   action_mappings:
     Image: [clip_import]
     Movie: [clip_import]
@@ -91,7 +92,7 @@ settings.tk-multi-loader2.hiero.project:
   location: "@apps.tk-multi-loader2.location"
 
 settings.tk-multi-loader2.hiero:
-  actions_hook: '{self}/tk-nuke_actions.py'
+  actions_hook: '{config}/tk-multi-loader2/tk-nuke_actions.py'
   action_mappings:
     Alembic Cache: [read_node]
     Image: [read_node]

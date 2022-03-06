@@ -38,14 +38,34 @@ settings.tk-multi-publish2.maya.asset_step:
   - name: Begin file versioning
     hook: "{engine}/tk-multi-publish2/basic/start_version_control.py"
     settings: {}
-  - name: Publish to ShotGrid
+  - name: Publish Maya Scene
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/publish_session.py"
     settings:
         Publish Template: asset_maya_pub_file
-  - name: Export and Publish to ShotGrid
-    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/{engine_name}/publish_sset_model.py"
+  - name: Export and Publish ABC Geometry
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/{engine_name}/export_publish_abc.py:{config}/tk-multi-publish2/{engine_name}/export_publish_geometry.py"
     settings:
-        Publish Template: asset_generic_pub_data_rep
+        publish_template: asset_generic_pub_data_rep
+        publish_file_type: Alembic Geometry Export
+        publish_file_ext: abc
+  - name: Export and Publish FBX Geometry
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/{engine_name}/export_publish_fbx.py:{config}/tk-multi-publish2/{engine_name}/export_publish_geometry.py"
+    settings:
+        publish_template: asset_generic_pub_data_rep
+        publish_file_type: FBX Geometry Export
+        publish_file_ext: fbx
+  - name: Export and Publish MA Geometry
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/{engine_name}/export_publish_ma.py:{config}/tk-multi-publish2/{engine_name}/export_publish_geometry.py"
+    settings:
+        publish_template: asset_generic_pub_data_rep
+        publish_file_type: Maya Geometry Export
+        publish_file_ext: ma
+  - name: Export and Publish MA Shader Network
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/{engine_name}/export_publish_ma.py:{config}/tk-multi-publish2/{engine_name}/export_publish_shader_network.py"
+    settings:
+        publish_template: asset_generic_pub_data_rep
+        publish_file_type: Maya Shader Network
+        publish_file_ext: ma
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
