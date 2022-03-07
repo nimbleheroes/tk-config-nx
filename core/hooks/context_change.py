@@ -65,10 +65,25 @@ class ContextChange(get_hook_baseclass()):
 
         if next_context != current_context and next_context is not None:
 
+            self.logger.debug("[NEXODUS] next_context.to_dict(): {}".format(next_context.to_dict()))
+
+            # get all the pipe templates and set env vars
+            pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
+            for templ_name, templ_obj in pipe_templates.iteritems():
+                template_fields = next_context.as_template_fields(templ_obj)
+                missing_keys = templ_obj.missing_keys(template_fields)
+                if not missing_keys:
+                    templ_path = os.path.abspath(templ_obj.apply_fields(template_fields))
+                    templ_path = os.path.expandvars(templ_path)
+                    templ_name = templ_name.upper()
+                    self.logger.debug("[NEXODUS] Setting PIPE env var: {} = {}".format(templ_name, templ_path))
+                    os.environ[templ_name] = templ_path
+
             env_vars = {
                 "SHOW": None,
                 "SEQ": None,
                 "SHOT": None,
+                "ASSET": None,
                 "LUT": "default.cube",
                 "CAMERA_RAW": None,
                 "EDIT_CUT_IN": None,
@@ -119,6 +134,7 @@ class ContextChange(get_hook_baseclass()):
                         env_vars["LUT"] = seq_lut
                     elif show_lut:
                         env_vars["LUT"] = show_lut
+                    
 
                 if type == "Sequence":
                     seq_entity = next_context.sgtk.shotgun.find_one(type, [['id', 'is', id]], self.__seq_fields)
@@ -142,6 +158,25 @@ class ContextChange(get_hook_baseclass()):
                     if seq_lut:
                         env_vars["LUT"] = seq_lut
                     elif show_lut:
+                        env_vars["LUT"] = show_lut
+
+                if type == "Asset":
+                    ast_entity = next_context.sgtk.shotgun.find_one(type, [['id', 'is', id]], self.__seq_fields)
+                    ast_code = ast_entity.get('code')
+
+                    show_id = next_context.project['id']
+                    show_entity = next_context.sgtk.shotgun.find_one('Project', [['id', 'is', show_id]], self.__show_fields)
+                    show_code = show_entity.get('code')
+
+                    show_camera_raw, show_lut = show_entity.get(self.__field_camera_raw), show_entity.get(self.__field_lut)
+
+                    env_vars["SHOW"] = show_code
+                    env_vars["ASSET"] = ast_code
+
+                    if show_camera_raw:
+                        env_vars["CAMERA_RAW"] = show_camera_raw
+
+                    if show_lut:
                         env_vars["LUT"] = show_lut
 
             elif next_context.project:

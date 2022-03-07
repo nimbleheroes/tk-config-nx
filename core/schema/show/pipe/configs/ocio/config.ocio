@@ -18,6 +18,7 @@ roles:
   rendering: ACES - ACEScg
   scene_linear: ACES - ACEScg
   texture_paint: Utility - sRGB - Texture
+  video: Utility - sRGB - Texture
 
 displays:
   Monitor:

@@ -253,7 +253,7 @@ paths:
     # PIPELINE PATHS
     #
     # Any path template starting with "pipe_" will get an environment variable automatically
-    # set before application launch by the before_app_launch.py hook.
+    # created with a key matching its name and the value being the fully-resolved resolved path before application launch by the before_app_launch.py hook.
     #
 
     pipe_ocio_area:   'pipe/configs/ocio'
@@ -262,7 +262,7 @@ paths:
     pipe_nuke_path:       'pipe/configs/nuke/python'
     pipe_nuke_tools_path: 'pipe/configs/nuke/tools'
 
-    pipe_hiero_path: 'pipe/configs/hiero/python'
+    pipe_hiero_path: 'pipe/configs/hiero'
 
     pipe_maya_path:         'pipe/configs/maya'
     pipe_maya_script_path:  'pipe/configs/maya/scripts'
@@ -273,6 +273,18 @@ paths:
     pipe_houdini_path: 'pipe/configs/houdini'
 
     pipe_cache_area: 'cache/'
+
+    pipe_templates: 'pipe/templates'
+
+    ##########################################################################################
+    #
+    # WORKFILE TEMPLATE AREAS
+    #
+    
+    show_workfile_template_area: 'pipe/templates/workfiles/show/{Step}'
+    asset_workfile_template_area: 'pipe/templates/workfiles/asset/{Step}'
+    seq_workfile_template_area: 'pipe/templates/workfiles/seq/{Step}'
+    shot_workfile_template_area: 'pipe/templates/workfiles/shot/{Step}'
 
     ##########################################################################################
     #
