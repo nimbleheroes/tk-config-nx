@@ -857,7 +857,7 @@ class BasicFilePublishPlugin(HookBaseClass):
                 ensure_folder_exists(publish_folder)
                 # copy_file(work_file, publish_file)
                 if os.path.realpath(work_file) is not os.path.realpath(publish_file):
-                    nxfs.move_file_leave_symlink(work_file, publish_file)
+                    # nxfs.move_file_leave_symlink(work_file, publish_file)
                     src_dest_pairs.append({'src': work_file, "dst": publish_file})
             except Exception:
                 raise Exception(
@@ -869,13 +869,15 @@ class BasicFilePublishPlugin(HookBaseClass):
                 "Copied work file '%s' to publish file '%s'."
                 % (work_file, publish_file)
             )
+
+        # prepare task for remote execution
         fw = self.load_framework("tk-framework-deadline_v0.x.x")
-
-
         nxfw = self.load_framework("tk-framework-nx_v0.x.x")
         scalar = nxfw.import_module('scalar')
 
         dispatcher =  scalar.Dispatcher.using_queue('sgtk_deadline', tk_framework_deadline=fw)
+
+        # fallback name
         dispatcher.name = str(item.context.entity['name'])
 
 
@@ -891,11 +893,6 @@ class BasicFilePublishPlugin(HookBaseClass):
         # when we use this later, we'll process the whole tree by accessing the tasks's dispatcher
         item.parent.properties['upstream_scalar'] = t1
         
-
-        #process_output = dispatcher.process()
-        # self.logger.info(str(process_output))
-
-
 
 
     def _get_next_version_info(self, path, item):
