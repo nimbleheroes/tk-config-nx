@@ -857,7 +857,6 @@ class BasicFilePublishPlugin(HookBaseClass):
                 ensure_folder_exists(publish_folder)
                 # copy_file(work_file, publish_file)
                 if os.path.realpath(work_file) is not os.path.realpath(publish_file):
-                    # nxfs.move_file_leave_symlink(work_file, publish_file)
                     src_dest_pairs.append({'src': work_file, "dst": publish_file})
             except Exception:
                 raise Exception(
@@ -866,7 +865,7 @@ class BasicFilePublishPlugin(HookBaseClass):
                 )
 
             self.logger.debug(
-                "Copied work file '%s' to publish file '%s'."
+                "Staged source:destination pair for remote copying: work file '%s' to publish file '%s'."
                 % (work_file, publish_file)
             )
 
