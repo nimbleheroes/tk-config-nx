@@ -22,13 +22,20 @@ class PostPhaseHook(HookBaseClass):
         # collect all dispatchers and process them all
         for item  in publish_tree:
             task = item.parent.properties['upstream_scalar']
+
+            # if there's an upstream task already
             if task:
+
+                # get it's dispatcher, so we can process everything
                 dispatcher = getattr(task, "dispatcher")
 
-                dispatcher.name = item.parent.properties['publish_name'].split("-")[0] + " Publish"
+                # this sets the batch name in  Deadline 
+                dispatcher.name = "[{}] ".format(item.context.project['name']) + item.parent.properties['publish_name'].split("-")[0] + " Publish"
 
                 # process the task trees within this dispatcher
-                result = dispatcher.process()
                 self.logger.info('Submitting Scalar Tasks all at once...')
+                result = dispatcher.process()
                 self.logger.info(str(result))
+
+                # only submitting one dispatcher's tasks. 
                 break
