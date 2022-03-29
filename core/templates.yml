@@ -53,7 +53,7 @@ keys:
     version:
         type: int
         format_spec: "03"
-
+        
     version_four:
        type: int
        format_spec: "04"
@@ -105,6 +105,7 @@ keys:
 
     frame_format:
         type: str
+        default: "misc"
 
     aov:
         type: str
@@ -125,6 +126,25 @@ keys:
     image_category:
         type: str
         filter_by: alphanumeric
+        choices:
+            out: Output from department
+            comp: Composite
+            precomp: Precomposed Element
+            mattes: Mattes
+            roto: Rotoscope Mattes
+            rotoreview: Roto QC/Review
+            paint: Paint
+            demo: Demonstration
+            dataset: Data Set
+            animcomp: Animation Comp
+            autocomp: Automated Comp
+            cfxcomp: Character FX Comp
+            conceptcomp: Concept Art Comp
+            dmpcomp: Digital Matte Painting Comp
+            fxcomp: FX Comp
+            layoutcomp: Layout Comp
+            lookdevcomp: Look Development Comp
+            lightcomp: Lighting Comp
 
     data_category:
         type: str
@@ -275,9 +295,11 @@ paths:
     pipe_houdini_path: 'pipe/configs/houdini'
 
     # 
-    # Transcodify configs
+    # Project Templates
     # 
-    transcodify_path: 'pipe/templates/transcodify'    
+    pipe_templates_path: 'pipe/templates'
+    nuke_templates_path: '@pipe_templates_path/nuke'
+    transcodify_path: '@pipe_templates_path/transcodify'    
     transcodify_template: '@transcodify_path/{name}_{ext}[_{output}].yml'
 
     pipe_cache_area: 'cache/'
@@ -474,7 +496,7 @@ paths:
     seq_houdini_pub_render_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
 
     shot_houdini_work_render_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
-    shot_houdini_pub_render_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
+    # shot_houdini_pub_render_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
 
     asset_houdini_work_render_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
     asset_houdini_pub_render_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
@@ -504,8 +526,8 @@ paths:
     asset_nuke_pub_file:  '@asset_nuke_pubs_area/@asset_workfile_basename.nk'
 
     # renders
-    seq_nuke_work_render_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
-    seq_nuke_pub_render_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    #seq_nuke_work_render_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    #seq_nuke_pub_render_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
     seq_nuke_work_render_mov: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
     seq_nuke_pub_render_mov:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
