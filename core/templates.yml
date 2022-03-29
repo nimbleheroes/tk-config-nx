@@ -532,7 +532,7 @@ paths:
     seq_nuke_pub_render_mov:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
     shot_nuke_work_render_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
-    shot_nuke_pub_render_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    # shot_nuke_pub_render_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
     shot_nuke_work_render_mov: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
     shot_nuke_pub_render_mov:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
