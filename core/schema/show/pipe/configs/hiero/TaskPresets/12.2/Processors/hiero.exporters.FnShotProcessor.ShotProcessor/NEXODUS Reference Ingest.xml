@@ -1,0 +1,169 @@
+<root presetname="NEXODUS Ref" tasktype="hiero.exporters.FnShotProcessor.ShotProcessor">
+    <startFrameIndex valuetype="int">1011</startFrameIndex>
+    <exportRoot valuetype="str">{project_root}</exportRoot>
+    <versionIndex valuetype="int">1</versionIndex>
+    <cutUseHandles valuetype="bool">False</cutUseHandles>
+    <versionPadding valuetype="int">3</versionPadding>
+    <exportTemplate valuetype="list">
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">shots/{shot}/pubs/images/edit/{shot}_edit_{sequence}/{track}_{format_name}_{ext}/{shot}_edit_{sequence}-{track}_{format_name}.{ext}</SequenceItem>
+            <SequenceItem valuetype="hiero.exporters.FnTranscodeExporter.TranscodePreset">
+                <root presetname="hiero.exporters.FnTranscodeExporter.TranscodeExporter" tasktype="hiero.exporters.FnTranscodeExporter.TranscodeExporter">
+                    <bitDepth valuetype="str">24 bit</bitDepth>
+                    <colourspace valuetype="unicode">video (Utility - sRGB - Texture)</colourspace>
+                    <file_type valuetype="unicode">mov</file_type>
+                    <channels valuetype="str">rgb</channels>
+                    <includeAudio valuetype="bool">False</includeAudio>
+                    <useSingleSocket valuetype="bool">False</useSingleSocket>
+                    <numChannels valuetype="str">stereo</numChannels>
+                    <additionalNodesData valuetype="list" />
+                    <includeEffects valuetype="bool">False</includeEffects>
+                    <codec valuetype="str">linear PCM (wav)</codec>
+                    <reformat valuetype="dict">
+                        <scale valuetype="float">1.0</scale>
+                        <center valuetype="bool">True</center>
+                        <width valuetype="int">1920</width>
+                        <height valuetype="int">1080</height>
+                        <filter valuetype="str">Cubic</filter>
+                        <to_type valuetype="str">to format</to_type>
+                        <pixelAspect valuetype="float">1.0</pixelAspect>
+                        <resize valuetype="str">width</resize>
+                        <name valuetype="str">HD_1080</name>
+                    </reformat>
+                    <keepNukeScript valuetype="bool">True</keepNukeScript>
+                    <bitRate valuetype="str">320 kbp/s</bitRate>
+                    <method valuetype="str">None</method>
+                    <includeAnnotations valuetype="bool">False</includeAnnotations>
+                    <views valuetype="list">
+                        <SequenceItem valuetype="str">all</SequenceItem>
+                    </views>
+                    <burninData valuetype="dict">
+                        <burnIn_bottomRight valuetype="NoneType">None</burnIn_bottomRight>
+                        <burnIn_topLeft valuetype="NoneType">None</burnIn_topLeft>
+                        <burnIn_topMiddle valuetype="NoneType">None</burnIn_topMiddle>
+                        <burnIn_padding valuetype="NoneType">None</burnIn_padding>
+                        <burnIn_topRight valuetype="NoneType">None</burnIn_topRight>
+                        <burnIn_bottomMiddle valuetype="NoneType">None</burnIn_bottomMiddle>
+                        <burnIn_bottomLeft valuetype="NoneType">None</burnIn_bottomLeft>
+                        <burnIn_textSize valuetype="NoneType">None</burnIn_textSize>
+                        <burnIn_font valuetype="NoneType">None</burnIn_font>
+                    </burninData>
+                    <mov valuetype="dict">
+                        <mov64_dnxhr_codec_profile valuetype="NoneType">None</mov64_dnxhr_codec_profile>
+                        <mov64_quality_min valuetype="int">1</mov64_quality_min>
+                        <dataRange valuetype="str">Video Range</dataRange>
+                        <mov_h264_codec_profile valuetype="str">High 4:2:0 8-bit</mov_h264_codec_profile>
+                        <mov64_gop_size valuetype="int">12</mov64_gop_size>
+                        <mov_prores_codec_profile valuetype="NoneType">None</mov_prores_codec_profile>
+                        <mov64_b_frames valuetype="int">0</mov64_b_frames>
+                        <mov64_write_timecode valuetype="bool">True</mov64_write_timecode>
+                        <mov64_bitrate_tolerance valuetype="int">0</mov64_bitrate_tolerance>
+                        <mov64_dnxhd_codec_profile valuetype="NoneType">None</mov64_dnxhd_codec_profile>
+                        <mov64_bitrate valuetype="int">100000</mov64_bitrate>
+                        <mov64_pixel_format valuetype="NoneType">None</mov64_pixel_format>
+                        <mov64_limit_bitrate valuetype="NoneType">None</mov64_limit_bitrate>
+                        <mov64_quality valuetype="str">Custom</mov64_quality>
+                        <mov64_quality_max valuetype="int">3</mov64_quality_max>
+                        <mov64_codec valuetype="str">h264</mov64_codec>
+                        <mov64_fast_start valuetype="bool">True</mov64_fast_start>
+                        <encoder valuetype="str">mov64</encoder>
+                        <mov64_ycbcr_matrix_type valuetype="str">Auto</mov64_ycbcr_matrix_type>
+                    </mov>
+                    <readAllLinesForExport valuetype="bool">True</readAllLinesForExport>
+                    <deleteAudio valuetype="bool">True</deleteAudio>
+                    <burninDataEnabled valuetype="bool">False</burninDataEnabled>
+                    <additionalNodesEnabled valuetype="bool">False</additionalNodesEnabled>
+                    <dpx valuetype="dict">
+                        <datatype valuetype="str">8 bit</datatype>
+                        <transfer valuetype="str">(auto detect)</transfer>
+                        <bigEndian valuetype="bool">True</bigEndian>
+                        <fill valuetype="bool">False</fill>
+                    </dpx>
+                    <writeNodeName valuetype="str">Write_{ext}</writeNodeName>
+                    <sampleRate valuetype="str">44100 Hz</sampleRate>
+                </root>
+            </SequenceItem>
+        </SequenceItem>
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">shots/{shot}/pubs/images/edit/{shot}_edit_{sequence}/{track}_{format_name}_{ext}/{shot}_edit_{sequence}-{track}_{format_name}.####.{ext}</SequenceItem>
+            <SequenceItem valuetype="hiero.exporters.FnTranscodeExporter.TranscodePreset">
+                <root presetname="hiero.exporters.FnTranscodeExporter.TranscodeExporter" tasktype="hiero.exporters.FnTranscodeExporter.TranscodeExporter">
+                    <bitDepth valuetype="str">24 bit</bitDepth>
+                    <colourspace valuetype="unicode">video (Utility - sRGB - Texture)</colourspace>
+                    <file_type valuetype="unicode">jpeg</file_type>
+                    <jpeg valuetype="dict">
+                        <_jpeg_quality valuetype="float">1.0</_jpeg_quality>
+                    </jpeg>
+                    <channels valuetype="str">rgb</channels>
+                    <includeAudio valuetype="bool">False</includeAudio>
+                    <useSingleSocket valuetype="bool">False</useSingleSocket>
+                    <numChannels valuetype="str">stereo</numChannels>
+                    <additionalNodesData valuetype="list" />
+                    <includeEffects valuetype="bool">False</includeEffects>
+                    <codec valuetype="str">linear PCM (wav)</codec>
+                    <reformat valuetype="dict">
+                        <scale valuetype="float">1.0</scale>
+                        <center valuetype="bool">True</center>
+                        <width valuetype="int">1920</width>
+                        <height valuetype="int">1080</height>
+                        <filter valuetype="str">Cubic</filter>
+                        <to_type valuetype="str">to format</to_type>
+                        <pixelAspect valuetype="float">1.0</pixelAspect>
+                        <resize valuetype="str">width</resize>
+                        <name valuetype="str">HD_1080</name>
+                    </reformat>
+                    <keepNukeScript valuetype="bool">True</keepNukeScript>
+                    <bitRate valuetype="str">320 kbp/s</bitRate>
+                    <method valuetype="str">None</method>
+                    <includeAnnotations valuetype="bool">False</includeAnnotations>
+                    <views valuetype="list">
+                        <SequenceItem valuetype="str">all</SequenceItem>
+                    </views>
+                    <burninData valuetype="dict">
+                        <burnIn_bottomRight valuetype="NoneType">None</burnIn_bottomRight>
+                        <burnIn_topLeft valuetype="NoneType">None</burnIn_topLeft>
+                        <burnIn_topMiddle valuetype="NoneType">None</burnIn_topMiddle>
+                        <burnIn_padding valuetype="NoneType">None</burnIn_padding>
+                        <burnIn_topRight valuetype="NoneType">None</burnIn_topRight>
+                        <burnIn_textSize valuetype="NoneType">None</burnIn_textSize>
+                        <burnIn_bottomLeft valuetype="NoneType">None</burnIn_bottomLeft>
+                        <burnIn_bottomMiddle valuetype="NoneType">None</burnIn_bottomMiddle>
+                        <burnIn_font valuetype="NoneType">None</burnIn_font>
+                    </burninData>
+                    <readAllLinesForExport valuetype="bool">True</readAllLinesForExport>
+                    <deleteAudio valuetype="bool">True</deleteAudio>
+                    <burninDataEnabled valuetype="bool">False</burninDataEnabled>
+                    <additionalNodesEnabled valuetype="bool">False</additionalNodesEnabled>
+                    <dpx valuetype="dict">
+                        <datatype valuetype="str">8 bit</datatype>
+                        <transfer valuetype="str">(auto detect)</transfer>
+                        <bigEndian valuetype="bool">True</bigEndian>
+                        <fill valuetype="bool">False</fill>
+                    </dpx>
+                    <exr valuetype="dict">
+                        <compression valuetype="str">Zip (1 scanline)</compression>
+                        <datatype valuetype="str">16 bit half</datatype>
+                        <noprefix valuetype="bool">False</noprefix>
+                        <write_full_layer_names valuetype="bool">False</write_full_layer_names>
+                        <standard_layer_name_format valuetype="bool">False</standard_layer_name_format>
+                        <interleave valuetype="str">channels, layers and views</interleave>
+                        <dw_compression_level valuetype="float">45.0</dw_compression_level>
+                        <truncateChannelNames valuetype="bool">False</truncateChannelNames>
+                        <write_ACES_compliant_EXR valuetype="bool">False</write_ACES_compliant_EXR>
+                        <metadata valuetype="str">all metadata</metadata>
+                    </exr>
+                    <writeNodeName valuetype="str">Write_{ext}</writeNodeName>
+                    <sampleRate valuetype="str">44100 Hz</sampleRate>
+                </root>
+            </SequenceItem>
+        </SequenceItem>
+    </exportTemplate>
+    <excludeTags valuetype="list">
+        <SequenceItem valuetype="str">Red</SequenceItem>
+    </excludeTags>
+    <includeTags valuetype="list" />
+    <includeRetimes valuetype="bool">False</includeRetimes>
+    <startFrameSource valuetype="str">Custom</startFrameSource>
+    <cutLength valuetype="bool">True</cutLength>
+    <cutHandles valuetype="int">0</cutHandles>
+</root>

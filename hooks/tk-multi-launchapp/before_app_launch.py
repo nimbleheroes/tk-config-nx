@@ -60,27 +60,17 @@ class BeforeAppLaunch(sgtk.Hook):
         self.logger.debug("app_args: {}".format(app_args))
         self.logger.debug("version: {}".format(version))
 
-        # load up the tk-framework-cbfx
-        nx_fw = self.load_framework("tk-framework-nx_v0.0.x")
-        nx_utils = nx_fw.import_module("utils")
 
         # get all the pipe templates and set env vars
-        pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
-        for k, v in pipe_templates.iteritems():
-            v = nx_utils.resolve_template(v, current_context)
-            v = os.path.expandvars(v)
-            k = k.upper()
-            self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(k, v))
-            os.environ[k] = v
-            # if sys.platform == 'win32':
-            #     try:
-            #         import win32wnet
-            #         k_unc = k + "_UNC"
-            #         v_unc = win32wnet.WNetGetUniversalName(v)
-            #         self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(k_unc, v_unc))
-            #         os.environ[k_unc] = v_unc
-            #     except:
-            #         pass
+        # pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
+        # for templ_name, templ_path in pipe_templates.iteritems():
+        #     template_fields = current_context.as_template_fields(v)
+        #     if not templ_path.missing_keys(template_fields):
+        #         templ_path = os.path.abspath(v.apply_fields(template_fields))
+        #         templ_path = os.path.expandvars(v)
+        #         templ_name = templ_name.upper()
+        #         self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(k, v))
+        #         os.environ[templ_name] = templ_path
 
         # Apply Environment Variable entities
         env_dicts = self.__get_env_vars(current_context, engine_name, version)
