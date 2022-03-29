@@ -1,0 +1,138 @@
+#! /usr/local/Nuke12.2v10/libnuke-12.2.10.so -nx
+#write_info out_exr file:"temp.exr" format:"2048 1556 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 1" fps:"0" colorspace:"scene_linear	scene_linear (ACES - ACEScg)" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"OCIO"
+version 12.2 v10
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="2143" h="1649" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1480" stretch="1"/>
+            <splitter orientation="2">
+                <split size="943"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="663"/>
+                <dock id="" activePageId="DAG.1">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1" focus="true">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /pipe/dev/dstrubler/tk-config-nx/core/schema/show/pipe/templates/transcodify/delivery_exr_lin16.nk
+ last_frame 1
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "Monitor/AutoLUT CC"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ label "Transcodify Simple"
+ selected true
+ xpos -94
+ ypos -208
+ bdwidth 234
+ bdheight 695
+}
+Read {
+ inputs 0
+ file_type jpeg
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ origset true
+ on_error black
+ name Read1
+ xpos -40
+ ypos -121
+}
+Grade {
+ white {1 1 1 1}
+ name Grade
+ xpos -40
+ ypos -10
+}
+Dot {
+ name Dot2
+ xpos -6
+ ypos 156
+}
+OCIODisplay {
+ colorspace scene_linear
+ display Monitor
+ view "AutoLUT CC"
+ name OCIODisplay1
+ label "\[value view]"
+ xpos -40
+ ypos 194
+}
+nxSlate_v2.1.gizmo {
+ name nxSlate
+ tile_color 0x572800ff
+ xpos -40
+ ypos 247
+ title_line1 project
+ content_line1 "\[getenv TRANSCODIFY_SLATE_PROJECT]"
+ title_line2 version
+ content_line2 "\[getenv TRANSCODIFY_SLATE_VERSION]"
+ title_line3 artist
+ content_line3 "\[getenv TRANSCODIFY_SLATE_ARTIST]"
+ title_line4 frames
+ content_line4 "\[expr \[value root.first_frame]]-\[value root.last_frame] (\[expr \[value root.last_frame]-\[value root.first_frame]+1]f)"
+ title_line5 date
+ content_line5 "\[clock format \[clock seconds] -format \"%Y-%m-%d\"]"
+ title_line6 ""
+ content_line6 ""
+ title_line7 ""
+ content_line7 ""
+ title_line8 ""
+ content_line8 ""
+ separator /
+ slate_frame {{"\[value root.first_frame]-1"}}
+ font /pipe/common/fonts/Roboto/Roboto-Medium.ttf
+ bg_image_file /pipe/common/images/nx_background_v1.jpg
+ logo_file /pipe/common/logos/nx_logo_package/2048/logotype_light_on_transparent.png
+ logo_scale 0.214
+ logo_voffset 0.945
+}
+Dot {
+ name Dot3
+ xpos -6
+ ypos 353
+}
+Write {
+ file temp.exr
+ colorspace scene_linear
+ file_type exr
+ first_part rgba
+ first {{root.first_frame-1}}
+ last {{root.last_frame}}
+ use_limit true
+ checkHashOnRead false
+ version 2
+ name out_exr
+ xpos -40
+ ypos 415
+}
