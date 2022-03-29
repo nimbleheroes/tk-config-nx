@@ -282,7 +282,7 @@ class BasicVersionUploadPlugin(HookBaseClass):
                                     name="Uploading Movie to SG Version", 
                                     entity_type=version.get('type'), 
                                     entity_id=version.get('id'),
-                                    src=reviewable_paths,
+                                    src=reviewable_path,
                                     parent=t1 )
 
             # associate this  as the last-created scalar task so you can either use it's dispatcher or make a child task
