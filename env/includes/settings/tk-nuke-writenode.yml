@@ -55,7 +55,7 @@ write_profile.tga: &write_profile_tga
 write_profile.tif: &write_profile_tif
   file_type: tiff
   file_extension: tif
-  name: TGAs
+  name: TIFs
   promote_write_knobs: [datatype, compression]
   settings:
     channels: rgba
