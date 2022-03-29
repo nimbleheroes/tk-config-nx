@@ -214,19 +214,21 @@ settings.tk-multi-publish2.nuke.shot_step:
   collector: "{config}/tk-multi-publish2/collector.py:{config}/tk-multi-publish2/collector_{engine_name}.py"
   collector_settings:
       Work Template: shot_nuke_work_file
+  post_phase: "{config}/tk-multi-publish2/post_phase.py"
   publish_plugins:
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
     settings:
         Publish Template: shot_nuke_pub_file
+        Publish Name: shot_pub_name
   - name: Publish to Shotgun
     hook: "{config}/tk-multi-publish2/publish_file.py"
     settings: {}
-  - name: Create Version
-    hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
+  - name: Create Version & Upload Media
+    hook: "{config}/tk-multi-publish2/create_and_upload_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
     settings: {}
-  - name: Attach to Version
-    hook: "{config}/tk-multi-publish2/attach_to_version.py"
+  # - name: Attach to Version
+  #   hook: "{config}/tk-multi-publish2/attach_to_version.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"

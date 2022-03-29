@@ -168,14 +168,14 @@ apps.tk-shotgun-folders.location:
 # delivery app
 apps.tk-delivery.location:
   name: tk-delivery
-  ### Toolkit Component Entity
+  ## Toolkit Component Entity
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 66000 #tk-delivery-0.1.0
+  version: 105284 #tk-delivery-0.1.1
   ## Dev
   # type: dev
-  # path: /pipe/dev/akramer/tk-delivery
+  # path: /pipe/dev/dstrubler/tk-delivery
 
 # writenode
 apps.tk-nuke-writenode.location:
@@ -192,10 +192,10 @@ apps.tk-nuke-writenode.location:
   type: github_release
   organization: nimbleheroes
   repository: tk-nuke-writenode
-  version: v1.4.2.15
+  version: v1.6.1
   ## Dev
   # type: dev
-  # path: ~/Documents/tk-nuke-writenode
+  # path: /pipe/dev/akramer/tk-nuke-writenode
 
 # setframerange
 apps.tk-multi-setframerange.location:
@@ -243,6 +243,18 @@ apps.tk-nuke-tools.location:
   # type: dev
   # path: ~/Documents/Github/tk-nuke-tools_nx
 
+# hiero_tools
+apps.tk-hiero-tools.location:
+  ### Toolkit Component Entity
+  name: tk-hiero-tools
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 101400 #tk-hiero-tools-1.0.0
+  ## Dev
+  # type: dev
+  # path: /pipe/dev/akramer/tk-hiero-tools
+
 # maya-playblast
 apps.tk-maya-playblast.location:
   ### Toolkit Component Entity
@@ -267,17 +279,17 @@ apps.tk-multi-importcut.location:
   # type: dev
   # path: ~/Documents/Github/tk-multi-importcut
 
-# deadline_render
-# apps.tk-multi-deadline-render.location:
-#   name: tk-multi-deadline-render
-  ### Toolkit Component Entity
-  # type: shotgun
-  # entity_type: CustomNonProjectEntity13
-  # field: sg_uploaded_app
-  # version: 0000 #tk-multi-deadline-render-0.0.1
-  ## Dev
+#deadline_render
+apps.tk-multi-deadline.location:
+  name: tk-multi-deadline
+  ## Toolkit Component Entity
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 105409 #tk-multi-deadline-0.0.1
+  # Dev
   # type: dev
-  # path: ~/Documents/Github/tk-multi-deadline-render_nx
+  # path: /pipe/dev/dstrubler/tk-multi-deadline
 
 ################################################################################
 # reference all of the common frameworks

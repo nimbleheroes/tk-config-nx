@@ -8,6 +8,7 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
+from distutils.command.config import config
 import os
 import pprint
 import traceback
@@ -19,7 +20,7 @@ from tank_vendor import six
 HookBaseClass = sgtk.get_hook_baseclass()
 
 
-class BasicVersionPlugin(HookBaseClass):
+class BasicVersionUploadPlugin(HookBaseClass):
     """
     Plugin for creating generic versions in Shotgun.
 
@@ -40,7 +41,7 @@ class BasicVersionPlugin(HookBaseClass):
         """
         One line display name describing the plugin
         """
-        return "Create Shotgun Version"
+        return "Create Shotgun Version and Upload Media"
 
 
     @property
@@ -51,7 +52,7 @@ class BasicVersionPlugin(HookBaseClass):
         """
 
         return """
-        Creates a <b>Version</b> in Shotgun. A Version entry will be
+        Creates a <b>Version</b> in Shotgun and Uploads a movie to it. A Version entry will be
         created in Shotgun that represents this workfile. Review quicktimes,
         frame sequences, or geometry can then be attached to this version
         and used for review.
@@ -101,8 +102,6 @@ class BasicVersionPlugin(HookBaseClass):
         """
         return ["file.image", "file.image.sequence", "file.video"]
 
-    ############################################################################
-    # standard publish plugin methods
 
 
     def accept(self, settings, item):
@@ -150,7 +149,7 @@ class BasicVersionPlugin(HookBaseClass):
                 "Create version plugin not accepted, 'path' was None"
             )
         # return the accepted info
-        return {"accepted": accept}
+        return {"accepted": True}
 
 
     def validate(self, settings, item):
@@ -201,6 +200,7 @@ class BasicVersionPlugin(HookBaseClass):
 
         self.logger.info("Creating Version...")
         version_data = {
+            "published_files" : [item.properties.sg_publish_data],
             "project": item.context.project,
             "code": version_name,
             "description": item.description,
@@ -232,6 +232,62 @@ class BasicVersionPlugin(HookBaseClass):
         version = publisher.shotgun.create("Version", version_data)
         self.logger.info("Version created!")
 
+        fw = self.load_framework("tk-framework-deadline_v0.x.x")
+
+        nxfw = self.load_framework("tk-framework-nx_v0.x.x")
+        scalar = nxfw.import_module('scalar')
+
+        parent_task = None
+
+        # see if a dispatcher has already been made, if so use it
+        upstream_scalar = item.parent.properties['upstream_scalar']
+        if upstream_scalar:
+            parent_task = upstream_scalar
+
+            dispatcher =  upstream_scalar.dispatcher
+        else:
+            dispatcher =  scalar.Dispatcher.using_queue('sgtk_deadline', tk_framework_deadline=fw)
+
+        transcodify_template = self.sgtk.templates["transcodify_template"]
+
+
+        # prepare the path for the Shotgrid reviewable mov
+        reviewable_template = self.sgtk.templates["shot_review_movies"]
+        reviewable_fields = item.context.as_template_fields(reviewable_template)
+        reviewable_fields['version_id'] = version['id']
+        reviewable_fields['ext'] = 'mov'
+        reviewable_fields['extension'] = 'mov'
+        reviewable_fields['Step'] = item.context.step['name'].lower() 
+        reviewable_fields['version'] = item.properties.sg_publish_data.get('version_number')
+        reviewable_fields['view'] = "main"
+
+        reviewable_path = reviewable_template.apply_fields(reviewable_fields)
+    
+        #movs = ["mov", "m4v", "mp4", "mxf"]
+        sg_transcodify_config  = str(self.sgtk.paths_from_template(transcodify_template, {"ext": "mov", "name": "shotgun"})[0])
+
+        if sg_transcodify_config:
+
+            config_name = os.path.basename(os.path.splitext(sg_transcodify_config)[0])
+            t1 = dispatcher.task("transcodify", 
+                                name="Creating Reviewable: {}".format(config_name), 
+                                input_files="{}:{}-{}".format(path, first_frame, last_frame), 
+                                output_file=reviewable_path, 
+                                config_file=sg_transcodify_config, 
+                                context = item.context,
+                                data={"sg_version": version}, 
+                                parent=parent_task)
+            
+            t2 = dispatcher.task("sg_upload", 
+                                    name="Uploading Movie to SG Version", 
+                                    entity_type=version.get('type'), 
+                                    entity_id=version.get('id'),
+                                    src=reviewable_path,
+                                    parent=t1 )
+
+            # associate this  as the last-created scalar task so you can either use it's dispatcher or make a child task
+            item.parent.properties['upstream_scalar'] =  t2
+
         # stash the version info in the item just in case
         item.properties["sg_version_data"] = version
 
@@ -247,38 +303,8 @@ class BasicVersionPlugin(HookBaseClass):
             instances.
         :param item: Item to process
         """
-        publisher = self.parent
-        thumb = item.get_thumbnail_as_path()
-        upload_thumb = True
-        version = item.properties["sg_version_data"]
-        finalize_tasks = item.properties.get("version_finalize")
+        pass
 
-        if version and finalize_tasks:
-
-            if finalize_tasks["update"]:
-                publisher.shotgun.update("Version", version["id"], finalize_tasks["update"])
-
-            if finalize_tasks["upload"]:
-                for field, path in finalize_tasks["upload"].iteritems():
-                    self.logger.info("Uploading content...")
-
-                    # on windows, ensure the path is utf-8 encoded to avoid issues with
-                    # the shotgun api
-                    if sgtk.util.is_windows():
-                        upload_path = six.ensure_text(path)
-                    else:
-                        upload_path = path
-
-                    publisher.shotgun.upload(
-                        "Version", version["id"], upload_path, field
-                    )
-                    upload_thumb = False
-
-        if upload_thumb:
-            # only upload thumb if we are not uploading the content. with
-            # uploaded content, the thumb is automatically extracted.
-            self.logger.info("Uploading thumbnail...")
-            publisher.shotgun.upload_thumbnail("Version", version["id"], thumb)
 
 
     def _get_version_name(self, path):
