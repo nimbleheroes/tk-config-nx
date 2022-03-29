@@ -175,7 +175,7 @@
                         <SequenceItem valuetype="tuple">
                             <SequenceItem valuetype="unicode">Shot</SequenceItem>
                             <SequenceItem valuetype="list" />
-                            <SequenceItem valuetype="unicode">LiveGroup {&#x0A; published true&#x0A; version 2&#x0A; shownWarningFile &quot;&quot;&#x0A; file &quot;\[getenv PIPE_TEMPLATES]/hiero/plate_degrain.nk&quot;&#x0A; advanced 1&#x0A; output &quot;&quot;&#x0A; name LiveGroup1&#x0A; selected true&#x0A;}</SequenceItem>
+                            <SequenceItem valuetype="unicode">LiveGroup {&#x0A; published true&#x0A; version 2&#x0A; shownWarningFile &quot;&quot;&#x0A; file &quot;\[getenv PIPE_TEMPLATES_PATH]/hiero/plate_degrain.nk&quot;&#x0A; advanced 1&#x0A; output &quot;&quot;&#x0A; name LiveGroup1&#x0A; selected true&#x0A;}</SequenceItem>
                         </SequenceItem>
                     </additionalNodesData>
                     <includeEffects valuetype="bool">False</includeEffects>

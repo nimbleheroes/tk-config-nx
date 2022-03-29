@@ -14,6 +14,8 @@ class PickEnvironment(Hook):
 
         env = None
 
+        self.logger.debug("context dict: {}".format(context.to_dict()))
+
         if context.source_entity:
             if context.source_entity["type"] == "Version":
                 env = "version"
