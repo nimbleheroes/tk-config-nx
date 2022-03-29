@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hieroXML>
+<hieroXML name="Hiero" revision="19556" version="11" release="12.2v10">
+ <Project ocioConfigName="custom" samplerate="48000/1" customExportRootPath="" posterFrameSetting="First" sixteenBitLut="texture_paint" timelineReformatType="To Format" logLut="compositing_log" viewerLut="Monitor/Rec709" nukeUseOCIO="1" useViewColors="0" exportRootPathMode="CustomDirectory" timedisplayformat="0" timelineReformatCenter="1" eightBitLut="matte_paint" buildTrackName="VFX" ocioconfigpath="" HeroView="0" shotPresetName="Basic Nuke Shot With Annotations" project_directory="" guid="{a4822846-8104-4674-ace3-2bdaba847c06}" starttimecode="86400" workingSpace="scene_linear" timelineReformatResizeType="Width" floatLut="scene_linear" editable="1" linkTrackItemVersions="1" redVideoDecodeMode="0" ocioConfigCustom="0" framerate="24000/1001" name="NX Default Project" thumbnailLut="Monitor/Rec709" posterCustomFrame="0">
+  <items>
+   <RootBinProjectItem name="Sequences" guid="{ec0ddf23-e25e-40f2-8068-1070411a8121}" editable="1">
+    <items>
+     <BinProjectItem name="inbox" guid="{af72a637-e7e5-437b-b797-7d320d0a7b70}" editable="1">
+      <items>
+       <BinProjectItem name="2022-XX-XX" guid="{0055107d-a941-44ce-b176-1ce96eeefdcb}" editable="1">
+        <BinViewType>2</BinViewType>
+        <BinViewZoom>70</BinViewZoom>
+        <BinViewSortColumnIndex>0</BinViewSortColumnIndex>
+        <BinViewSortOrder>0</BinViewSortOrder>
+       </BinProjectItem>
+      </items>
+      <BinViewType>2</BinViewType>
+      <BinViewZoom>70</BinViewZoom>
+      <BinViewSortColumnIndex>0</BinViewSortColumnIndex>
+      <BinViewSortOrder>0</BinViewSortOrder>
+     </BinProjectItem>
+     <BinProjectItem name="seqs" guid="{ed6497d3-bc53-4419-ad8e-83537d3cc9c3}" editable="1">
+      <items>
+       <BinProjectItem name="shwXXX_XXX" guid="{3e26ef29-b957-42cc-b16e-c7c8cfe8f678}" editable="1">
+        <items>
+         <SequenceProjectItemRoot name="v001" guid="{1a9a1cf7-3b3e-4eb4-95cf-2938035a0146}" editable="1" MasterVersion="">
+          <items>
+           <SequenceProjectItemVersion name="v001" guid="{bd35b55a-be7d-4c2d-a13c-9a3241c3d9de}" editable="1" isHidden="0">
+            <Sequence name="v001" guid="{42e50fce-74b3-49b6-8482-d822eeef83a0}" displayTimecode="1" useSoftTrims="0" timeOffset="0" displayDropFrames="0" timeDisplayFormat="0" timecodeStart="86400" objName="sequence">
+             <videotracks>
+              <VideoTrack name="Video 1" guid="c520857e-6e1a-4252-9fdd-ab435e17c0ae" height="40" collapsed="0">
+               <sets>
+                <Set domainroot="foundry.track" title="Track">
+                 <values>
+                  <BooleanValue name="foundry.track.enabled" value="Yes" default="1"/>
+                 </values>
+                </Set>
+               </sets>
+              </VideoTrack>
+             </videotracks>
+             <audiotracks>
+              <AudioTrack volume="1" stereochannel="left" name="Audio 1" guid="1da0da05-a94d-467e-9409-1c64ac05adda" height="40" collapsed="0">
+               <sets>
+                <Set domainroot="foundry.track" title="Track">
+                 <values>
+                  <BooleanValue name="foundry.track.enabled" value="Yes" default="1"/>
+                 </values>
+                </Set>
+               </sets>
+              </AudioTrack>
+             </audiotracks>
+             <sets>
+              <Set domainroot="foundry.timeline" title="Timeline">
+               <values>
+                <TimeBaseValue name="foundry.timeline.framerate" value="24000/1001" default="1"/>
+                <TimeBaseValue name="foundry.timeline.samplerate" value="48000/1" default="1"/>
+                <MediaFormatValue name="foundry.timeline.outputformat" value="1,[ 0, 0, 1920, 1080],[ 0, 0, 1920, 1080],HD_1080" default="1"/>
+               </values>
+              </Set>
+             </sets>
+            </Sequence>
+           </SequenceProjectItemVersion>
+          </items>
+          <Sequence guid="{42e50fce-74b3-49b6-8482-d822eeef83a0}" link="internal" objName="sequence"/>
+          <ActiveItemIndex>0</ActiveItemIndex>
+          <TimelineProjectItem name="" editable="1" objName="Snapshots"/>
+         </SequenceProjectItemRoot>
+        </items>
+        <BinViewType>2</BinViewType>
+        <BinViewZoom>70</BinViewZoom>
+        <BinViewSortColumnIndex>0</BinViewSortColumnIndex>
+        <BinViewSortOrder>0</BinViewSortOrder>
+       </BinProjectItem>
+      </items>
+      <BinViewType>2</BinViewType>
+      <BinViewZoom>70</BinViewZoom>
+      <BinViewSortColumnIndex>0</BinViewSortColumnIndex>
+      <BinViewSortOrder>0</BinViewSortOrder>
+     </BinProjectItem>
+    </items>
+    <BinViewType>2</BinViewType>
+    <BinViewZoom>70</BinViewZoom>
+    <BinViewSortColumnIndex>0</BinViewSortColumnIndex>
+    <BinViewSortOrder>0</BinViewSortOrder>
+    <AllowedItems>13</AllowedItems>
+   </RootBinProjectItem>
+   <RootBinProjectItem name="Tags" guid="{945b2448-1163-4b53-84e2-64dc4eaf6e7f}" editable="1">
+    <BinViewType>2</BinViewType>
+    <BinViewZoom>70</BinViewZoom>
+    <BinViewSortColumnIndex>0</BinViewSortColumnIndex>
+    <BinViewSortOrder>0</BinViewSortOrder>
+    <AllowedItems>17</AllowedItems>
+   </RootBinProjectItem>
+  </items>
+  <BinViewType>2</BinViewType>
+  <BinViewZoom>70</BinViewZoom>
+  <BinViewSortColumnIndex>0</BinViewSortColumnIndex>
+  <BinViewSortOrder>0</BinViewSortOrder>
+  <AllowedItems>-1</AllowedItems>
+  <RootBinProjectItem guid="{ec0ddf23-e25e-40f2-8068-1070411a8121}" link="internal" objName="sequencesBin"/>
+  <RootBinProjectItem guid="{945b2448-1163-4b53-84e2-64dc4eaf6e7f}" link="internal" objName="tagsBin"/>
+  <MediaFormatValue name="" value="1,[ 0, 0, 1920, 1080],[ 0, 0, 1920, 1080],HD_1080" default="0" objName="outputformat"/>
+  <Views>
+   <View name="main" color="#ffffff"/>
+  </Views>
+ </Project>
+ <UIState/>
+</hieroXML>

@@ -243,6 +243,18 @@ apps.tk-nuke-tools.location:
   # type: dev
   # path: ~/Documents/Github/tk-nuke-tools_nx
 
+# hiero_tools
+apps.tk-hiero-tools.location:
+  ### Toolkit Component Entity
+  name: tk-hiero-tools
+  type: shotgun
+  entity_type: CustomNonProjectEntity13
+  field: sg_uploaded_app
+  version: 101400 #tk-hiero-tools-1.0.0
+  ## Dev
+  # type: dev
+  # path: /pipe/dev/akramer/tk-hiero-tools
+
 # maya-playblast
 apps.tk-maya-playblast.location:
   ### Toolkit Component Entity
