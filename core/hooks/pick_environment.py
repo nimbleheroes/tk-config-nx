@@ -69,3 +69,4 @@ class PickEnvironment(Hook):
                 env = "sequence_step"
                 self.logger.debug("environment returned: {}".format(env))
                 return env
+

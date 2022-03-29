@@ -14,6 +14,7 @@ includes:
 - ./tk-nuke-writenode.yml
 - ./tk-multi-ocio.yml
 - ./tk-nuke-tools.yml
+- ./tk-hiero-tools.yml
 # - ./tk-multi-deadline-render.yml
 
 ################################################################################
@@ -21,6 +22,7 @@ includes:
 
 settings.tk-nuke.hiero.project:
   apps:
+    tk-hiero-tools: '@settings.tk-hiero-tools'
     tk-multi-about:
       location: '@apps.tk-multi-about.location'
     tk-multi-workfiles2: '@settings.tk-multi-workfiles2.launch_at_startup'
@@ -33,6 +35,7 @@ settings.tk-nuke.hiero.project:
 
 settings.tk-nuke.hiero.project_step:
   apps:
+    tk-hiero-tools: '@settings.tk-hiero-tools'
     tk-multi-about:
       location: '@apps.tk-multi-about.location'
     tk-multi-publish2: '@settings.tk-multi-publish2.hiero'

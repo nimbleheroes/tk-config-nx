@@ -18,7 +18,7 @@
 
 # The library name is display name at the root
 # of your tool library.
-library_name: "Project Tools"
+library_name: "Show Tools"
 
 # The following is a list of locations in the Nuke UI where
 # your library menu will be built. All the options

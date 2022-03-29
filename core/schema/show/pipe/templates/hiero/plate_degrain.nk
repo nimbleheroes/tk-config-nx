@@ -1,0 +1,104 @@
+#! /usr/local/Nuke12.2v10/libnuke-12.2.10.so -nx
+version 12.2 v10
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="2560" h="1373" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1897" stretch="1"/>
+            <splitter orientation="2">
+                <split size="781"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="549"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+LiveGroupInfo {
+ inputs 0
+ frame 1031
+ first_frame 1001
+ last_frame 1265
+ lock_range true
+ format "3840 2160 0 0 3840 2160 1 uhd"
+ proxy_type scale
+ proxy_format "640 480 0 0 640 480 1 vga"
+ is_live true
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "Monitor/AutoLUT CC"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+LiveInput {
+ inputs 0
+ liveGroup {{0} LiveGroup1}
+ shownWarningFile ""
+ file ""
+ name LiveInput1
+ xpos 20
+ ypos 14
+}
+Text2 {
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "DEGRAIN TEMPLATE HAS NOT\nBEEN SET UP FOR THIS PROJECT"
+ old_message {{68 69 71 82 65 73 78 32 84 69 77 80 76 65 84 69 32 72 65 83 32 78 79 84 10 66 69 69 78 32 83 69 84 32 85 80 32 70 79 82 32 84 72 73 83 32 80 82 79 74 69 67 84}
+   }
+ box {0 0 {width} {height}}
+ xjustify center
+ yjustify center
+ transforms {{0 2}
+   }
+ cursor_position 25
+ center {1920 1080}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{0 2160}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1920 1080 0 0 1 1 0 0 0 0}
+   }
+ name Text1
+ label "DELETE ME ONCE\nDEGRAIN IS SET UP"
+ xpos 20
+ ypos 98
+}
+OFXcom.absoft.neatvideo5_v5 {
+ DNP ""
+ ProfileName "no profile"
+ NFP ""
+ PresetName default
+ ParamsHash1 0
+ ParamsHash2 0
+ ParamsHash3 0
+ name "Reduce Noise v5_1"
+ xpos 20
+ ypos 206
+ disable true
+}
+Output {
+ name Output1
+ xpos 20
+ ypos 302
+}

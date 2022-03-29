@@ -12,5 +12,5 @@ settings.tk-hiero-export:
   template_nuke_script_path: shot_nuke_work_file
   template_plate_path: shot_hiero_elem
   template_render_path: shot_nuke_work_file
-  template_version: hiero_version
+  template_version: version
   location: "@apps.tk-hiero-export.location"

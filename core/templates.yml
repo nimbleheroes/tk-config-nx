@@ -8,115 +8,192 @@
 # Whenever an app or an engine refers to a location on disk, it is using an entry defined in
 # this file. For more information, see the Shotgun Pipeline Toolkit Documentation.
 
+
+##########################################################################################
+#
+# KEYS
 #
 # The keys section contains the definitions for all the different keys that are being
 # used by Sgtk. A key is a magic token that is replaced by a value at runtime, for example
 # {Shot}. The section below tells Sgtk which data types and formats to expect for each key.
 #
+
 keys:
+
+
+    # entity tokens
     Show:
         type: str
         shotgun_entity_type: Task
-        shotgun_field_name: project.Project.tank_name
-    Sequence:
-        type: str
-    Shot:
-        type: str
-    Step:
-        type: str
+        shotgun_field_name: project.Project.code
+
     Asset:
         type: str
+
+    asset_type:
+        type: str
+        shotgun_entity_type: Asset
+        shotgun_field_name: sg_asset_type
+
+    Sequence:
+        type: str
+
+    Shot:
+        type: str
+
+    Step:
+        type: str
+
+
+    # workfile tokens
     name:
         type: str
         filter_by: alphanumeric
-    iteration:
-        type: int
+
     version:
         type: int
         format_spec: "03"
+        
     version_four:
        type: int
        format_spec: "04"
        alias: version
+
     timestamp:
         type: str
-    width:
+
+    version_id:
         type: int
-    height:
-        type: int
-    segment_name:
-        type: str
-    current_user:
-        type: str
-        shotgun_entity_type: HumanUser
-        shotgun_field_name: login
+
 
     # delivery keys
     client_code:
         type: str
+
     playlist_name:
         type: str
+
     delivery_type:
         type: str
 
-    # Represents the optional output name for frames written by the Shotgun Write Node
     output:
         type: str
         filter_by: alphanumeric
 
-    nuke.output:
-        alias: output
+    # representaion keys
+    view:
+        type: str
+        filter_by: alphanumeric
+        default: "main"
+        exclusions: ["base"]
+
+    var:
+        type: str
+        filter_by: alphanumeric
+        default: "base"
+        exclusions: ["main"]
+
+    layer:
         type: str
         filter_by: alphanumeric
 
-    nuke.layer:
-        alias: output
+    width:
+        type: int
+
+    height:
+        type: int
+
+    frame_format:
+        type: str
+        default: "misc"
+
+    aov:
         type: str
         filter_by: alphanumeric
 
-    nuke.pass:
-        alias: pass
-        type: str
-        filter_by: alphanumeric
-
-    nuke.view:
-        alias: view
+    ext:
+        alias: extension
         type: str
 
     SEQ:
         type: sequence
         format_spec: "04"
 
-    ext:
-        alias: extension
-        type: str
+    UDIM:
+        type: sequence
+        format_spec: "04"
 
     image_category:
         type: str
+        filter_by: alphanumeric
+        choices:
+            out: Output from department
+            comp: Composite
+            precomp: Precomposed Element
+            mattes: Mattes
+            roto: Rotoscope Mattes
+            rotoreview: Roto QC/Review
+            paint: Paint
+            demo: Demonstration
+            dataset: Data Set
+            animcomp: Animation Comp
+            autocomp: Automated Comp
+            cfxcomp: Character FX Comp
+            conceptcomp: Concept Art Comp
+            dmpcomp: Digital Matte Painting Comp
+            fxcomp: FX Comp
+            layoutcomp: Layout Comp
+            lookdevcomp: Look Development Comp
+            lightcomp: Lighting Comp
 
-    frame_format:
+    data_category:
+        type: str
+        filter_by: alphanumeric
+
+    # Nuke gets its own 'view' token so that it doesn't fail the global
+    # alphanumeric validation if we use '%V' for nuke views
+    nuke.view:
+        alias: view
+        type: str
+        filter_by: '^[a-zA-Z0-9]*(\%V)?[a-zA-Z0-9]*$'
+        default: "main"
+
+    # Houdini gets its own 'layer' token since the current
+    # tk-houdini-alembicnode and tk-houdini-mantranode apps
+    # look for a token called 'node'.
+    houdini.node:
+        alias: layer
+        type: str
+        filter_by: alphanumeric
+
+    view:
         type: str
 
     # these are used by the Hiero exporter and pipeline
     YYYY:
         type: int
         format_spec: "04"
+
     MM:
         type: int
         format_spec: "02"
+
     DD:
         type: int
         format_spec: "02"
         alias: DD
+
     project:
         type: str
+
     track:
         type: str
+
     tk_version:
         type: str
 
     # Maya supports two extension types.
-    maya_extension:
+    maya_ext:
         type: str
         choices:
             ma: Maya Ascii (.ma)
@@ -124,14 +201,18 @@ keys:
         default: ma
         alias: extension
 
-    # Houdini
-    houdini.node:
-        alias: node
+    # Photoshop supports two extension types.
+    photoshop_ext:
         type: str
-    aov_name:
-        type: str
+        choices:
+            psd: Photoshop Document (.psd)
+            psb: Photoshop Large Document (.psb)
+        default: psd
+        alias: extension
 
-
+##########################################################################################
+#
+# PATHS
 #
 # The paths section contains all the the key locations where files are to be stored
 # by Sgtk Apps. Each path is made up of several keys (like {version} or {shot}) and
@@ -143,6 +224,10 @@ keys:
 
 paths:
 
+    ##########################################################################################
+    #
+    # COMMON PATHS
+    #
     # Common path definitions to use as shorthand in order to avoid repetitive and verbose
     # templates. This also makes it easy to change any of the common root paths and have the
     # changes apply to all templates that use them.
@@ -150,487 +235,326 @@ paths:
     # These don't require the standard formatting (with definition and root_name) because they
     # will be set within each template that uses the alias.
 
-    project_root: ./
+    project_root: './'
 
-    show_root: show/
-    asset_root: assets/{Asset}
-    seq_root: seqs/{Sequence}
-    shot_root: shots/{Shot}
+    show_root:  'show/'
+    asset_root: 'assets/{asset_type}.{Asset}'
+    seq_root:   'seqs/{Sequence}'
+    shot_root:  'shots/{Shot}'
 
-    show_work_area: show/tasks/{Step}
-    show_pubs_area: show/pubs
-    show_mov_area: show/movs
+    show_work_area: 'show/tasks/{Step}'
+    show_pubs_area: 'show/pubs'
+    show_vers_area: 'show/vers'
 
-    asset_work_area: assets/{Asset}/tasks/{Step}
-    asset_pubs_area: assets/{Asset}/pubs
-    asset_mov_area: assets/{Asset}/movs
+    asset_work_area: 'assets/{asset_type}.{Asset}/tasks/{Step}'
+    asset_pubs_area: 'assets/{asset_type}.{Asset}/pubs'
+    asset_vers_area: 'assets/{asset_type}.{Asset}/vers'
 
-    seq_work_area: seqs/{Sequence}/tasks/{Step}
-    seq_pubs_area: seqs/{Sequence}/pubs
-    seq_mov_area: seqs/{Sequence}/movs
+    seq_work_area: 'seqs/{Sequence}/tasks/{Step}'
+    seq_pubs_area: 'seqs/{Sequence}/pubs'
+    seq_vers_area: 'seqs/{Sequence}/vers'
 
-    shot_work_area: shots/{Shot}/tasks/{Step}
-    shot_pubs_area: shots/{Shot}/pubs
-    shot_mov_area: shots/{Shot}/movs
-
-    ##########################################################################################
-    #
-    # Delivery Paths
-    #
-
-    delivery_inbox: xfer/inbox
-    delivery_outbox: xfer/outbox
-
-    delivery_manifest:
-        definition: '@delivery_outbox/{playlist_name}_{delivery_type}.manifest'
-    delivery_movie:
-        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}[-{output}].{ext}'
-    delivery_frame_seq:
-        definition: '@delivery_outbox/{playlist_name}/{client_code}_v{version}/{client_code}_v{version}[-{output}].{SEQ}.{ext}'
+    shot_work_area: 'shots/{Shot}/tasks/{Step}'
+    shot_pubs_area: 'shots/{Shot}/pubs'
+    shot_vers_area: 'shots/{Shot}/vers'
 
     ##########################################################################################
     #
-    # Pipeline paths
+    # DELIVERY PATHS
+    #
+
+    delivery_inbox:  'xfer/inbox'
+    delivery_outbox: 'xfer/outbox'
+
+    delivery_manifest:  '@delivery_outbox/{playlist_name}_{delivery_type}.manifest'
+    delivery_movie:     '@delivery_outbox/{playlist_name}/{client_code}_v{version}[-{output}].{ext}'
+    delivery_frame_seq: '@delivery_outbox/{playlist_name}/{client_code}_v{version}/{client_code}_v{version}[-{output}].{SEQ}.{ext}'
+
+    ##########################################################################################
+    #
+    # PIPELINE PATHS
     #
     # Any path template starting with "pipe_" will get an environment variable automatically
-    # set before application launch by the before_app_launch.py hook.
+    # created with a key matching its name and the value being the fully-resolved resolved path before application launch by the before_app_launch.py hook.
     #
 
-    pipe_ocio_area:
-        definition: 'pipe/ocio'
-    pipe_ocio_config:
-        definition: 'pipe/ocio/config.ocio'
+    pipe_ocio_area:   'pipe/configs/ocio'
+    pipe_ocio_config: 'pipe/configs/ocio/config.ocio'
 
-    pipe_nuke_path:
-        definition: 'pipe/nuke/python'
-    pipe_nuke_tools_path:
-        definition: 'pipe/nuke/tools'
+    pipe_nuke_path:       'pipe/configs/nuke/python'
+    pipe_nuke_tools_path: 'pipe/configs/nuke/tools'
 
-    pipe_hiero_path:
-        definition: 'pipe/hiero/python'
+    pipe_hiero_path: 'pipe/configs/hiero'
 
-    pipe_maya_path:
-        definition: 'pipe/maya'
-    pipe_maya_script_path:
-        definition: 'pipe/maya/scripts'
-    pipe_maya_module_path:
-        definition: 'pipe/maya/modules'
-    pipe_maya_plugin_path:
-        definition: 'pipe/maya/plugins'
-    pipe_maya_library_path:
-        definition: 'pipe/maya/library'
+    pipe_maya_path:         'pipe/configs/maya'
+    pipe_maya_script_path:  'pipe/configs/maya/scripts'
+    pipe_maya_module_path:  'pipe/configs/maya/modules'
+    pipe_maya_plugin_path:  'pipe/configs/maya/plugins'
+    pipe_maya_library_path: 'pipe/configs/maya/library'
 
-    pipe_houdini_path:
-        definition: 'pipe/houdini'
+    pipe_houdini_path: 'pipe/configs/houdini'
 
-    pipe_cache_area:
-        definition: 'cache/'
+    # 
+    # Project Templates
+    # 
+    pipe_templates_path: 'pipe/templates'
+    nuke_templates_path: '@pipe_templates_path/nuke'
+    transcodify_path: '@pipe_templates_path/transcodify'    
+    transcodify_template: '@transcodify_path/{name}_{ext}[_{output}].yml'
+
+    pipe_cache_area: 'cache/'
 
     ##########################################################################################
     #
-    # Show level paths
+    # WORKFILE TEMPLATE AREAS
     #
-
-    show_review_movies:
-      definition: '@show_mov_area/{Show}_{Step}[_{name}]_v{version}.mov'
-
-    #
-    # Hiero - Show
-    #
-
-    show_hiero_work_area:
-        definition: '@show_work_area/workfiles/hiero'
-    show_hiero_pubs_area:
-        definition: '@show_pubs_area/workfiles/hiero'
-
-    show_hiero_work_file:
-        definition: '@show_hiero_work_area/{Show}_{Step}[_{name}]_v{version}.hrox'
-    show_hiero_snapshot:
-        definition: '@show_hiero_work_area/snapshots/{Show}_{Step}[_{name}]_v{version}.{timestamp}.hrox'
-    show_hiero_pub_file:
-        definition: '@show_hiero_pubs_area/{Show}_{Step}[_{name}]_v{version}.hrox'
-
+    
+    show_workfile_template_area: 'pipe/templates/workfiles/show/{Step}'
+    asset_workfile_template_area: 'pipe/templates/workfiles/asset/{Step}'
+    seq_workfile_template_area: 'pipe/templates/workfiles/seq/{Step}'
+    shot_workfile_template_area: 'pipe/templates/workfiles/shot/{Step}'
 
     ##########################################################################################
     #
-    # Sequence level paths
+    # REVIEWABLE VERSION MOVIES
     #
 
-    seq_review_movies:
-      definition: '@seq_mov_area/{Sequence}_{Step}[_{name}]_v{version}.mov'
-
-    #
-    # Photoshop - Seq
-    #
-
-    seq_photoshop_work_area:
-        definition: '@seq_work_area/workfiles/photoshop'
-    seq_photoshop_pubs_area:
-        definition: '@seq_pubs_area/workfiles/photoshop'
-
-    seq_photoshop_work_file:
-        definition: '@seq_photoshop_work_area/{Sequence}_{Step}[_{name}]_v{version}.psd'
-    seq_photoshop_snapshot:
-        definition: '@seq_photoshop_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.psd'
-    seq_photoshop_pub_file:
-        definition: '@seq_photoshop_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.psd'
-
-    #
-    # Maya - Seq
-    #
-
-    seq_maya_work_area:
-        definition: '@seq_work_area/workfiles/maya'
-    seq_maya_pubs_area:
-        definition: '@seq_pubs_area/workfiles/maya'
-
-    seq_maya_work_file:
-        definition: '@seq_maya_work_area/{Sequence}_{Step}[_{name}]_v{version}.{maya_extension}'
-    seq_maya_snapshot:
-        definition: '@seq_maya_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.{maya_extension}'
-    seq_maya_work_playblast:
-        definition: '@seq_maya_work_area/data/{Sequence}_{Step}[_{name}]_v{version}.mov'
-    seq_maya_pub_file:
-        definition: '@seq_maya_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.{maya_extension}'
-
-    #
-    # Houdini - Sequence
-    #
-
-    seq_houdini_work_area:
-        definition: '@seq_work_area/workfiles/houdini'
-    seq_houdini_pubs_area:
-        definition: '@seq_pubs_area/workfiles/houdini'
-
-    seq_houdini_work_file:
-        definition: '@seq_houdini_work_area/{Sequence}_{Step}[_{name}]_v{version}.hip'
-    seq_houdini_snapshot:
-        definition: '@seq_houdini_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.hip'
-    seq_houdini_pub_file:
-        definition: '@seq_houdini_pubs_area/{Sequence}_{Step}[_{name}]_v{version}.hip'
-
-    seq_houdini_work_alembic_cache:
-        definition: '@seq_work_area/data/scene/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
-    seq_houdini_pub_alembic_cache:
-        definition: '@seq_pubs_area/data/scene/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
-    seq_houdini_work_bgeo_cache:
-        definition: '@seq_work_area/data/cache/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
-    seq_houdini_pub_bgeo_cache:
-        definition: '@seq_pubs_area/data/cache/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
-
-    seq_houdini_work_ifd_seq:
-        definition: '@seq_work_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
-    seq_houdini_pub_ifd_seq:
-        definition: '@seq_pubs_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
-    seq_houdini_work_rs_seq:
-        definition: '@seq_work_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
-    seq_houdini_pub_rs_seq:
-        definition: '@seq_pubs_area/data/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
-
-    seq_houdini_work_render_seq:
-        definition: '@seq_work_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
-    seq_houdini_pub_render_seq:
-        definition: '@seq_pubs_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
-    seq_houdini_work_dcm_seq:
-        definition: '@seq_work_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
-    seq_houdini_pub_dcm_seq:
-        definition: '@seq_pubs_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
-    seq_houdini_work_aov_seq:
-        definition: '@seq_work_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
-    seq_houdini_pub_aov_seq:
-        definition: '@seq_pubs_area/images/render/{Sequence}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Sequence}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
-
-    #
-    # Nuke - Seq
-    #
-
-    seq_nuke_work_area:
-        definition: '@seq_work_area/workfiles/nuke'
-    seq_nuke_pubs_area:
-        definition: '@seq_pubs_area/workfiles/nuke'
-
-    seq_nuke_work_file:
-        definition: '@seq_nuke_work_area/{Sequence}_{Step}[_{name}]_v{version}.nk'
-    seq_nuke_snapshot:
-        definition: '@seq_nuke_work_area/snapshots/{Sequence}_{Step}[_{name}]_v{version}.{timestamp}.nk'
-    seq_nuke_pub_file:
-        definition: '@seq_nuke_pubs_area/nuke/{Sequence}_{Step}[_{name}]_v{version}.nk'
-
-    # Write node locations
-
-    # frame sequence
-    seq_nuke_render_seq: '{Sequence}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Sequence}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
-    seq_nuke_work_render_seq:
-        definition: '@seq_work_area/images/{image_category}/@seq_nuke_render_seq'
-    seq_nuke_pub_render_seq:
-        definition: '@seq_pubs_area/images/{image_category}/@seq_nuke_render_seq'
-
-    # movie output
-    seq_nuke_render_mov: '{Sequence}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Sequence}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{ext}'
-    seq_nuke_work_render_mov:
-        definition: '@seq_work_area/images/{image_category}/@seq_nuke_render_mov'
-    seq_nuke_pub_render_mov:
-        definition: '@seq_pubs_area/images/{image_category}/@seq_nuke_render_mov'
-
+    show_version_movies: '@show_vers_area/{version_id}_@show_workfile_basename-@img_rep_full.mov'
+    seq_version_movies:  '@seq_vers_area/{version_id}_@seq_workfile_basename-@img_rep_full.mov'
+    shot_review_movies:  '@shot_vers_area/{version_id}_@shot_workfile_basename-@img_rep_full.mov'
+    asset_review_movies: '@asset_vers_area/{version_id}_@asset_workfile_basename-@img_rep_full.mov'
 
     ##########################################################################################
     #
-    # Shot level paths
+    # GENERIC REPRESENTATIONS
+    #
+    # Wherever possible, these path templates should be used as the defaults
+    # for image and data representations. Only where its necessary for customization or
+    # the current SG app implementation doesn't yet support the default tokens, should
+    # a custom path template be made for representations.
     #
 
-    shot_review_movies:
-      definition: '@shot_mov_area/{Shot}_{Step}[_{name}]_v{version}.mov'
+    # image representations
+    show_generic_work_img_rep_seq: '@show_work_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    show_generic_pub_img_rep_seq:  '@show_pubs_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    show_generic_work_img_rep:     '@show_work_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{ext}'
+    show_generic_pub_img_rep:      '@show_pubs_area/images/{image_category}/@show_workfile_basename/@img_rep_folder/@show_workfile_basename-@img_rep_filetail.{ext}'
 
-    #
-    # Photoshop - Shot
-    #
+    seq_generic_work_img_rep_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    seq_generic_pub_img_rep_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    seq_generic_work_img_rep:     '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{ext}'
+    seq_generic_pub_img_rep:      '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder/@seq_workfile_basename-@img_rep_filetail.{ext}'
 
-    shot_photoshop_work_area:
-        definition: '@shot_work_area/workfiles/photoshop'
-    shot_photoshop_pubs_area:
-        definition: '@shot_pubs_area/workfiles/photoshop'
+    shot_generic_work_img_rep_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    shot_generic_pub_img_rep_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    shot_generic_work_img_rep:     '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{ext}'
+    shot_generic_pub_img_rep:      '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder/@shot_workfile_basename-@img_rep_filetail.{ext}'
 
-    shot_photoshop_work_file:
-        definition: '@shot_photoshop_work_area/{Shot}_{Step}[_{name}]_v{version}.psd'
-    shot_photoshop_snapshot:
-        definition: '@shot_photoshop_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.psd'
-    shot_photoshop_pub_file:
-        definition: '@shot_photoshop_pubs_area/{Shot}_{Step}[_{name}]_v{version}.psd'
+    asset_generic_work_img_rep_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    asset_generic_pub_img_rep_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{SEQ}.{ext}'
+    asset_generic_work_img_rep:     '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{ext}'
+    asset_generic_pub_img_rep:      '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder/@asset_workfile_basename-@img_rep_filetail.{ext}'
 
-    #
-    # Maya - Shot
-    #
+    # data representations
+    show_generic_work_data_rep_seq: '@show_work_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    show_generic_pub_data_rep_seq:  '@show_pubs_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    show_generic_work_data_rep:     '@show_work_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
+    show_generic_pub_data_rep:      '@show_pubs_area/images/{image_category}/@show_workfile_basename/@data_rep_full/@show_workfile_basename-@data_rep_filetail.{ext}'
 
-    shot_maya_work_area:
-        definition: '@shot_work_area/workfiles/maya'
-    shot_maya_pubs_area:
-        definition: '@shot_pubs_area/workfiles/maya'
+    seq_generic_work_data_rep_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    seq_generic_pub_data_rep_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    seq_generic_work_data_rep:     '@seq_work_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
+    seq_generic_pub_data_rep:      '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@data_rep_full/@seq_workfile_basename-@data_rep_filetail.{ext}'
 
-    shot_maya_work_file:
-        definition: '@shot_maya_work_area/{Shot}_{Step}[_{name}]_v{version}.{maya_extension}'
-    shot_maya_snapshot:
-        definition: '@shot_maya_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.{maya_extension}'
-    shot_maya_work_playblast:
-        definition: '@shot_maya_work_area/data/{Shot}_{Step}[_{name}]_v{version}.mov'
-    shot_maya_pub_file:
-        definition: '@shot_maya_pubs_area/{Shot}_{Step}[_{name}]_v{version}.{maya_extension}'
+    shot_generic_work_data_rep_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    shot_generic_pub_data_rep_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    shot_generic_work_data_rep:     '@shot_work_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
+    shot_generic_pub_data_rep:      '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@data_rep_full/@shot_workfile_basename-@data_rep_filetail.{ext}'
 
-    #
-    # Houdini - Shot
-    #
-
-    shot_houdini_work_area:
-        definition: '@shot_work_area/workfiles/houdini'
-    shot_houdini_pubs_area:
-        definition: '@shot_pubs_area/workfiles/houdini'
-
-    shot_houdini_work_file:
-        definition: '@shot_houdini_work_area/{Shot}_{Step}[_{name}]_v{version}.hip'
-    shot_houdini_snapshot:
-        definition: '@shot_houdini_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.hip'
-    shot_houdini_pub_file:
-        definition: '@shot_houdini_pubs_area/{Shot}_{Step}[_{name}]_v{version}.hip'
-
-    shot_houdini_work_alembic_cache:
-        definition: '@shot_work_area/data/scene/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
-    shot_houdini_pub_alembic_cache:
-        definition: '@shot_pubs_area/data/scene/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
-    shot_houdini_work_bgeo_cache:
-        definition: '@shot_work_area/data/cache/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
-    shot_houdini_pub_bgeo_cache:
-        definition: '@shot_pubs_area/data/cache/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
-
-    shot_houdini_work_ifd_seq:
-        definition: '@shot_work_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
-    shot_houdini_pub_ifd_seq:
-        definition: '@shot_pubs_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
-    shot_houdini_work_rs_seq:
-        definition: '@shot_work_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
-    shot_houdini_pub_rs_seq:
-        definition: '@shot_pubs_area/data/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
-
-    shot_houdini_work_render_seq:
-        definition: '@shot_work_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
-    shot_houdini_pub_render_seq:
-        definition: '@shot_pubs_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
-    shot_houdini_work_dcm_seq:
-        definition: '@shot_work_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
-    shot_houdini_pub_dcm_seq:
-        definition: '@shot_pubs_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
-    shot_houdini_work_aov_seq:
-        definition: '@shot_work_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
-    shot_houdini_pub_aov_seq:
-        definition: '@shot_pubs_area/images/render/{Shot}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Shot}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
-
-    #
-    # Nuke - Shot
-    #
-
-    shot_nuke_work_area:
-        definition: '@shot_work_area/workfiles/nuke'
-    shot_nuke_pubs_area:
-        definition: '@shot_pubs_area/workfiles/nuke'
-
-    shot_nuke_work_file:
-        definition: '@shot_nuke_work_area/{Shot}_{Step}[_{name}]_v{version}.nk'
-    shot_nuke_snapshot:
-        definition: '@shot_nuke_work_area/snapshots/{Shot}_{Step}[_{name}]_v{version}.{timestamp}.nk'
-    shot_nuke_pub_file:
-        definition: '@shot_nuke_pubs_area/{Shot}_{Step}[_{name}]_v{version}.nk'
-
-    # Write node locations
-    # frame sequence
-    shot_nuke_render_seq: '{Shot}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Shot}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
-    shot_nuke_work_render_seq:
-        definition: '@shot_work_area/images/{image_category}/@shot_nuke_render_seq'
-    shot_nuke_pub_render_seq:
-        definition: '@shot_pubs_area/images/{image_category}/@shot_nuke_render_seq'
-
-    # movie output
-    shot_nuke_render_mov: '{Shot}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Shot}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{ext}'
-    shot_nuke_work_render_mov:
-        definition: '@shot_work_area/images/{image_category}/@shot_nuke_render_mov'
-    shot_nuke_pub_render_mov:
-        definition: '@shot_pubs_area/images/{image_category}/@shot_nuke_render_mov'
-
-    #
-    # Hiero
-    #
-
-    # shot_hiero_elem_file: '{Shot}_{track}_v{version}/{Shot}_{track}_v{version}.{SEQ}.exr'
-    # shot_hiero_elem:
-    #     definition: '@shot_root/elem/@shot_hiero_elem_file'
-    # shot_hiero_qt:
-    #     definition: '@shot_root/movs/{Shot}_{track}_v{version}.mov'
-    # shot_hiero_audio:
-    #     definition: '@shot_root/audio/{Shot}_{track}_v{version}.wav'
+    asset_generic_work_data_rep_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    asset_generic_pub_data_rep_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{SEQ}.{ext}'
+    asset_generic_work_data_rep:     '@asset_work_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
+    asset_generic_pub_data_rep:      '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@data_rep_full/@asset_workfile_basename-@data_rep_filetail.{ext}'
 
     ##########################################################################################
-    # Asset pipeline
-
-    asset_review_movies:
-      definition: '@asset_mov_area/{Asset}_{Step}[_{name}]_v{version}.mov'
-
     #
-    # Alembic caches
+    # HIERO PATHS
     #
 
-    asset_alembic_cache:
-        definition: '@asset_pubs_area/data/cache/{Asset}_{Step}[_{name}]_v{version}/abc/{Asset}_{Step}[_{name}]_v{version}.abc'
+    # workfiles
+    show_hiero_work_area: '@show_work_area/workfiles/hiero'
+    show_hiero_pubs_area: '@show_pubs_area/workfiles/hiero'
+    show_hiero_work_file: '@show_hiero_work_area/@show_workfile_basename.hrox'
+    show_hiero_snapshot:  '@show_hiero_work_area/snapshots/@show_workfile_basename.{timestamp}.hrox'
+    show_hiero_pub_file:  '@show_hiero_pubs_area/@show_workfile_basename.hrox'
 
+    ##########################################################################################
     #
-    # Photoshop - Asset
-    #
-
-    asset_photoshop_work_area:
-        definition: '@asset_work_area/workfiles/photoshop'
-    asset_photoshop_pubs_area:
-        definition: '@asset_pubs_area/workfiles/photoshop'
-
-    asset_photoshop_work_file:
-        definition: '@asset_photoshop_work_area/{Asset}_{Step}[_{name}]_v{version}.psd'
-    asset_photoshop_snapshot:
-        definition: '@asset_photoshop_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.psd'
-    asset_photoshop_pub_file:
-        definition: '@asset_photoshop_pubs_area/{Asset}_{Step}[_{name}]_v{version}.psd'
-
-    #
-    # Maya - Asset
+    # PHOTOSHOP
     #
 
-    asset_maya_work_area:
-        definition: '@asset_work_area/workfiles/maya'
-    asset_maya_pubs_area:
-        definition: '@asset_pubs_area/workfiles/maya'
+    # workfiles
+    seq_photoshop_work_area: '@seq_work_area/workfiles/photoshop'
+    seq_photoshop_pubs_area: '@seq_pubs_area/workfiles/photoshop'
+    seq_photoshop_work_file: '@seq_photoshop_work_area/@seq_workfile_basename.{photoshop_ext}'
+    seq_photoshop_snapshot:  '@seq_photoshop_work_area/snapshots/@seq_workfile_basename.{timestamp}.{photoshop_ext}'
+    seq_photoshop_pub_file:  '@seq_photoshop_pubs_area/@seq_workfile_basename.{photoshop_ext}'
 
-    asset_maya_work_file:
-        definition: '@asset_maya_work_area/{Asset}_{Step}[_{name}]_v{version}.{maya_extension}'
-    asset_maya_snapshot:
-        definition: '@asset_maya_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.{maya_extension}'
-    asset_maya_work_playblast:
-        definition: '@asset_maya_work_area/data/{Asset}_{Step}[_{name}]_v{version}.mov'
-    asset_maya_pub_file:
-        definition: '@asset_maya_pubs_area/{Asset}_{Step}[_{name}]_v{version}.{maya_extension}'
+    shot_photoshop_work_area: '@shot_work_area/workfiles/photoshop'
+    shot_photoshop_pubs_area: '@shot_pubs_area/workfiles/photoshop'
+    shot_photoshop_work_file: '@shot_photoshop_work_area/@shot_workfile_basename.{photoshop_ext}'
+    shot_photoshop_snapshot:  '@shot_photoshop_work_area/snapshots/@shot_workfile_basename.{timestamp}.{photoshop_ext}'
+    shot_photoshop_pub_file:  '@shot_photoshop_pubs_area/@shot_workfile_basename.{photoshop_ext}'
 
+    asset_photoshop_work_area: '@asset_work_area/workfiles/photoshop'
+    asset_photoshop_pubs_area: '@asset_pubs_area/workfiles/photoshop'
+    asset_photoshop_work_file: '@asset_photoshop_work_area/@asset_workfile_basename.{photoshop_ext}'
+    asset_photoshop_snapshot:  '@asset_photoshop_work_area/snapshots/@asset_workfile_basename.{timestamp}.{photoshop_ext}'
+    asset_photoshop_pub_file:  '@asset_photoshop_pubs_area/@asset_workfile_basename.{photoshop_ext}'
+
+    ##########################################################################################
     #
-    # Houdini - Asset
-    #
-
-    asset_houdini_work_area:
-        definition: '@asset_work_area/workfiles/houdini'
-    asset_houdini_pubs_area:
-        definition: '@asset_pubs_area/workfiles/houdini'
-
-    asset_houdini_work_file:
-        definition: '@asset_houdini_work_area/{Asset}_{Step}[_{name}]_v{version}.hip'
-    asset_houdini_snapshot:
-        definition: '@asset_houdini_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.hip'
-    asset_houdini_pub_file:
-        definition: '@asset_houdini_pubs_area/{Asset}_{Step}[_{name}]_v{version}.hip'
-
-    asset_houdini_work_alembic_cache:
-        definition: '@asset_work_area/data/scene/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
-    asset_houdini_pub_alembic_cache:
-        definition: '@asset_pubs_area/data/scene/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_abc/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.abc'
-    asset_houdini_work_bgeo_cache:
-        definition: '@asset_work_area/data/cache/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
-    asset_houdini_pub_bgeo_cache:
-        definition: '@asset_pubs_area/data/cache/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_bgeo/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}.bgeo.sc'
-
-    asset_houdini_work_ifd_seq:
-        definition: '@asset_work_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
-    asset_houdini_pub_ifd_seq:
-        definition: '@asset_pubs_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_ifd/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.ifd'
-    asset_houdini_work_rs_seq:
-        definition: '@asset_work_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
-    asset_houdini_pub_rs_seq:
-        definition: '@asset_pubs_area/data/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_rs/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.rs'
-
-    asset_houdini_work_render_seq:
-        definition: '@asset_work_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
-    asset_houdini_pub_render_seq:
-        definition: '@asset_pubs_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{width}x{height}.{SEQ}.exr'
-    asset_houdini_work_dcm_seq:
-        definition: '@asset_work_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
-    asset_houdini_pub_dcm_seq:
-        definition: '@asset_pubs_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_deep_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_deep_{width}x{height}.{SEQ}.exr'
-    asset_houdini_work_aov_seq:
-        definition: '@asset_work_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
-    asset_houdini_pub_aov_seq:
-        definition: '@asset_pubs_area/images/render/{Asset}_{Step}[_{name}]_v{version}/{houdini.node}_{aov_name}_{width}x{height}_exr/{Asset}_{Step}[_{name}]_v{version}-{houdini.node}_{aov_name}_{width}x{height}.{SEQ}.exr'
-
-    #
-    # Nuke - Asset
+    # MAYA
     #
 
-    asset_nuke_work_area:
-        definition: '@asset_work_area/workfiles/nuke'
-    asset_nuke_pubs_area:
-        definition: '@asset_pubs_area/workfiles/nuke'
+    # workfiles
+    seq_maya_work_area: '@seq_work_area/workfiles/maya'
+    seq_maya_pubs_area: '@seq_pubs_area/workfiles/maya'
+    seq_maya_work_file: '@seq_maya_work_area/@seq_workfile_basename.{maya_ext}'
+    seq_maya_snapshot:  '@seq_maya_work_area/snapshots/@seq_workfile_basename.{timestamp}.{maya_ext}'
+    seq_maya_pub_file:  '@seq_maya_pubs_area/@seq_workfile_basename.{maya_ext}'
 
-    asset_nuke_work_file:
-        definition: '@asset_nuke_work_area/{Asset}_{Step}[_{name}]_v{version}.nk'
-    asset_nuke_snapshot:
-        definition: '@asset_nuke_work_area/snapshots/{Asset}_{Step}[_{name}]_v{version}.{timestamp}.nk'
-    asset_nuke_pub_file:
-        definition: '@asset_nuke_pubs_area/{Asset}_{Step}[_{name}]_v{version}_v{version}.nk'
+    shot_maya_work_area: '@shot_work_area/workfiles/maya'
+    shot_maya_pubs_area: '@shot_pubs_area/workfiles/maya'
+    shot_maya_work_file: '@shot_maya_work_area/@shot_workfile_basename.{maya_ext}'
+    shot_maya_snapshot:  '@shot_maya_work_area/snapshots/@shot_workfile_basename.{timestamp}.{maya_ext}'
+    shot_maya_pub_file:  '@shot_maya_pubs_area/@shot_workfile_basename.{maya_ext}'
 
-    # Write node locations
-    # frame sequence
-    asset_nuke_render_seq: '{Asset}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Asset}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{SEQ}.{ext}'
-    asset_nuke_work_render_seq:
-        definition: '@asset_work_area/images/{image_category}/@asset_nuke_render_seq'
-    asset_nuke_pub_render_seq:
-        definition: '@asset_pubs_area/images/{image_category}/@asset_nuke_render_seq'
+    asset_maya_work_area: '@asset_work_area/workfiles/maya'
+    asset_maya_pubs_area: '@asset_pubs_area/workfiles/maya'
+    asset_maya_work_file: '@asset_maya_work_area/@asset_workfile_basename.{maya_ext}'
+    asset_maya_snapshot:  '@asset_maya_work_area/snapshots/@asset_workfile_basename.{timestamp}.{maya_ext}'
+    asset_maya_pub_file:  '@asset_maya_pubs_area/@asset_workfile_basename.{maya_ext}'
 
-    # movie output
-    asset_nuke_render_mov: '{Asset}_{Step}[_{name}]_v{version}/[{nuke.layer}_][{nuke.view}_]{frame_format}_{ext}/{Asset}_{Step}[_{name}]_v{version}-[{nuke.layer}_][{nuke.view}_]{frame_format}.{ext}'
-    asset_nuke_work_render_mov:
-        definition: '@asset_work_area/images/{image_category}/@asset_nuke_render_mov'
-    asset_nuke_pub_render_mov:
-        definition: '@asset_pubs_area/images/{image_category}/@asset_nuke_render_mov'
+    # playblasts (these are not really to our spec and will need to be updated. Ideally they would use the 'generic_img_rep_seq' paths)
+    seq_maya_work_playblast:   '@seq_work_area/image/playblasts/@seq_workfile_basename.mov'
+    shot_maya_work_playblast:  '@shot_work_area/image/playblasts/@shot_workfile_basename.mov'
+    asset_maya_work_playblast: '@asset_work_area/image/playblasts/@asset_workfile_basename.mov'
+
+    ##########################################################################################
+    #
+    # HOUDINI
+    #
+
+    # workfiles
+    seq_houdini_work_area: '@seq_work_area/workfiles/houdini'
+    seq_houdini_pubs_area: '@seq_pubs_area/workfiles/houdini'
+    seq_houdini_work_file: '@seq_houdini_work_area/@seq_workfile_basename.hip'
+    seq_houdini_snapshot:  '@seq_houdini_work_area/snapshots/@seq_workfile_basename.{timestamp}.hip'
+    seq_houdini_pub_file:  '@seq_houdini_pubs_area/@seq_workfile_basename.hip'
+
+    shot_houdini_work_area: '@shot_work_area/workfiles/houdini'
+    shot_houdini_pubs_area: '@shot_pubs_area/workfiles/houdini'
+    shot_houdini_work_file: '@shot_houdini_work_area/@shot_workfile_basename.hip'
+    shot_houdini_snapshot:  '@shot_houdini_work_area/snapshots/@shot_workfile_basename.{timestamp}.hip'
+    shot_houdini_pub_file:  '@shot_houdini_pubs_area/@shot_workfile_basename.hip'
+
+    asset_houdini_work_area: '@asset_work_area/workfiles/houdini'
+    asset_houdini_pubs_area: '@asset_pubs_area/workfiles/houdini'
+    asset_houdini_work_file: '@asset_houdini_work_area/@asset_workfile_basename.hip'
+    asset_houdini_snapshot:  '@asset_houdini_work_area/snapshots/@asset_workfile_basename.{timestamp}.hip'
+    asset_houdini_pub_file:  '@asset_houdini_pubs_area/@asset_workfile_basename.hip'
+
+    # caches
+    seq_houdini_work_alembic_cache: '@seq_work_area/data/{data_category}/@seq_workfile_basename/@data_rep_full_houdini/@seq_workfile_basename-@data_rep_filetail_houdini.abc'
+    seq_houdini_pub_alembic_cache:  '@seq_pubs_area/data/{data_category}/@seq_workfile_basename/@data_rep_full_houdini/@seq_workfile_basename-@data_rep_filetail_houdini.abc'
+    seq_houdini_work_bgeo_cache:    '@seq_work_area/data/{data_category}/@seq_workfile_basename/@data_rep_full_houdini/@seq_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
+    seq_houdini_pub_bgeo_cache:     '@seq_pubs_area/data/{data_category}/@seq_workfile_basename/@data_rep_full_houdini/@seq_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
+
+    shot_houdini_work_alembic_cache: '@shot_work_area/data/scene/@shot_workfile_basename/@data_rep_full_houdini/@shot_workfile_basename-@data_rep_filetail_houdini.abc'
+    shot_houdini_pub_alembic_cache:  '@shot_pubs_area/data/scene/@shot_workfile_basename/@data_rep_full_houdini/@shot_workfile_basename-@data_rep_filetail_houdini.abc'
+    shot_houdini_work_bgeo_cache:    '@shot_work_area/data/cache/@shot_workfile_basename/@data_rep_full_houdini/@shot_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
+    shot_houdini_pub_bgeo_cache:     '@shot_pubs_area/data/cache/@shot_workfile_basename/@data_rep_full_houdini/@shot_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
+
+    asset_houdini_work_alembic_cache: '@asset_work_area/data/scene/@asset_workfile_basename/@data_rep_full_houdini/@asset_workfile_basename-@data_rep_filetail_houdini.abc'
+    asset_houdini_pub_alembic_cache:  '@asset_pubs_area/data/scene/@asset_workfile_basename/@data_rep_full_houdini/@asset_workfile_basename-@data_rep_filetail_houdini.abc'
+    asset_houdini_work_bgeo_cache:    '@asset_work_area/data/cache/@asset_workfile_basename/@data_rep_full_houdini/@asset_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
+    asset_houdini_pub_bgeo_cache:     '@asset_pubs_area/data/cache/@asset_workfile_basename/@data_rep_full_houdini/@asset_workfile_basename-@data_rep_filetail_houdini.bgeo.sc'
+
+    # scene descriptions:
+    # These are a special case since they are data files, but they represent
+    # instructions for a rendered image. This is why its in the 'data'
+    # folder but has an img_rep filename
+    seq_houdini_work_ifd_seq: '@seq_work_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    seq_houdini_pub_ifd_seq:  '@seq_pubs_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    seq_houdini_work_rs_seq:  '@seq_work_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    seq_houdini_pub_rs_seq:   '@seq_pubs_area/data/sceneDescripton/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+
+    shot_houdini_work_ifd_seq: '@shot_work_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    shot_houdini_pub_ifd_seq:  '@shot_pubs_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    shot_houdini_work_rs_seq:  '@shot_work_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    shot_houdini_pub_rs_seq:   '@shot_pubs_area/data/sceneDescripton/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+
+    asset_houdini_work_ifd_seq: '@asset_work_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    asset_houdini_pub_ifd_seq:  '@asset_pubs_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.ifd'
+    asset_houdini_work_rs_seq:  '@asset_work_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+    asset_houdini_pub_rs_seq:   '@asset_pubs_area/data/sceneDescripton/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.rs'
+
+    # renders
+    seq_houdini_work_render_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
+    seq_houdini_pub_render_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_houdini/@seq_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
+
+    shot_houdini_work_render_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
+    # shot_houdini_pub_render_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_houdini/@shot_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
+
+    asset_houdini_work_render_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
+    asset_houdini_pub_render_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_houdini/@asset_workfile_basename-@img_rep_filetail_houdini.{SEQ}.exr'
+
+    ##########################################################################################
+    #
+    # NUKE
+    #
+
+    # workfiles
+    seq_nuke_work_area: '@seq_work_area/workfiles/nuke'
+    seq_nuke_work_file: '@seq_nuke_work_area/@seq_workfile_basename.nk'
+    seq_nuke_snapshot:  '@seq_nuke_work_area/snapshots/@seq_workfile_basename.{timestamp}.nk'
+    seq_nuke_pubs_area: '@seq_pubs_area/workfiles/nuke'
+    seq_nuke_pub_file:  '@seq_nuke_pubs_area/nuke/@seq_workfile_basename.nk'
+
+    shot_nuke_work_area: '@shot_work_area/workfiles/nuke'
+    shot_nuke_work_file: '@shot_nuke_work_area/@shot_workfile_basename.nk'
+    shot_nuke_snapshot:  '@shot_nuke_work_area/snapshots/@shot_workfile_basename.{timestamp}.nk'
+    shot_nuke_pubs_area: '@shot_pubs_area/workfiles/nuke'
+    shot_nuke_pub_file:  '@shot_nuke_pubs_area/@shot_workfile_basename.nk'
+
+    asset_nuke_work_area: '@asset_work_area/workfiles/nuke'
+    asset_nuke_work_file: '@asset_nuke_work_area/@asset_workfile_basename.nk'
+    asset_nuke_snapshot:  '@asset_nuke_work_area/snapshots/@asset_workfile_basename.{timestamp}.nk'
+    asset_nuke_pubs_area: '@asset_pubs_area/workfiles/nuke'
+    asset_nuke_pub_file:  '@asset_nuke_pubs_area/@asset_workfile_basename.nk'
+
+    # renders
+    #seq_nuke_work_render_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    #seq_nuke_pub_render_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    seq_nuke_work_render_mov: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    seq_nuke_pub_render_mov:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
+
+    shot_nuke_work_render_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    # shot_nuke_pub_render_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    shot_nuke_work_render_mov: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    shot_nuke_pub_render_mov:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
+
+    asset_nuke_work_render_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    asset_nuke_pub_render_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    asset_nuke_work_render_mov: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    asset_nuke_pub_render_mov:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
 
+
+##########################################################################################
+#
+# STRINGS
 #
 # The strings section is similar to the paths section - but rather than defining paths
 # on disk, it contains a list of strings. Strings are typically used when you want to be
@@ -640,13 +564,42 @@ paths:
 
 strings:
 
-    # when a review Version in Shotgun is created inside of Nuke, this is the
-    # name that is being given to it (the code field)
-    nuke_shot_version_name: "{Shot}_{name}_{nuke.output}_v{version}.{iteration}"
-    nuke_quick_shot_version_name: "{Shot}_{name}_quick_{iteration}"
+    # workfiles
+    asset_workfile_basename: '{Asset}_{Step}[_{name}]_v{version}'
+    show_workfile_basename:  '{Show}_{Step}[_{name}]_v{version}'
+    seq_workfile_basename:   '{Sequence}_{Step}[_{name}]_v{version}'
+    shot_workfile_basename:  '{Shot}_{Step}[_{name}]_v{version}'
 
-    nuke_asset_version_name: "{Asset}_{name}_{nuke.output}_v{version}.{iteration}"
-    nuke_quick_asset_version_name: "{Asset}_{name}_quick_{iteration}"
+    # image representations
+    img_rep_full:     '{view}[_{layer}]_{frame_format}_{ext}[-{aov}]'
+    img_rep_folder:   '{view}[_{layer}]_{frame_format}_{ext}'
+    img_rep_filetail: '{view}[_{layer}]_{frame_format}[-{aov}]'
+
+    img_rep_full_nuke:     '{nuke.view}[_{layer}]_{frame_format}_{ext}[-{aov}]'
+    img_rep_folder_nuke:   '{nuke.view}[_{layer}]_{frame_format}_{ext}'
+    img_rep_filetail_nuke: '{nuke.view}[_{layer}]_{frame_format}[-{aov}]'
+
+    img_rep_full_houdini:     '{view}[_{houdini.node}]_{frame_format}_{ext}[-{aov}]'
+    img_rep_folder_houdini:   '{view}[_{houdini.node}]_{frame_format}_{ext}'
+    img_rep_filetail_houdini: '{view}[_{houdini.node}]_{frame_format}[-{aov}]'
+
+    # data representations
+    # (currently no need for a 'data_rep_folder' string since we can use 'data_rep_full' for that)
+    data_rep_full:     '{var}[_{layer}]_{ext}'
+    data_rep_filetail: '{var}[_{layer}]'
+
+    shot_image_pub_name: "{Shot}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}[_{ext}]"
+    asset_image_pub_name: "{Asset}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}[_{ext}]"
+    #sequence_image_pub_name: "{Sequence}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}_{extension}"
+    #show_image_pub_name: "{Show}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{frame_format}_{extension}"
+
+    shot_data_pub_name: "{Shot}_{Step}[_{name}]_v{version}-[{output}_][{view}_][{ext}]"
+    asset_data_pub_name: "{Asset}_{Step}[_{name}]_v{version}-[{output}_][{view}_][{ext}]"
+    #sequence_data_pub_name: "{Sequence}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{extension}"
+    #show_data_pub_name: "{Show}_{Step}[_{name}]_v{version}-[{output}_][{view}_]{extension}"
 
     # defines how the {tk_version} token in Hiero gets formatted back to tk.
     hiero_version: "{version}"
+
+    data_rep_full_houdini:     '{var}[_{houdini.node}]_{ext}'
+    data_rep_filetail_houdini: '{var}[_{houdini.node}]'
