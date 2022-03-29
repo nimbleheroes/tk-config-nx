@@ -1,0 +1,162 @@
+#! /usr/local/Nuke12.2v10/libnuke-12.2.10.so -nx
+#write_info out_mov file:"temp.mov" format:"1920 1080 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1000 1010" fps:"0" colorspace:"Output - Rec.709" datatype:"unknown" transfer:"unknown" views:"main" colorManagement:"OCIO"
+version 12.2 v10
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="2143" h="1649" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1480" stretch="1"/>
+            <splitter orientation="2">
+                <split size="943"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="663"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /pipe/dev/dstrubler/tk-config-nx/core/schema/show/pipe/templates/transcodify/shotgun_mov.nk
+ frame 1000
+ first_frame 1000
+ last_frame 1010
+ format "3840 2160 0 0 3840 2160 1 uhd"
+ proxy_type scale
+ proxy_format "640 480 0 0 640 480 1 vga"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "Monitor/AutoLUT CC"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+Read {
+ inputs 0
+ file_type exr
+ file temp.exr
+ origset true
+ on_error black
+ version 2
+ name Read1
+ xpos -220
+ ypos -327
+}
+OCIODisplay {
+ colorspace scene_linear
+ display Monitor
+ view "AutoLUT CC"
+ name OCIODisplay1
+ xpos -220
+ ypos -202
+}
+nxSlate_v3.1.gizmo {
+ name nxSlate2
+ xpos -220
+ ypos -130
+ title_line1 project
+ content_line1 "\[python nuke._sg.getShowField(\"name\")]"
+ preview_line1 "Dev Project"
+ title_line2 artist
+ content_line2 "\[python __import__(\"getpass\").getuser()]"
+ preview_line2 dstrubler
+ title_line3 date/time
+ content_line3 "\[clock format \[clock seconds] -format \"%Y-%m-%d %r %Z\"]"
+ preview_line3 "2022-03-29 04:33:01 AM EDT"
+ title_line4 context
+ content_line4 "\[python nuke._sg.getContext()]"
+ preview_line4 "Project Dev Project"
+ title_line5 "frame range"
+ content_line5 "\[expr \[value root.first_frame]+1]-\[value root.last_frame] (\[expr \[value root.last_frame]-\[value root.first_frame]] frames)"
+ preview_line5 "1001-1010 (10 frames)"
+ title_line6 input
+ content_line6 "\[knob \[topnode].file]"
+ preview_line6 temp.exr
+ title_line7 ""
+ content_line7 ""
+ preview_line7 ""
+ title_line8 ""
+ content_line8 ""
+ preview_line8 ""
+ title_line9 ""
+ content_line9 ""
+ preview_line9 ""
+ title_line10 ""
+ content_line10 ""
+ preview_line10 ""
+ slate_frame {{"\[value root.first_frame]"}}
+ separator /
+ font /pipe/common/fonts/Roboto/Roboto-Light.ttf
+ bg_image_file /pipe/common/images/dark_texture.jpg
+ bg_image_mix 0.25
+ logo_file /pipe/common/logos/nx_logo_package/2048/logotype_light_on_transparent.png
+}
+Reformat {
+ format "1920 1080 0 0 1920 1080 1 hd"
+ black_outside true
+ name Reformat1
+ xpos -220
+ ypos -64
+}
+nxOverlays_v3.1.gizmo {
+ name nxOverlays1
+ xpos -220
+ ypos 14
+ text_ul ""
+ text_uc ""
+ text_ur ""
+ text_ll ""
+ text_lc ""
+ text_lr "\[frame]"
+ slate_frame {{"\[value root.first_frame]"}}
+ font_file /pipe/common/fonts/Roboto/Roboto-Medium.ttf
+ cut_in {{"\[switch \[catch \{getenv EDIT_CUT_IN\}] 0 \{return \[getenv EDIT_CUT_IN]\} 1 \{return \[value root.first_frame]\} ]"}}
+ cut_out {{"\[switch \[catch \{getenv EDIT_CUT_OUT\}] 0 \{return \[getenv EDIT_CUT_OUT]\} 1 \{return \[value root.last_frame]\} ]"}}
+ wm_text WATERMARK
+ wm_font_file /pipe/common/fonts/Roboto/Roboto-Medium.ttf
+ logo_enable false
+ logo_file /pipe/common/logos/nx_logo_package/2048/logotype_light_on_transparent.png
+}
+Write {
+ channels rgba
+ file temp.mov
+ colorspace "Output - Rec.709"
+ raw true
+ file_type mov
+ mov64_format "mov (QuickTime / MOV)"
+ mov64_codec h264
+ mov_h264_codec_profile "High 4:2:0 8-bit"
+ mov64_pixel_format {{0} "yuv420p\tYCbCr 4:2:0 8-bit"}
+ mov64_quality High
+ mov64_fast_start true
+ mov64_write_timecode true
+ mov64_gop_size 12
+ mov64_b_frames 0
+ mov64_bitrate 28000
+ mov64_bitrate_tolerance 0
+ mov64_quality_min 1
+ mov64_quality_max 3
+ create_directories true
+ checkHashOnRead false
+ name out_mov
+ xpos -220
+ ypos 74
+}

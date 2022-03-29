@@ -1,0 +1,7 @@
+engine: nuke
+settings:
+  inputs:
+    - node: Read1
+  output: out_exr
+  range:
+    preroll: 1
