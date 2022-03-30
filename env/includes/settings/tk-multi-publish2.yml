@@ -13,7 +13,7 @@ publish_help_url: &help_url "https://support.shotgunsoftware.com/hc/en-us/articl
 
 settings.tk-multi-publish2.standalone:
   path_info: "{config}/tk-multi-publish2/path_info.py"
-  collector: "{config}/tk-multi-publish2/base_collector.py"
+  collector: "{config}/tk-multi-publish2/collector.py"
   post_phase: "{config}/tk-multi-publish2/post_phase.py"
   publish_plugins:
   - name: Publish to Shotgun
