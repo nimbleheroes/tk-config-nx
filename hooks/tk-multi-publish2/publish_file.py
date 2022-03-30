@@ -194,6 +194,16 @@ class BasicFilePublishPlugin(HookBaseClass):
                     "extensions that should be associated."
                 ),
             },
+            "Image Publish Name Template": {
+                "type": "string",
+                "default": "shot_image_pub_name",
+                "description": "Generic Image Template to use depending on context ",
+            },
+            "Data Publish Name Template": {
+                "type": "string",
+                "default": "shot_data_pub_name",
+                "description": "Generic Data Template to use depending on context ",
+            },
         }
 
     @property
@@ -584,10 +594,12 @@ class BasicFilePublishPlugin(HookBaseClass):
             missing_keys = publish_template.missing_keys(work_fields)
 
             work_fields['ext'] = work_fields.get('extension')
+
+            # distinguish image vs data formats, then look up the contextual template 
             if "frame_format" in work_fields:
-                pub_name_template = self.sgtk.templates["shot_image_pub_name"]
+                pub_name_template = self.sgtk.templates[settings['Image Publish Name Template'].value]
             else:
-                pub_name_template = self.sgtk.templates["shot_data_pub_name"]
+                pub_name_template = self.sgtk.templates[settings['Data Publish Name Template'].value]
 
             if missing_keys:
                 self.logger.warning(
