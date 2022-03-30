@@ -12,7 +12,7 @@
 This hook gets executed before and after the context changes in Toolkit.
 """
 import os
-from tank import get_hook_baseclass
+from tank import get_hook_baseclass, TankError
 
 
 class ContextChange(get_hook_baseclass()):
@@ -67,17 +67,21 @@ class ContextChange(get_hook_baseclass()):
 
             self.logger.debug("[NEXODUS] next_context.to_dict(): {}".format(next_context.to_dict()))
 
-            # get all the pipe templates and set env vars
-            pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
-            for templ_name, templ_obj in pipe_templates.iteritems():
-                template_fields = next_context.as_template_fields(templ_obj)
-                missing_keys = templ_obj.missing_keys(template_fields)
-                if not missing_keys:
-                    templ_path = os.path.abspath(templ_obj.apply_fields(template_fields))
-                    templ_path = os.path.expandvars(templ_path)
-                    templ_name = templ_name.upper()
-                    self.logger.debug("[NEXODUS] Setting PIPE env var: {} = {}".format(templ_name, templ_path))
-                    os.environ[templ_name] = templ_path
+            try:
+                # get all the pipe templates and set env vars
+                pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
+                for templ_name, templ_obj in pipe_templates.iteritems():
+                    template_fields = next_context.as_template_fields(templ_obj)
+                    missing_keys = templ_obj.missing_keys(template_fields)
+                    if not missing_keys:
+                        templ_path = os.path.abspath(templ_obj.apply_fields(template_fields))
+                        templ_path = os.path.expandvars(templ_path)
+                        templ_name = templ_name.upper()
+                        self.logger.debug("[NEXODUS] Setting PIPE env var: {} = {}".format(templ_name, templ_path))
+                        os.environ[templ_name] = templ_path
+            except TankError:
+                # this process with fail if the folders dont exist on disk yet so we let it pass thru.
+                pass
 
             env_vars = {
                 "SHOW": None,

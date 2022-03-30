@@ -83,7 +83,7 @@ keys:
     # representaion keys
     view:
         type: str
-        filter_by: alphanumeric
+        filter_by: '^[a-zA-Z0-9]*(\%V)?[a-zA-Z0-9]*$' # this allows nuke to use its '%V' identifier for views
         default: "main"
         exclusions: ["base"]
 
@@ -152,11 +152,11 @@ keys:
 
     # Nuke gets its own 'view' token so that it doesn't fail the global
     # alphanumeric validation if we use '%V' for nuke views
-    nuke.view:
-        alias: view
-        type: str
-        filter_by: '^[a-zA-Z0-9]*(\%V)?[a-zA-Z0-9]*$'
-        default: "main"
+    # nuke.view:
+    #     alias: view
+    #     type: str
+    #     filter_by: '^[a-zA-Z0-9]*(\%V)?[a-zA-Z0-9]*$'
+    #     default: "main"
 
     # Houdini gets its own 'layer' token since the current
     # tk-houdini-alembicnode and tk-houdini-mantranode apps
@@ -535,20 +535,20 @@ paths:
     asset_nuke_pub_file:  '@asset_nuke_pubs_area/@asset_workfile_basename.nk'
 
     # renders
-    #seq_nuke_work_render_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
-    #seq_nuke_pub_render_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
-    seq_nuke_work_render_mov: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
-    seq_nuke_pub_render_mov:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    # seq_nuke_work_render_seq: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    # seq_nuke_pub_render_seq:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    # seq_nuke_work_render_mov: '@seq_work_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    # seq_nuke_pub_render_mov:  '@seq_pubs_area/images/{image_category}/@seq_workfile_basename/@img_rep_folder_nuke/@seq_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
-    shot_nuke_work_render_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    # shot_nuke_work_render_seq: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
     # shot_nuke_pub_render_seq:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
-    shot_nuke_work_render_mov: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
-    shot_nuke_pub_render_mov:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    # shot_nuke_work_render_mov: '@shot_work_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    # shot_nuke_pub_render_mov:  '@shot_pubs_area/images/{image_category}/@shot_workfile_basename/@img_rep_folder_nuke/@shot_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
-    asset_nuke_work_render_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
-    asset_nuke_pub_render_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
-    asset_nuke_work_render_mov: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{ext}'
-    asset_nuke_pub_render_mov:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    # asset_nuke_work_render_seq: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    # asset_nuke_pub_render_seq:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{SEQ}.{ext}'
+    # asset_nuke_work_render_mov: '@asset_work_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{ext}'
+    # asset_nuke_pub_render_mov:  '@asset_pubs_area/images/{image_category}/@asset_workfile_basename/@img_rep_folder_nuke/@asset_workfile_basename-@img_rep_filetail_nuke.{ext}'
 
 
 
@@ -575,9 +575,9 @@ strings:
     img_rep_folder:   '{view}[_{layer}]_{frame_format}_{ext}'
     img_rep_filetail: '{view}[_{layer}]_{frame_format}[-{aov}]'
 
-    img_rep_full_nuke:     '{nuke.view}[_{layer}]_{frame_format}_{ext}[-{aov}]'
-    img_rep_folder_nuke:   '{nuke.view}[_{layer}]_{frame_format}_{ext}'
-    img_rep_filetail_nuke: '{nuke.view}[_{layer}]_{frame_format}[-{aov}]'
+    # img_rep_full_nuke:     '{nuke.view}[_{layer}]_{frame_format}_{ext}[-{aov}]'
+    # img_rep_folder_nuke:   '{nuke.view}[_{layer}]_{frame_format}_{ext}'
+    # img_rep_filetail_nuke: '{nuke.view}[_{layer}]_{frame_format}[-{aov}]'
 
     img_rep_full_houdini:     '{view}[_{houdini.node}]_{frame_format}_{ext}[-{aov}]'
     img_rep_folder_houdini:   '{view}[_{houdini.node}]_{frame_format}_{ext}'

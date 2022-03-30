@@ -55,7 +55,7 @@ write_profile.tga: &write_profile_tga
 write_profile.tif: &write_profile_tif
   file_type: tiff
   file_extension: tif
-  name: TGAs
+  name: TIFs
   promote_write_knobs: [datatype, compression]
   settings:
     channels: rgba
@@ -157,43 +157,43 @@ settings.tk-nuke-writenode.asset:
   - <<: *write_profile_exr
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_seq
-    publish_template: asset_nuke_pub_render_seq
+    render_template: asset_generic_work_img_rep_seq
+    publish_template: asset_generic_pub_img_rep_seq
   - <<: *write_profile_png
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_seq
-    publish_template: asset_nuke_pub_render_seq
+    render_template: asset_generic_work_img_rep_seq
+    publish_template: asset_generic_pub_img_rep_seq
   - <<: *write_profile_tga
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_seq
-    publish_template: asset_nuke_pub_render_seq
+    render_template: asset_generic_work_img_rep_seq
+    publish_template: asset_generic_pub_img_rep_seq
   - <<: *write_profile_tif
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_seq
-    publish_template: asset_nuke_pub_render_seq
+    render_template: asset_generic_work_img_rep_seq
+    publish_template: asset_generic_pub_img_rep_seq
   - <<: *write_profile_jpg
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_seq
-    publish_template: asset_nuke_pub_render_seq
+    render_template: asset_generic_work_img_rep_seq
+    publish_template: asset_generic_pub_img_rep_seq
   - <<: *write_profile_dpx
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_seq
-    publish_template: asset_nuke_pub_render_seq
+    render_template: asset_generic_work_img_rep_seq
+    publish_template: asset_generic_pub_img_rep_seq
   - <<: *write_profile_smartvectors
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_seq
-    publish_template: asset_nuke_pub_render_seq
+    render_template: asset_generic_work_img_rep_seq
+    publish_template: asset_generic_pub_img_rep_seq
   - <<: *write_profile_quicktime
     proxy_publish_template:
     proxy_render_template:
-    render_template: asset_nuke_work_render_mov
-    publish_template: asset_nuke_pub_render_mov
+    render_template: asset_generic_work_img_rep
+    publish_template: asset_generic_pub_img_rep
 
 
 # sequence
@@ -206,43 +206,43 @@ settings.tk-nuke-writenode.seq:
   - <<: *write_profile_exr
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_seq
-    publish_template: seq_nuke_pub_render_seq
+    render_template: seq_generic_work_img_rep_seq
+    publish_template: seq_generic_pub_img_rep_seq
   - <<: *write_profile_png
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_seq
-    publish_template: seq_nuke_pub_render_seq
+    render_template: seq_generic_work_img_rep_seq
+    publish_template: seq_generic_pub_img_rep_seq
   - <<: *write_profile_tga
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_seq
-    publish_template: seq_nuke_pub_render_seq
+    render_template: seq_generic_work_img_rep_seq
+    publish_template: seq_generic_pub_img_rep_seq
   - <<: *write_profile_tif
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_seq
-    publish_template: seq_nuke_pub_render_seq
+    render_template: seq_generic_work_img_rep_seq
+    publish_template: seq_generic_pub_img_rep_seq
   - <<: *write_profile_jpg
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_seq
-    publish_template: seq_nuke_pub_render_seq
+    render_template: seq_generic_work_img_rep_seq
+    publish_template: seq_generic_pub_img_rep_seq
   - <<: *write_profile_dpx
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_seq
-    publish_template: seq_nuke_pub_render_seq
+    render_template: seq_generic_work_img_rep_seq
+    publish_template: seq_generic_pub_img_rep_seq
   - <<: *write_profile_smartvectors
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_seq
-    publish_template: seq_nuke_pub_render_seq
+    render_template: seq_generic_work_img_rep_seq
+    publish_template: seq_generic_pub_img_rep_seq
   - <<: *write_profile_quicktime
     proxy_publish_template:
     proxy_render_template:
-    render_template: seq_nuke_work_render_mov
-    publish_template: seq_nuke_pub_render_mov
+    render_template: seq_generic_work_img_rep
+    publish_template: seq_generic_pub_img_rep
 
 # shot
 ## note that the options here are required fields, you cannot comment
@@ -256,40 +256,40 @@ settings.tk-nuke-writenode.shot:
   - <<: *write_profile_exr
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_seq
-    publish_template: shot_nuke_pub_render_seq
+    render_template: shot_generic_work_img_rep_seq
+    publish_template: shot_generic_pub_img_rep_seq
   - <<: *write_profile_png
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_seq
-    publish_template: shot_nuke_pub_render_seq
+    render_template: shot_generic_work_img_rep_seq
+    publish_template: shot_generic_pub_img_rep_seq
   - <<: *write_profile_tga
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_seq
-    publish_template: shot_nuke_pub_render_seq
+    render_template: shot_generic_work_img_rep_seq
+    publish_template: shot_generic_pub_img_rep_seq
   - <<: *write_profile_tif
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_seq
-    publish_template: shot_nuke_pub_render_seq
+    render_template: shot_generic_work_img_rep_seq
+    publish_template: shot_generic_pub_img_rep_seq
   - <<: *write_profile_jpg
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_seq
-    publish_template: shot_nuke_pub_render_seq
+    render_template: shot_generic_work_img_rep_seq
+    publish_template: shot_generic_pub_img_rep_seq
   - <<: *write_profile_dpx
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_seq
-    publish_template: shot_nuke_pub_render_seq
+    render_template: shot_generic_work_img_rep_seq
+    publish_template: shot_generic_pub_img_rep_seq
   - <<: *write_profile_smartvectors
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_seq
-    publish_template: shot_nuke_pub_render_seq
+    render_template: shot_generic_work_img_rep_seq
+    publish_template: shot_generic_pub_img_rep_seq
   - <<: *write_profile_quicktime
     proxy_publish_template:
     proxy_render_template:
-    render_template: shot_nuke_work_render_mov
-    publish_template: shot_nuke_pub_render_mov
+    render_template: shot_generic_work_img_rep
+    publish_template: shot_generic_pub_img_rep

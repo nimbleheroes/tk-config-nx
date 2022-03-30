@@ -19,12 +19,12 @@ settings.tk-multi-publish2.standalone:
   # - name: Publish to Shotgun
   #   hook: "{config}/tk-multi-publish2/publish_file.py"
   #   settings: {}
-    - name: Ingest File
-      hook: "{config}/tk-multi-publish2/ui_plugin_ingestor.py"
-      settings: {}
-    - name: Create File Proxy
-      hook: "{config}/tk-multi-publish2/ui_plugin_create_file_proxy.py"
-      settings: {}
+    # - name: Ingest File
+    #   hook: "{config}/tk-multi-publish2/ui_plugin_ingestor.py"
+    #   settings: {}
+    # - name: Create File Proxy
+    #   hook: "{config}/tk-multi-publish2/ui_plugin_create_file_proxy.py"
+    #   settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
