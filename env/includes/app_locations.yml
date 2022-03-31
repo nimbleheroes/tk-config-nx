@@ -172,7 +172,7 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 105284 #tk-delivery-0.1.1
+  version: 106208 #tk-delivery-0.2.2
   ## Dev
   # type: dev
   # path: /pipe/dev/dstrubler/tk-delivery
