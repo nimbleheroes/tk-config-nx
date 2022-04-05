@@ -863,18 +863,14 @@ class BasicFilePublishPlugin(HookBaseClass):
 
             publish_file = publish_template.apply_fields(work_fields)
 
-            # copy the file
-            try:
-                publish_folder = os.path.dirname(publish_file)
-                ensure_folder_exists(publish_folder)
-                # copy_file(work_file, publish_file)
-                if os.path.realpath(work_file) is not os.path.realpath(publish_file):
-                    src_dest_pairs.append({'src': work_file, "dst": publish_file})
-            except Exception:
-                raise Exception(
-                    "Failed to copy work file from '%s' to '%s'.\n%s"
-                    % (work_file, publish_file, traceback.format_exc())
-                )
+            # stage copying of the file
+
+            publish_folder = os.path.dirname(publish_file)
+            ensure_folder_exists(publish_folder)
+            # copy_file(work_file, publish_file)
+            if os.path.realpath(work_file) is not os.path.realpath(publish_file):
+                src_dest_pairs.append({'src': work_file, "dst": publish_file})
+
 
             self.logger.debug(
                 "Staged source:destination pair for remote copying: work file '%s' to publish file '%s'."
@@ -903,6 +899,7 @@ class BasicFilePublishPlugin(HookBaseClass):
         # register this as scalar's most recent task,  so that each next  step  can refer to the it's dependencies.
         # when we use this later, we'll process the whole tree by accessing the tasks's dispatcher
         item.parent.properties['upstream_scalar'] = t1
+        item.parent.properties['work_template_fields'] = work_fields
         
 
 
