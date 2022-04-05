@@ -33,7 +33,7 @@ class PostPhaseHook(HookBaseClass):
                 dispatcher.name = "[{}] ".format(item.context.project['name']) + item.parent.properties['publish_name'].split("-")[0] + " Publish"
 
                 # process the task trees within this dispatcher
-                self.logger.info('Submitting Scalar Tasks all at once...')
+                self.logger.info('Submitting remote tasks to process on the farm...')
                 result = dispatcher.process()
                 self.logger.info(str(result))
 

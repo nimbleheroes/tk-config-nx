@@ -192,7 +192,7 @@ class BasicVersionUploadPlugin(HookBaseClass):
 
         publisher = self.parent
         path = item.properties["path"]
-        version_name = item.properties["version_name"]
+        version_name = item.parent.properties['publish_name']
         first_frame = item.properties.get("first_frame")
         last_frame = item.properties.get("last_frame")
 
@@ -228,10 +228,6 @@ class BasicVersionUploadPlugin(HookBaseClass):
             },
         )
 
-        # Create the version
-        version = publisher.shotgun.create("Version", version_data)
-        self.logger.info("Version created!")
-
         fw = self.load_framework("tk-framework-deadline_v0.x.x")
 
         nxfw = self.load_framework("tk-framework-nx_v0.x.x")
@@ -250,40 +246,70 @@ class BasicVersionUploadPlugin(HookBaseClass):
 
         transcodify_template = self.sgtk.templates["transcodify_template"]
 
-
         # prepare the path for the Shotgrid reviewable mov
         reviewable_template = self.sgtk.templates["shot_review_movies"]
         reviewable_fields = item.context.as_template_fields(reviewable_template)
-        reviewable_fields['version_id'] = version['id']
+
         reviewable_fields['ext'] = 'mov'
         reviewable_fields['extension'] = 'mov'
         reviewable_fields['Step'] = item.context.step['name'].lower() 
         reviewable_fields['version'] = item.properties.sg_publish_data.get('version_number')
         reviewable_fields['view'] = "main"
+        reviewable_fields['frame_format'] = "misc"
 
-        reviewable_path = reviewable_template.apply_fields(reviewable_fields)
-    
-        #movs = ["mov", "m4v", "mp4", "mxf"]
+        if item.parent.properties['work_template_fields']:
+            work_fields = item.parent.properties['work_template_fields']
+
+            for field in reviewable_fields.keys():
+                if work_fields.get(field):
+                    reviewable_fields[field] = work_fields[field]
+
+
         sg_transcodify_config  = str(self.sgtk.paths_from_template(transcodify_template, {"ext": "mov", "name": "shotgun"})[0])
 
         if sg_transcodify_config:
-
+            reviewable_path = "/tmp_path/"
             config_name = os.path.basename(os.path.splitext(sg_transcodify_config)[0])
+
+            # create the transcodify task so we can get access to it's config
             t1 = dispatcher.task("transcodify", 
                                 name="Creating Reviewable: {}".format(config_name), 
                                 input_files="{}:{}-{}".format(path, first_frame, last_frame), 
                                 output_file=reviewable_path, 
                                 config_file=sg_transcodify_config, 
                                 context = item.context,
-                                data={"sg_version": version}, 
                                 parent=parent_task)
             
+            # read the config settings for the transcodify job
+            t1_settings = t1.config.get('settings')
+            if  t1_settings and t1_settings.get('range'):
+                if t1_settings['range'].get('preroll'):
+                    if t1_settings['range']['preroll'] == 1:
+                        version_data['sg_movie_has_slate'] = True
+
+            version_data['sg_path_to_frames'] = path
+            version_data['sg_path_to_movie'] = reviewable_path
+
+            # create the version
+            version = publisher.shotgun.create("Version", version_data)
+            self.logger.info("Version created!")
+        
+            reviewable_fields['version_id'] = version['id']
+            reviewable_path = reviewable_template.apply_fields(reviewable_fields)
+
+            t1.data = {"sg_version": version}
+            t1.output_file = reviewable_path
+
+            # make the task to do  the uploading
             t2 = dispatcher.task("sg_upload", 
                                     name="Uploading Movie to SG Version", 
                                     entity_type=version.get('type'), 
                                     entity_id=version.get('id'),
                                     src=reviewable_path,
                                     parent=t1 )
+
+            publisher.shotgun.update("Version", version.get('id'), {"sg_path_to_movie": reviewable_path})
+            t1.save()
 
             # associate this  as the last-created scalar task so you can either use it's dispatcher or make a child task
             item.parent.properties['upstream_scalar'] =  t2
