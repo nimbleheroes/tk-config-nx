@@ -202,6 +202,9 @@ class NukeSessionPublishPlugin(HookBaseClass):
         publisher = self.parent
         path = _session_path()
 
+        # by default, this will tell the publisher to version up the script on publish
+        item.properties['version_up'] = True
+
         # ---- ensure the session has been saved
 
         if not path:
@@ -250,7 +253,7 @@ class NukeSessionPublishPlugin(HookBaseClass):
         (next_version_path, version) = self._get_next_version_info(path, item)
         if next_version_path and os.path.exists(next_version_path):
 
-            # by default, lets NOT version up if the next version already exists
+            # lets NOT version up if the next version already exists
             item.properties['version_up'] = False
 
             # determine the next available version_number. just keep asking for
