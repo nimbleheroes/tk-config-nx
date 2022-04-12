@@ -177,7 +177,7 @@ settings.tk-multi-publish2.nuke.asset_step:
       Work Template: asset_nuke_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/tk-nuke/nuke_publish_script.py"
     settings:
         Publish Template: asset_nuke_pub_file
         Image Publish Name Template:  asset_image_pub_name
@@ -187,9 +187,6 @@ settings.tk-multi-publish2.nuke.asset_step:
     settings: {}
   - name: Create Version
     hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
-    settings: {}
-  - name: Attach to Version
-    hook: "{config}/tk-multi-publish2/attach_to_version.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
@@ -202,7 +199,7 @@ settings.tk-multi-publish2.nuke.seq_step:
       Work Template: seq_nuke_work_file
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/tk-nuke/nuke_publish_script.py"
     settings:
         Publish Template: seq_nuke_pub_file
         Image Publish Name Template:  shot_image_pub_name
@@ -212,9 +209,6 @@ settings.tk-multi-publish2.nuke.seq_step:
     settings: {}
   - name: Create Version
     hook: "{config}/tk-multi-publish2/create_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
-    settings: {}
-  - name: Attach to Version
-    hook: "{config}/tk-multi-publish2/attach_to_version.py"
     settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
@@ -234,7 +228,7 @@ settings.tk-multi-publish2.nuke.shot_step:
   post_phase: "{config}/tk-multi-publish2/post_phase.py"
   publish_plugins:
   - name: Publish to Shotgun
-    hook: "{config}/tk-multi-publish2/publish_file.py:{engine}/tk-multi-publish2/basic/nuke_publish_script.py"
+    hook: "{config}/tk-multi-publish2/publish_file.py:{config}/tk-multi-publish2/tk-nuke/nuke_publish_script.py"
     settings:
         Publish Template: shot_nuke_pub_file
         Publish Name: shot_pub_name
@@ -244,9 +238,6 @@ settings.tk-multi-publish2.nuke.shot_step:
   - name: Create Version & Upload Media
     hook: "{config}/tk-multi-publish2/create_and_upload_version.py:{config}/tk-multi-publish2/create_version_{engine_name}.py"
     settings: {}
-  #- name: Attach to Version
-  #  hook: "{config}/tk-multi-publish2/attach_to_version.py"
-  #  settings: {}
   help_url: *help_url
   location: "@apps.tk-multi-publish2.location"
 
