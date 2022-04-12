@@ -67,7 +67,16 @@ keys:
 
 
     # delivery keys
-    client_code:
+    entity_client_code:
+        type: str
+
+    version_client_code:
+        type: str
+
+    entity_code:
+        type: str
+
+    version_code:
         type: str
 
     playlist_name:
@@ -79,6 +88,7 @@ keys:
     output:
         type: str
         filter_by: alphanumeric
+
 
     # representaion keys
     view:
@@ -266,9 +276,8 @@ paths:
     delivery_inbox:  'xfer/inbox'
     delivery_outbox: 'xfer/outbox'
 
-    delivery_manifest:  '@delivery_outbox/{playlist_name}_{delivery_type}.manifest'
-    delivery_movie:     '@delivery_outbox/{playlist_name}/{client_code}_v{version}[-{output}].{ext}'
-    delivery_frame_seq: '@delivery_outbox/{playlist_name}/{client_code}_v{version}/{client_code}_v{version}[-{output}].{SEQ}.{ext}'
+    delivery_movie: '@delivery_outbox/{playlist_name}/{version_client_code}.{ext}'
+    delivery_frame_seq:  '@delivery_outbox/{playlist_name}/{version_client_code}/{version_client_code}.{SEQ}.{ext}' 
 
     ##########################################################################################
     #
