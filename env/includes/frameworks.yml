@@ -83,7 +83,7 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 108171 #tk-framework-nx-0.1.19
+      version: 108356 #tk-framework-nx-0.1.19
       # ## Dev
       # type: dev
       # path: /pipe/dev/dstrubler/tk-framework-nx
@@ -106,7 +106,7 @@ frameworks:
       type: shotgun
       entity_type: CustomNonProjectEntity13
       field: sg_uploaded_app
-      version: 105249 #tk-framework-deadline-0.1.0
+      version: 108355 #tk-framework-deadline-0.1.0
       
       
 
