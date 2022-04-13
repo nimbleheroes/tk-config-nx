@@ -853,6 +853,7 @@ class BasicFilePublishPlugin(HookBaseClass):
         scalar = nxfw.import_module('scalar')
 
         dispatcher =  scalar.Dispatcher.using_queue('sgtk_deadline', tk_framework_deadline=fw)
+        dispatcher.priority_tier = "publishing"
 
         # fallback name
         dispatcher.name = str(item.context.entity['name'])
