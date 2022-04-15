@@ -276,15 +276,16 @@ paths:
     delivery_inbox:  'xfer/inbox'
     delivery_outbox: 'xfer/outbox'
 
-    delivery_movie: '@delivery_outbox/{playlist_name}/{version_client_code}.{ext}'
-    delivery_frame_seq:  '@delivery_outbox/{playlist_name}/{version_client_code}/{version_client_code}.{SEQ}.{ext}' 
+    delivery_movie:     '@delivery_outbox/{playlist_name}/{version_client_code}.{ext}'
+    delivery_frame_seq: '@delivery_outbox/{playlist_name}/{version_client_code}/{version_client_code}.{SEQ}.{ext}' 
 
     ##########################################################################################
     #
     # PIPELINE PATHS
     #
     # Any path template starting with "pipe_" will get an environment variable automatically
-    # created with a key matching its name and the value being the fully-resolved resolved path before application launch by the before_app_launch.py hook.
+    # created with a key matching its name and the value being the fully-resolved resolved path
+    # before application launch by the before_app_launch.py hook.
     #
 
     pipe_ocio_area:   'pipe/configs/ocio'
@@ -306,9 +307,9 @@ paths:
     # 
     # Project Templates
     # 
-    pipe_templates_path: 'pipe/templates'
-    nuke_templates_path: '@pipe_templates_path/nuke'
-    transcodify_path: '@pipe_templates_path/transcodify'    
+    pipe_templates_path:  'pipe/templates'
+    nuke_templates_path:  '@pipe_templates_path/nuke'
+    transcodify_path:     '@pipe_templates_path/transcodify'    
     transcodify_template: '@transcodify_path/{name}_{ext}[_{output}].yml'
 
     pipe_cache_area: 'cache/'
