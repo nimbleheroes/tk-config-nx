@@ -316,13 +316,13 @@ paths:
 
     ##########################################################################################
     #
-    # WORKFILE TEMPLATE AREAS
+    # WORKFILE TEMPLATES
     #
     
-    show_workfile_template_area: 'pipe/templates/workfiles/show/{Step}'
-    asset_workfile_template_area: 'pipe/templates/workfiles/asset/{Step}'
-    seq_workfile_template_area: 'pipe/templates/workfiles/seq/{Step}'
-    shot_workfile_template_area: 'pipe/templates/workfiles/shot/{Step}'
+    show_workfile_template: 'pipe/templates/workfiles/show/{Step}/default.{ext}'
+    asset_workfile_template: 'pipe/templates/workfiles/asset/{Step}/default.{ext}'
+    seq_workfile_template: 'pipe/templates/workfiles/seq/{Step}/default.{ext}'
+    shot_workfile_template: 'pipe/templates/workfiles/shot/{Step}/default.{ext}'
 
     ##########################################################################################
     #
