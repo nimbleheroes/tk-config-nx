@@ -316,13 +316,13 @@ paths:
 
     ##########################################################################################
     #
-    # WORKFILE TEMPLATE AREAS
+    # WORKFILE TEMPLATES
     #
     
-    show_workfile_template_area: 'pipe/templates/workfiles/show/{Step}'
-    asset_workfile_template_area: 'pipe/templates/workfiles/asset/{Step}'
-    seq_workfile_template_area: 'pipe/templates/workfiles/seq/{Step}'
-    shot_workfile_template_area: 'pipe/templates/workfiles/shot/{Step}'
+    show_workfile_template: 'pipe/templates/workfiles/show/{Step}/default.{ext}'
+    asset_workfile_template: 'pipe/templates/workfiles/asset/{Step}/default.{ext}'
+    seq_workfile_template: 'pipe/templates/workfiles/seq/{Step}/default.{ext}'
+    shot_workfile_template: 'pipe/templates/workfiles/shot/{Step}/default.{ext}'
 
     ##########################################################################################
     #
@@ -526,6 +526,12 @@ paths:
     #
 
     # workfiles
+    show_nuke_work_area: '@show_work_area/workfiles/nuke'
+    show_nuke_work_file: '@show_nuke_work_area/@show_workfile_basename.nk'
+    show_nuke_snapshot:  '@show_nuke_work_area/snapshots/@show_workfile_basename.{timestamp}.nk'
+    show_nuke_pubs_area: '@show_pubs_area/workfiles/nuke'
+    show_nuke_pub_file:  '@show_nuke_pubs_area/nuke/@show_workfile_basename.nk'
+
     seq_nuke_work_area: '@seq_work_area/workfiles/nuke'
     seq_nuke_work_file: '@seq_nuke_work_area/@seq_workfile_basename.nk'
     seq_nuke_snapshot:  '@seq_nuke_work_area/snapshots/@seq_workfile_basename.{timestamp}.nk'
