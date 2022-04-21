@@ -84,12 +84,12 @@ class SceneOperation(HookClass):
 
         engine = self.parent.engine
 
-        engine.log_debug("Running the scene_operation: {}".format(operation))
+        self.logger.debug("Running the scene_operation {} for context {}".format(operation, context))
 
         if hasattr(engine, "hiero_enabled") and (
             engine.hiero_enabled or engine.studio_enabled
         ):
-            engine.log_debug("Running the heiro/nukestudio scene operations")
+            self.logger.debug("Running the heiro/nukestudio scene operations")
             return self._scene_operation_hiero_nukestudio(
                 operation,
                 file_path,
@@ -139,41 +139,31 @@ class SceneOperation(HookClass):
                 raise TankError("Failed to save scene %s", e)
 
         elif operation == "prepare_new":
-            engine.log_debug("Running the prepare_new scene operation")
-            # creates a new file from a template if it exists,
-            # otherwise we reset the scene:
+            self.logger.debug("Running the prepare_new scene operation")
+            # creates a new file from a template if it exists
 
-            workfile_path_template = None
-            default_workfile_path = None
+            template_workfile = self.parent.get_template('template_work')
+            self.logger.debug("template_workfile: {}".format(template_workfile))
+            template_workfile_default = self.parent.get_template('template_work_default')
+            self.logger.debug("template_workfile_default: {}".format(template_workfile_default))
+            path_workfile_default = None
 
-            # set the proper path template based on the current env
-            if engine.environment['name'] == 'project_step':
-                workfile_path_template = engine.sgtk.templates['show_workfile_template']
-            elif engine.environment['name'] == 'asset_step':
-                workfile_path_template = engine.sgtk.templates['asset_workfile_template']
-            elif engine.environment['name'] == 'sequence_step':
-                workfile_path_template = engine.sgtk.templates['seq_workfile_template']
-            elif engine.environment['name'] == 'shot_step':
-                workfile_path_template = engine.sgtk.templates['shot_workfile_template']
-
-            if workfile_path_template:
+            if template_workfile_default and template_workfile:
                 # resolve the path template with the context of this scene_operation
-                engine.log_debug("Context: {}".format(context))                
-                fields = context.to_dict()
-                engine.log_debug("Context fields: {}".format(fields))
+                fields = context.as_template_fields(template_workfile)
                 fields['extension'] = 'nk'
-                default_workfile_path = workfile_path_template.apply_fields(fields)
+                self.logger.debug("Template fields: {}".format(fields))
+                path_workfile_default = template_workfile_default.apply_fields(fields)
 
-            if default_workfile_path and os.path.exists(default_workfile_path):
-                nuke.scriptOpen(default_workfile_path)
-                root.knob('name').setValue('')
-                root.knob('title').setValue('')
+            if path_workfile_default and os.path.exists(path_workfile_default):
+                self.logger.debug("Importing template file: {}".format(path_workfile_default))
+                nuke.nodePaste(path_workfile_default)
 
         elif operation == "reset":
             """
             Reset the scene to an empty state
             """
-            engine.log_debug("Running the reset scene operation")
+            self.logger.debug("Running the reset scene operation")
 
             while nuke.root().modified():
                 # changes have been made to the scene

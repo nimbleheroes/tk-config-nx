@@ -176,6 +176,34 @@ settings.tk-multi-workfiles2.houdini.shot_step:
 
 # ---- nuke
 
+# entity without step
+settings.tk-multi-workfiles2.nuke.entity:
+  launch_at_startup: true
+  show_change_context: true
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
+  hook_scene_operation: "{config}/tk-multi-workfiles2/scene_operation_{engine_name}.py"
+  entities: *workfiles_entities
+  location: "@apps.tk-multi-workfiles2.location"
+
+# project_step
+settings.tk-multi-workfiles2.nuke.project_step:
+  launch_at_startup: true
+  show_change_context: true
+  my_tasks_filters:
+    - ['task_assignees', 'is', '{context.user}']
+    - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
+  hook_scene_operation: "{config}/tk-multi-workfiles2/scene_operation_{engine_name}.py"
+  saveas_default_name: comp
+  template_publish: show_nuke_pub_file
+  template_publish_area: show_nuke_pubs_area
+  template_work_default: show_workfile_template
+  template_work: show_nuke_work_file
+  template_work_area: show_nuke_work_area
+  entities: *workfiles_entities
+  location: "@apps.tk-multi-workfiles2.location"
+
 # asset_step
 settings.tk-multi-workfiles2.nuke.asset_step:
   launch_at_startup: true
@@ -183,9 +211,11 @@ settings.tk-multi-workfiles2.nuke.asset_step:
   my_tasks_filters:
     - ['task_assignees', 'is', '{context.user}']
     - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
+  hook_scene_operation: "{config}/tk-multi-workfiles2/scene_operation_{engine_name}.py"
   saveas_default_name: comp
   template_publish: asset_nuke_pub_file
   template_publish_area: asset_nuke_pubs_area
+  template_work_default: asset_workfile_template
   template_work: asset_nuke_work_file
   template_work_area: asset_nuke_work_area
   entities: *workfiles_entities
@@ -198,9 +228,11 @@ settings.tk-multi-workfiles2.nuke.seq_step:
   my_tasks_filters:
     - ['task_assignees', 'is', '{context.user}']
     - ['sg_status_list', 'not_in', ['omt', 'cmpt']]
+  hook_scene_operation: "{config}/tk-multi-workfiles2/scene_operation_{engine_name}.py"
   saveas_default_name: comp
   template_publish: seq_nuke_pub_file
   template_publish_area: seq_nuke_pubs_area
+  template_work_default: seq_workfile_template
   template_work: seq_nuke_work_file
   template_work_area: seq_nuke_work_area
   entities: *workfiles_entities
@@ -217,6 +249,7 @@ settings.tk-multi-workfiles2.nuke.shot_step:
   saveas_default_name: comp
   template_publish: shot_nuke_pub_file
   template_publish_area: shot_nuke_pubs_area
+  template_work_default: shot_workfile_template
   template_work: shot_nuke_work_file
   template_work_area: shot_nuke_work_area
   entities: *workfiles_entities
