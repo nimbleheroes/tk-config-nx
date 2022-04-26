@@ -37,5 +37,3 @@ class PostPhaseHook(HookBaseClass):
                 result = dispatcher.process()
                 self.logger.info(str(result))
 
-                # only submitting one dispatcher's tasks. 
-                break
