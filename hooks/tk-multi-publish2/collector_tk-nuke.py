@@ -317,9 +317,6 @@ class NukeSessionCollector(HookBaseClass):
         # get all the selected Reads
         selected_reads = [n for n in nuke.selectedNodes() if n.Class() == "Read"]
 
-        # first_frame = int(nuke.root()["first_frame"].value())
-        # last_frame = int(nuke.root()["last_frame"].value())
-
         # iterate over each instance
         for node in selected_reads:
 
@@ -341,8 +338,8 @@ class NukeSessionCollector(HookBaseClass):
             item.properties["node"] = node
             item.properties["skip_version_attach"] = True
             item.properties["start_unchecked"] = True
-            item.properties["first_frame"] = first_frame
-            item.properties["last_frame"] = last_frame
+            item.properties["first_frame"] = node['first'].value()
+            item.properties["last_frame"] = node['last'].value()
             item.properties["width"] = node.width()
             item.properties["height"] = node.height()
             item.properties["pixel_aspect"] = node.pixelAspect()
