@@ -140,18 +140,18 @@ apps.tk-nuke-quickreview.location:
 
 # workfiles2
 apps.tk-multi-workfiles2.location:
+  name: tk-multi-workfiles2
   ### App Store
-  # name: tk-multi-workfiles2
   # type: app_store
   # version: v0.12.6
   ### Github Release
   type: github_release
   organization: nimbleheroes
   repository: tk-multi-workfiles2
-  version: v0.12.6.1
+  version: v0.13.1.2
   ## Dev
   # type: dev
-  # path: ~/Documents/GitHub/tk-multi-workfiles2
+  # path: /pipe/dev/akramer/tk-multi-workfiles2
 
 # shotgun folders
 apps.tk-shotgun-folders.location:
@@ -172,10 +172,10 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 108213 #tk-delivery-0.2.5
+  version: 109959 #tk-delivery-0.2.6
   ## Dev
   # type: dev
-  # path: /pipe/dev/dstrubler/tk-delivery
+  # path: /pipe/dev/akramer/tk-delivery
 
 # writenode
 apps.tk-nuke-writenode.location:

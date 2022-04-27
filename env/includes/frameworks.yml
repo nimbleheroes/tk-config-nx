@@ -86,7 +86,7 @@ frameworks:
       version: 112011 #tk-framework-nx-0.1.25
       # ## Dev
       # type: dev
-      # path: /pipe/dev/dstrubler/tk-framework-nx
+      # path: /pipe/dev/akramer/tk-framework-nx
 
 
   tk-framework-deadline_v0.x.x:
