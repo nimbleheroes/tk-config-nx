@@ -8,8 +8,8 @@ includes:
 
 ################################################################################
 
-# site
-settings.tk-desktop2.site:
+# onsite
+settings.tk-desktop2.onsite:
   apps:
   location: "@engines.tk-desktop2.location"
 

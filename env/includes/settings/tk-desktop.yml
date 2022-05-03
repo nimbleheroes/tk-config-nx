@@ -12,14 +12,18 @@ includes:
 
 ################################################################################
 
-# site
-settings.tk-desktop.site:
+# offsite
+settings.tk-desktop.offsite:
   apps:
     tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel"
   location: "@engines.tk-desktop.location"
   run_at_startup:
-    # - {app_instance: '', name: Apps}
     - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel...}
+
+# onsite
+settings.tk-desktop.onsite:
+  apps:
+  location: "@engines.tk-desktop.location"
 
 # project
 settings.tk-desktop.project:

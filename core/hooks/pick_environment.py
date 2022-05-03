@@ -1,7 +1,7 @@
 """
 Hook which chooses an environment file to use based on the current context.
 """
-
+import os
 from tank import Hook
 
 
@@ -28,7 +28,12 @@ class PickEnvironment(Hook):
 
         if context.project is None:
             # Our context is completely empty. We're going into the site context.
-            env = "site"
+            if os.getenv('NX_ONSITE'):
+                # we're accessing SG from an 'onsite' machine
+                env = "onsite"
+            else:
+                # we're accessing SG from 'offsite'
+                env = "offsite"
             self.logger.debug("environment returned: {}".format(env))
             return env
 
