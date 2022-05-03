@@ -8,14 +8,18 @@ includes:
 - ./tk-multi-demo.yml
 - ./tk-multi-importcut.yml
 - ./tk-multi-screeningroom.yml
+- ./tk-multi-shotgunpanel.yml
 
 ################################################################################
 
 # site
 settings.tk-desktop.site:
   apps:
+    tk-multi-shotgunpanel: "@settings.tk-multi-shotgunpanel"
   location: "@engines.tk-desktop.location"
-
+  run_at_startup:
+    # - {app_instance: '', name: Apps}
+    - {app_instance: tk-multi-shotgunpanel, name: Shotgun Panel...}
 
 # project
 settings.tk-desktop.project:
