@@ -124,7 +124,7 @@ write_profile.jpg: &write_profile_jpg
     raw: True
     colorspace: data
     channels: rgb
-    _jpeg_quality: 0.9
+    _jpeg_quality: 1.0
     _jpeg_sub_sampling: "4:4:4"
   tank_type: Rendered Image
   tile_color: []
