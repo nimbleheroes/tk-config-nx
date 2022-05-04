@@ -20,6 +20,7 @@ import sys
 import re
 import os
 from collections import defaultdict
+from tank_vendor import six
 
 
 class BeforeAppLaunch(sgtk.Hook):
@@ -62,8 +63,8 @@ class BeforeAppLaunch(sgtk.Hook):
 
 
         # get all the pipe templates and set env vars
-        # pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
-        # for templ_name, templ_path in pipe_templates.iteritems():
+        # pipe_templates = {k: v for k, v in six.iteritems(self.sgtk.templates) if k.startswith("pipe_")}
+        # for templ_name, templ_path in six.iteritems(pipe_templates):
         #     template_fields = current_context.as_template_fields(v)
         #     if not templ_path.missing_keys(template_fields):
         #         templ_path = os.path.abspath(v.apply_fields(template_fields))
@@ -79,29 +80,29 @@ class BeforeAppLaunch(sgtk.Hook):
         prepend_envs = env_dicts["prepend"]
         append_envs = env_dicts["append"]
 
-        env_keys = list(set(replace_envs.keys() + prepend_envs.keys() + append_envs.keys()))
+        env_keys = list(set(list(replace_envs.keys()) + list(prepend_envs.keys()) + list(append_envs.keys())))
         for key in env_keys:
             sgtk.util.append_path_to_env_var("SGTK_ENV_VARS", os.path.expandvars(key))
         if os.getenv("TK_DEBUG"):
             sgtk.util.append_path_to_env_var("SGTK_ENV_VARS", "TK_DEBUG")
         self.logger.debug("[NEXODUS] SGTK_ENV_VARS = {}".format(os.getenv("SGTK_ENV_VARS")))
 
-        for env_key, value_list in replace_envs.iteritems():
+        for env_key, value_list in six.iteritems(replace_envs):
             for env_value in value_list:
                 self.logger.debug("[NEXODUS] Setting env var: {} = {}".format(env_key, env_value))
                 os.environ[env_key] = os.path.expandvars(env_value)
 
-        for env_key, value_list in prepend_envs.iteritems():
+        for env_key, value_list in six.iteritems(prepend_envs):
             for env_value in value_list:
                 self.logger.debug("[NEXODUS] Prepending env var: {} = {}".format(env_key, env_value))
                 sgtk.util.prepend_path_to_env_var(env_key, os.path.expandvars(env_value))
 
-        for env_key, value_list in append_envs.iteritems():
+        for env_key, value_list in six.iteritems(append_envs):
             for env_value in value_list:
                 self.logger.debug("[NEXODUS] Appending env var: {} = {}".format(env_key, env_value))
                 sgtk.util.append_path_to_env_var(env_key, os.path.expandvars(env_value))
 
-        for method, env_dict in env_dicts.iteritems():
+        for method, env_dict in six.iteritems(env_dicts):
             for env_key in env_dict.keys():
                 self.logger.debug("[NEXODUS] Env Var check: {} = {}".format(env_key, os.getenv(env_key)))
 
@@ -158,7 +159,9 @@ class BeforeAppLaunch(sgtk.Hook):
             filters.append(with_engine_filter)
 
         os_envs = {'win32': 'sg_env_win',
-                   'linux2': 'sg_env_linux', 'darwin': 'sg_env_mac'}
+                   'linux2': 'sg_env_linux', # python2
+                   'linux': 'sg_env_linux', # python3
+                   'darwin': 'sg_env_mac'}
 
         fields = ['code', 'sg_version',
                   'sg_host_min_version', 'sg_host_max_version', 'sg_default_method']
@@ -187,7 +190,7 @@ class BeforeAppLaunch(sgtk.Hook):
                     pass
 
         env_dicts = {"append": {}, "prepend": {}, "replace": {}}
-        for key, env_list in env_lists.iteritems():
+        for key, env_list in six.iteritems(env_lists):
             for i in env_list:
                 try:
                     env_dicts[key].setdefault(
