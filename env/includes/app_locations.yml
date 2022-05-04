@@ -138,6 +138,22 @@ apps.tk-nuke-quickreview.location:
 
 # ---- SHOTGUN APP TAKEOVERS
 
+
+# multi-publish
+apps.tk-multi-publish2.location:
+  ### App Store
+  name: tk-multi-publish2
+  # type: app_store
+  # version: v0.1.7
+  ### Github Release
+  type: github_release
+  organization: nimbleheroes
+  repository: tk-multi-publish2
+  version: v2.6.2
+  ## Dev
+  # type: dev
+  # path: /pipe/dev/dstrubler/tk-multi-publish2
+
 # workfiles2
 apps.tk-multi-workfiles2.location:
   name: tk-multi-workfiles2
