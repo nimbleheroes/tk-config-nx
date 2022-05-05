@@ -142,7 +142,7 @@ apps.tk-nuke-quickreview.location:
 # multi-publish
 apps.tk-multi-publish2.location:
   ### App Store
-  name: tk-multi-publish2
+  # name: tk-multi-publish2
   # type: app_store
   # version: v0.1.7
   ### Github Release
