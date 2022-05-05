@@ -13,6 +13,7 @@ This hook gets executed before and after the context changes in Toolkit.
 """
 import os
 from tank import get_hook_baseclass, TankError
+from tank_vendor import six
 
 
 class ContextChange(get_hook_baseclass()):
@@ -69,8 +70,8 @@ class ContextChange(get_hook_baseclass()):
 
             try:
                 # get all the pipe templates and set env vars
-                pipe_templates = {k: v for k, v in self.sgtk.templates.iteritems() if k.startswith("pipe_")}
-                for templ_name, templ_obj in pipe_templates.iteritems():
+                pipe_templates = {k: v for k, v in six.iteritems(self.sgtk.templates) if k.startswith("pipe_")}
+                for templ_name, templ_obj in six.iteritems(pipe_templates):
                     template_fields = next_context.as_template_fields(templ_obj)
                     missing_keys = templ_obj.missing_keys(template_fields)
                     if not missing_keys:
@@ -195,7 +196,7 @@ class ContextChange(get_hook_baseclass()):
                     env_vars["LUT"] = show_lut
 
             # set the env variables for OCIO to pick up
-            for key, value in env_vars.iteritems():
+            for key, value in six.iteritems(env_vars):
                 if not value:
                     if os.environ.get(key):
                         self.logger.debug("Clearing ENV variable: {}".format(key))
