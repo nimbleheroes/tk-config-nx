@@ -86,7 +86,8 @@ frameworks:
       version: 114627 #tk-framework-nx-0.1.27
       # ## Dev
       # type: dev
-      # path: /pipe/dev/dstrubler/tkfwnx-scalar
+      # path: /pipe/dev/akramer/tk-framework-nx
+
 
 
   tk-framework-deadline_v0.x.x:

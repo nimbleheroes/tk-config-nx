@@ -428,36 +428,6 @@ class BasicFilePublishPlugin(HookBaseClass):
             },
         )
 
-        # Look for an item up the tree that has a version_name, meaning a version will be created.
-        version_name = None
-        version_item = item
-
-        while not version_name and version_item:
-            version_name = version_item.properties.get("version_name")
-            if not version_name:
-                version_item = version_item.parent
-
-        if version_name:
-
-            if version_item.properties.version_finalize["update"].get("published_files"):
-                version_item.properties.version_finalize["update"]["published_files"].append(item.properties.sg_publish_data)
-            else:
-                version_item.properties.version_finalize["update"]["published_files"] = [item.properties.sg_publish_data]
-
-            self.logger.debug(
-                "Version finalize tasks...",
-                extra={
-                    "action_show_more_info": {
-                        "label": "Version finalize tasks",
-                        "tooltip": "Show the complete version finalize list",
-                        "text": "<pre>%s</pre>"
-                        % (pprint.pformat(version_item.properties.version_finalize),),
-                    }
-                },
-            )
-        else:
-            self.logger.debug("No item with version_name found to attach published files to.")
-
     def finalize(self, settings, item):
         """
         Execute the finalization pass. This pass executes once
