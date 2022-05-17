@@ -242,7 +242,6 @@ class BasicVersionUploadPlugin(HookBaseClass):
 
             dispatcher =  upstream_scalar.dispatcher
         else:
-            self.logger.info("Had to make a new dispatcher :(")
             dispatcher =  scalar.Dispatcher.using_queue('sgtk_deadline', tk_framework_deadline=fw)
 
         transcodify_template = self.sgtk.templates["transcodify_template"]
