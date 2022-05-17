@@ -21,19 +21,22 @@ class PostPhaseHook(HookBaseClass):
 
         # collect all dispatchers and process them all
         for item  in publish_tree:
-            task = item.parent.properties['upstream_scalar']
 
-            # if there's an upstream task already
-            if task:
+            # if publish items are unchecked we should ignore them. Otherwise,
+            if item.checked:
+                task = item.parent.properties['upstream_scalar']
 
-                # get it's dispatcher, so we can process everything
-                dispatcher = getattr(task, "dispatcher")
+                # if there's an upstream task already
+                if task:
 
-                # this sets the batch name in  Deadline 
-                dispatcher.name = "[{}] ".format(item.context.project['name']) + item.parent.properties['publish_name'].split("-")[0] + " Publish"
+                    # get it's dispatcher, so we can process everything
+                    dispatcher = getattr(task, "dispatcher")
 
-                # process the task trees within this dispatcher
-                self.logger.info('Submitting remote tasks to process on the farm...')
-                result = dispatcher.process()
-                self.logger.info(str(result))
+                    # this sets the batch name in  Deadline 
+                    dispatcher.name = "[{}] ".format(item.context.project['name']) + item.parent.properties['publish_name'].split("-")[0] + " Publish"
+
+                    # process the task trees within this dispatcher
+                    self.logger.info('Submitting remote tasks to process on the farm...')
+                    result = dispatcher.process()
+                    self.logger.info(str(result))
 

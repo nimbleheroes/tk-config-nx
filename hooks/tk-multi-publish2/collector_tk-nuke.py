@@ -27,6 +27,11 @@ class NukeSessionCollector(HookBaseClass):
     inherit from the basic collector hook.
     """
 
+    def __init__(self, parent):
+
+        super(NukeSessionCollector, self).__init__(parent)
+        self.collected_paths = {}
+
     @property
     def settings(self):
         """
@@ -278,13 +283,23 @@ class NukeSessionCollector(HookBaseClass):
                     # no file or file does not exist, nothing to do
                     continue
 
+                if file_path in self.collected_paths.keys():
+                    # file has already been processed
+                    self.logger.info("This path has already been collected: {}".format(file_path) )
+                    continue
+
                 self.logger.info("Processing %s node: %s" % (node_type, node.name()))
+
+                self.collected_paths[file_path] = item
 
                 # file exists, let the basic collector handle it
                 item = super(NukeSessionCollector, self)._collect_file(
                     parent_item, file_path, frame_sequence=True
                 )
 
+                self.collected_paths[file_path] = item
+                item.properties['path'] = file_path
+                
                 # check if the theres a slate frame
                 slate_frame = node.input(0).metadata().get('nx/slate_frame')
                 if slate_frame:
@@ -328,12 +343,23 @@ class NukeSessionCollector(HookBaseClass):
                 # no file or file does not exist, nothing to do
                 continue
 
+            
+            if file_path in self.collected_paths.keys():
+                # file has already been processed
+                self.logger.info("This path has already been collected: {}".format(file_path) )
+                continue
+
             self.logger.info("Processing selected Read node: %s" % (node.name()))
+
+            
 
             # file exists, let the basic collector handle it
             item = super(NukeSessionCollector, self)._collect_file(
                 parent_item, file_path, frame_sequence=True
             )
+
+            self.collected_paths[file_path] = item
+            item.properties['path'] = file_path
 
             item.properties["node"] = node
             item.properties["skip_version_attach"] = True
@@ -386,6 +412,12 @@ class NukeSessionCollector(HookBaseClass):
                     # no file or file does not exist, nothing to do
                     continue
 
+                
+                if file_path in self.collected_paths.keys():
+                    # file has already been processed
+                    self.logger.info("This path has already been collected: {}".format(file_path) )
+                    continue
+
                 self.logger.info("Processing sgWrite node: %s" % (node.name()))
 
                 if len(rendered_files) > 1:
@@ -397,6 +429,8 @@ class NukeSessionCollector(HookBaseClass):
                 item = super(NukeSessionCollector, self)._collect_file(
                     parent_item, file_path, frame_sequence=is_frame_sequence
                 )
+                self.collected_paths[file_path] = item
+                item.properties['path'] = file_path
 
                 # check if the theres a slate frame
                 # slate_frame = node.input(0).metadata().get('nx/slate_frame')
