@@ -298,7 +298,6 @@ class NukeSessionCollector(HookBaseClass):
                 )
 
                 self.collected_paths[file_path] = item
-                item.properties['path'] = file_path
                 
                 # check if the theres a slate frame
                 slate_frame = node.input(0).metadata().get('nx/slate_frame')
@@ -359,8 +358,7 @@ class NukeSessionCollector(HookBaseClass):
             )
 
             self.collected_paths[file_path] = item
-            item.properties['path'] = file_path
-
+            
             item.properties["node"] = node
             item.properties["skip_version_attach"] = True
             item.properties["start_unchecked"] = True
@@ -430,7 +428,6 @@ class NukeSessionCollector(HookBaseClass):
                     parent_item, file_path, frame_sequence=is_frame_sequence
                 )
                 self.collected_paths[file_path] = item
-                item.properties['path'] = file_path
 
                 # check if the theres a slate frame
                 # slate_frame = node.input(0).metadata().get('nx/slate_frame')
