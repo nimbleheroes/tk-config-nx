@@ -134,7 +134,7 @@ class BasicVersionUploadPlugin(HookBaseClass):
         accepted = False
     
         if path:
-            accept = True
+            accepted = True
 
             # lets store the verison name and make a flag for the attach_to_version plugin to catch.
             item.properties.version_name = self._get_version_name(path)
@@ -149,7 +149,7 @@ class BasicVersionUploadPlugin(HookBaseClass):
                 "Create version plugin not accepted, 'path' was None"
             )
         # return the accepted info
-        return {"accepted": True}
+        return {"accepted": accepted}
 
 
     def validate(self, settings, item):
@@ -242,6 +242,7 @@ class BasicVersionUploadPlugin(HookBaseClass):
 
             dispatcher =  upstream_scalar.dispatcher
         else:
+            self.logger.info("Had to make a new dispatcher :(")
             dispatcher =  scalar.Dispatcher.using_queue('sgtk_deadline', tk_framework_deadline=fw)
 
         transcodify_template = self.sgtk.templates["transcodify_template"]
