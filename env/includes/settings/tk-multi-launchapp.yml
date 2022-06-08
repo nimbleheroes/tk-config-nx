@@ -1,16 +1,19 @@
+---
 ################################################################################
 
 includes:
-- ../app_locations.yml
-- ../software_paths.yml
+  - ../app_locations.yml
+  - ../software_paths.yml
 
 ################################################################################
 
 # auto discover DCCs for launch
 settings.tk-multi-launchapp:
   use_software_entity: true
-  hook_before_register_command: "{config}/tk-multi-launchapp/before_register_command.py"
-  hook_before_app_launch: "{config}/tk-multi-launchapp/before_app_launch.py"
+  hook_before_register_command:
+    "{config}/tk-multi-launchapp/before_register_command.py"
+  hook_before_app_launch:
+    "{config}/tk-multi-launchapp/before_app_launch.py"
   hook_app_launch: "{config}/tk-multi-launchapp/app_launch.py"
   location: "@apps.tk-multi-launchapp.location"
 
@@ -18,7 +21,8 @@ settings.tk-multi-launchapp:
 settings.tk-multi-launchapp.shotgun:
   use_software_entity: true
   skip_engine_instances: ["tk-nukestudio"]
-  hook_before_register_command: "{config}/tk-multi-launchapp/before_register_command.py"
+  hook_before_register_command:
+    "{config}/tk-multi-launchapp/before_register_command.py"
   hook_before_app_launch: "{config}/tk-multi-launchapp/before_app_launch.py"
   hook_app_launch: "{config}/tk-multi-launchapp/app_launch.py"
   location: "@apps.tk-multi-launchapp.location"
@@ -26,3 +30,19 @@ settings.tk-multi-launchapp.shotgun:
 ################################################################################
 
 # app-specific launchapp configurations
+
+settings.tk-multi-launchapp.nuke:
+  engine: tk-nuke
+  extra:
+    rez:
+      packages:
+        - nuke
+      parent_variables: []
+  menu_name: "Nuke 12.2v1"
+  location: "@apps.tk-multi-launchapp.location"
+  hook_app_launch: "{config}/tk-multi-launchapp/rez_app_launch.py"
+
+  # startup cmds
+  linux_path: "nuke"
+  mac_path: "Nuke.app"
+  windows_path: "Nuke12.2.exe"
