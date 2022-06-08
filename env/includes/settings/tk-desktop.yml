@@ -20,6 +20,7 @@ settings.tk-desktop.site:
 # project
 settings.tk-desktop.project:
   apps:
+    tk-multi-launchnuke: "@settings.tk-multi-launchapp.nuke"
     tk-multi-deadline: 
       location: "@apps.tk-multi-deadline.location"
     tk-multi-pythonconsole:
