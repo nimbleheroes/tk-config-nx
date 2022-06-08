@@ -37,7 +37,8 @@ settings.tk-multi-launchapp.nuke:
     rez:
       packages:
         - nuke
-      parent_variables: []
+      parent_variables: [
+      ]
   menu_name: "Nuke"
   location: "@apps.tk-multi-launchapp.location"
   hook_app_launch: "{config}/tk-multi-launchapp/rez_app_launch.py"
