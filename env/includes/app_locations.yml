@@ -1,7 +1,8 @@
+---
 ################################################################################
 
 includes:
-- ./frameworks.yml
+ - ./frameworks.yml
 
 ################################################################################
 # location descriptors for apps used in this configuration
@@ -39,10 +40,10 @@ apps.tk-multi-loader2.location:
   version: v1.20.3
 
 # publish2
-apps.tk-multi-publish2.location:
-  type: app_store
-  name: tk-multi-publish2
-  version: v2.5.6
+# apps.tk-multi-publish2.location:
+#   type: app_store
+#   name: tk-multi-publish2
+#   version: v2.5.6
 
 # pythonconsole
 apps.tk-multi-pythonconsole.location:
@@ -188,10 +189,10 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 119069 #tk-delivery-0.2.8
+  version: 121758  # tk-delivery-0.2.45
   ## Dev
   # type: dev
-  # path: /pipe/dev/akramer/tk-delivery
+  # path: /pipe/dev/dstrubler/tk-delivery-v0.2.45
 
 # writenode
 apps.tk-nuke-writenode.location:
@@ -242,7 +243,7 @@ apps.tk-multi-ocio.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 10349 #tk-multi-ocio-0.2.0
+  version: 10349  # tk-multi-ocio-0.2.0
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-multi-ocio_nx
@@ -254,7 +255,7 @@ apps.tk-nuke-tools.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 40102 #tk-nuke_tools-0.1.4
+  version: 40102  # tk-nuke_tools-0.1.4
   ## Dev
   # type: dev
   # path: ~/Documents/Github/tk-nuke-tools_nx
