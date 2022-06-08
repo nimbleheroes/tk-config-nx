@@ -38,7 +38,7 @@ settings.tk-multi-launchapp.nuke:
       packages:
         - nuke
       parent_variables: []
-  menu_name: "Nuke 12.2v1"
+  menu_name: "Nuke"
   location: "@apps.tk-multi-launchapp.location"
   hook_app_launch: "{config}/tk-multi-launchapp/rez_app_launch.py"
 
