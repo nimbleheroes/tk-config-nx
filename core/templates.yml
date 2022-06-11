@@ -276,8 +276,8 @@ paths:
     delivery_inbox:  'xfer/inbox'
     delivery_outbox: 'xfer/outbox'
 
-    delivery_movie:     '@delivery_outbox/{playlist_name}/{version_client_code}.{ext}'
-    delivery_frame_seq: '@delivery_outbox/{playlist_name}/{version_client_code}/{version_client_code}.{SEQ}.{ext}' 
+    delivery_movie:     '@delivery_outbox/{playlist_name}/{version_client_code}[_{output}].{ext}'
+    delivery_frame_seq: '@delivery_outbox/{playlist_name}/{version_client_code}/{version_client_code}[_{output}].{SEQ}.{ext}' 
 
     ##########################################################################################
     #
