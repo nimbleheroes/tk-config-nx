@@ -188,7 +188,7 @@ apps.tk-delivery.location:
   type: shotgun
   entity_type: CustomNonProjectEntity13
   field: sg_uploaded_app
-  version: 121758
+  version: 122928
   ## Dev
   # type: dev
   # path: /pipe/dev/akramer/tk-delivery
